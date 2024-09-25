@@ -1,0 +1,40 @@
+{
+  "scopeName": "text.html.jinja2",
+  "patterns": [
+    {
+      "include": "text.html.basic"
+    },
+    {
+      "name": "meta.tag.jinja2",
+      "begin": "{%",
+      "end": "%}",
+      "captures": {
+        "0": {
+          "name": "punctuation.definition.tag.jinja2"
+        }
+      },
+      "patterns": [
+        {
+          "match": "\\b(for|endfor|if|endif|else|elif|block|endblock|extends|include|import|set|macro|endmacro)\\b",
+          "name": "keyword.control.jinja2"
+        }
+      ]
+    },
+    {
+      "name": "meta.tag.jinja2",
+      "begin": "{{",
+      "end": "}}",
+      "captures": {
+        "0": {
+          "name": "punctuation.definition.tag.jinja2"
+        }
+      },
+      "patterns": [
+        {
+          "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b",
+          "name": "variable.other.jinja2"
+        }
+      ]
+    }
+  ]
+}
