@@ -4,7 +4,7 @@
   "description": "Syntax highlighting for Jinja2 templates with .jinja2.html extension",
   "version": "0.1.0",
   "publisher": "Xubylele",
-  "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Jinja_software_logo.svg/1200px-Jinja_software_logo.svg.png",
+  "icon": "assets/logo.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/xubylele/jinja2-html-enhancer.git"
