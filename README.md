@@ -1,71 +1,67 @@
-# jinja2-html-enhancer README
+# Jinja2 HTML Enhancer
 
-This is the README for your extension "jinja2-html-enhancer". After writing up a brief description, we recommend including the following sections.
+**Jinja2 HTML Enhancer** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.jinja2.html` files. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Jinja2 Syntax Highlighting**:
+  - Supports Jinja2 control structures like `{% for %}`, `{% if %}`, `{% block %}`, etc.
+  - Highlights variable interpolation using `{{ }}` syntax.
+  - Keywords like `for`, `if`, `block` are highlighted with a distinct color for better readability.
+  - Pipe filters like `capitalize`, `default`, `length`, `lower`, etc., are highlighted after the pipe (`|`).
 
-For example if there is an image subfolder under your extension project workspace:
+- **HTML and Jinja2 Together**:
+  - Maintains the standard HTML syntax highlighting while injecting Jinja2 rules.
+  - Useful for projects that use Jinja2 templating language for dynamic content within HTML.
 
-\!\[feature X\]\(images/feature-x.png\)
+## Installation
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+1. Open Visual Studio Code.
+2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or press `Ctrl+Shift+X`.
+3. Search for `Jinja2 HTML Enhancer`.
+4. Click **Install**.
 
-## Requirements
+Alternatively, you can install it via the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/).
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Usage
 
-## Extension Settings
+1. Open a file with the `.jinja2.html` extension.
+2. The extension will automatically apply syntax highlighting to both HTML and Jinja2 templating language.
+3. Enjoy a seamless coding experience with both HTML and Jinja2.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## Supported Jinja2 Syntax
 
-For example:
+- `{% for %}`, `{% if %}`, `{% block %}`, and other control structures.
+- `{{ variable }}` for variable interpolation.
+- `{% extends %}`, `{% include %}`, `{% set %}`, `{% import %}`, `{% macro %}`, and more.
+- Pipe filters like `| capitalize`, `| default`, `| length`, `| lower`, `| upper`, etc.
 
-This extension contributes the following settings:
+## Customization
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+You can customize the colors used for Jinja2 syntax highlighting by modifying your VSCode theme settings. For example, to change the color of keywords and filters, you can add the following to your settings:
 
-## Known Issues
+```json
+{
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "keyword.reserved.jinja2",
+        "settings": {
+          "foreground": "#FF5733",  // Color for reserved keywords like 'for', 'if', etc.
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "support.function.jinja2.filter",
+        "settings": {
+          "foreground": "#33C4FF"  // Color for pipe filters
+        }
+      }
+    ]
+  }
+}
+```
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## Contributing
 
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+If you want to contribute to this project, feel free to submit issues or pull requests in the [GitHub repository]()
