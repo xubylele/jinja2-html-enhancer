@@ -1,3 +1,4 @@
+{
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 HTML Enhancer",
   "description": "Format and syntax highlighting for Jinja2 templates with .jinja2.html extension",
@@ -13,6 +14,35 @@
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "html",
+        "extensions": [
+          ".jinja2.html"
+        ],
+        "aliases": [
+          "HTML (Jinja2)"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "html",
+        "scopeName": "text.html.jinja2",
+        "path": "./syntaxes/jinja2.tmLanguage.json",
+        "injectTo": [
+          "text.html"
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "extension.formatJinja2",
+        "title": "Format Jinja2 HTML File"
+      }
+    ]
+  },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
