@@ -47,3 +47,7 @@ You can customize the colors used for Jinja2 syntax highlighting by modifying yo
 ## Contributing
 
 If you want to contribute to this project, feel free to submit issues or pull requests in the [GitHub repository](https://github.com/xubylele/jinja2-html-enhancer?tab=readme-ov-file)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
