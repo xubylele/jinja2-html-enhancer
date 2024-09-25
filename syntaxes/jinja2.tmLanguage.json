@@ -15,8 +15,12 @@
       },
       "patterns": [
         {
-          "match": "\\b(for|endfor|if|endif|else|elif|block|endblock|extends|include|import|set|macro|endmacro)\\b",
-          "name": "keyword.control.jinja2"
+          "match": "\\b(for|endfor|if|endif|else|elif|block|endblock|extends|include|set|macro|endmacro|call|endcall|import|with|endwith|filter|endfilter|raw|endraw)\\b",
+          "name": "keyword.reserved.jinja2"
+        },
+        {
+          "match": "\\|\\s*(capitalize|default|length|lower|upper|sort|join|replace|trim|reverse|first|last|escape|batch|round|abs|float|int)\\b",
+          "name": "support.function.jinja2.filter"
         }
       ]
     },
@@ -33,6 +37,10 @@
         {
           "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b",
           "name": "variable.other.jinja2"
+        },
+        {
+          "match": "\\|\\s*(capitalize|default|length|lower|upper|sort|join|replace|trim|reverse|first|last|escape|batch|round|abs|float|int)\\b",
+          "name": "support.function.jinja2.filter"
         }
       ]
     }
