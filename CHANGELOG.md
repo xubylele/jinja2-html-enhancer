@@ -15,3 +15,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Initial release:
   - Added basic syntax highlighting for Jinja2 blocks within `.jinja2.html` files.
   - HTML syntax is maintained alongside Jinja2.
+
+## [0.1.1] - 2024-09-24
+
+  -Issues:
+    - Fixed image rendering issue in README.md.
+    - Add logo to package.json.
