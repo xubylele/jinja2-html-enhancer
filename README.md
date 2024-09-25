@@ -18,7 +18,7 @@
 
 Here’s an example of the syntax highlighting:
 
-![Syntax Highlight Example](example/images/syntax%20example.png)
+![Syntax Highlight Example](https://i.imgur.com/pWahcjc.png)
 
 ## Installation
 
