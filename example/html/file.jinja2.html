@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jinja2 Example</title>
+  </head>
+  <body>
+
+    <h1>Welcome to {{ website_name | capitalize }}</h1>
+
+    {% set user = "john doe" %}
+    <p>Welcome, {{ user | upper }}!</p>
+
+    <p>Here are the items in your cart:</p>
+    <ul>
+      {% for item in items %}
+        <li>
+          {{ item.name | capitalize }} - Quantity: {{ item.quantity | default(0) }} - Price: {{ item.price | float }}
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if user.is_admin %}
+      <p>You have admin privileges. {% block admin_content %}{% endblock %}</p>
+    {% else %}
+      <p>You are a regular user. {% block user_content %}{% endblock %}</p>
+    {% endif %}
+
+    <p>Today's date: {{ current_date | date("Y-m-d") }}</p>
+
+    <p>The first item in your cart is: {{ items | first }}</p>
+
+  </body>
+</html>
