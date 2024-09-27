@@ -1,10 +1,11 @@
 {
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 HTML Enhancer",
-  "description": "Syntax highlighting for Jinja2 templates with .jinja2.html extension",
+  "description": "Syntax highlighting and formatting for Jinja2 templates with .jinja2.html extension",
   "version": "0.1.1",
   "publisher": "Xubylele",
   "icon": "assets/logo.png",
+  "main": "./out/extension.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/xubylele/jinja2-html-enhancer.git"
@@ -16,14 +17,22 @@
     "Programming Languages"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "extension.formatHtmlAndJinja2",
+        "title": "Format HTML (Jinja2)"
+      }
+    ],
     "languages": [
       {
         "id": "html",
         "extensions": [
+          ".html",
           ".jinja2.html"
         ],
         "aliases": [
-          "HTML (Jinja2)"
+          "HTML (Jinja2)",
+          "HTML"
         ]
       }
     ],
@@ -36,6 +45,27 @@
           "text.html"
         ]
       }
-    ]
+    ],
+    "documentFormatting": [
+      {
+        "language": "html",
+        "command": "extension.formatHtmlAndJinja2"
+      }
+    ],
+    "configurationDefaults": {
+      "[html]": {
+        "editor.defaultFormatter": "Xubylele.jinja2-html-enhancer"
+      }
+    }
+  },
+  "dependencies": {
+    "@types/mocha": "^10.0.8",
+    "assert": "^2.1.0",
+    "vscode": "^1.1.37"
+  },
+  "devDependencies": {
+    "@types/assert": "^1.5.10",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.2"
   }
 }
