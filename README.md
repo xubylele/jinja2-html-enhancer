@@ -33,6 +33,8 @@ Here’s an example of the syntax highlighting:
 3. Search for `Jinja2 HTML Enhancer`.
 4. Click **Install**.
 
+Alternatively, you can install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer).
+
 ## Usage
 
 1. Open a file with the `.jinja2.html` extension.

@@ -26,3 +26,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Feature:
   - Add donation link to README.md.
+  - Add marketplace link to README.md.
