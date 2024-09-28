@@ -27,3 +27,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Feature:
   - Add donation link to README.md.
   - Add marketplace link to README.md.
+
+## [0.1.3] - 2024-09-28
+
+- Issue:
+  - Fix donation link in README.md.

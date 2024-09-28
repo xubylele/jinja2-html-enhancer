@@ -6,7 +6,7 @@
 
 If you find this extension helpful, consider supporting the developer by buying them a coffee:
 
-[![Buy Me A Coffee](https://www.codehim.com/wp-content/uploads/2022/09/bmc-button-640x180.png.webp)](https://buymeacoffee.com/xubylelec)
+<a href="https://www.buymeacoffee.com/xubylelec"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=xubylelec&button_colour=BD5FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00" /></a>
 
 ## Features
 
