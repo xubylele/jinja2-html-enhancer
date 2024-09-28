@@ -2,6 +2,12 @@
 
 **Jinja2 HTML Enhancer** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.jinja2.html` files. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
+## Donations
+
+If you find this extension helpful, consider supporting the developer by buying them a coffee:
+
+[![Buy Me A Coffee](https://www.codehim.com/wp-content/uploads/2022/09/bmc-button-640x180.png.webp)](https://buymeacoffee.com/xubylelec)
+
 ## Features
 
 - **Jinja2 Syntax Highlighting**:
