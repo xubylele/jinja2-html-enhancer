@@ -18,6 +18,17 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [0.1.1] - 2024-09-24
 
-  -Issues:
-    - Fixed image rendering issue in README.md.
-    - Add logo to package.json.
+- Issues:
+  - Fixed image rendering issue in README.md.
+  - Add logo to package.json.
+
+## [0.1.2] - 2024-09-28
+
+- Feature:
+  - Add donation link to README.md.
+  - Add marketplace link to README.md.
+
+## [0.1.3] - 2024-09-28
+
+- Issue:
+  - Fix donation link in README.md.
