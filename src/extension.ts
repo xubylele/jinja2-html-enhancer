@@ -17,54 +17,6 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 }
 
-function formatJinja2(text: string, indentType: string): string {
-	const lines = text.split('\n');
-	let formatted = '';
-	let indentLevel = 0;
-	let previousIndent = '';
-	let lastNonEmptyIndent = '';
-	let openingBlockIndent = '';
-
-	const openingBlocks = ['if', 'for', 'block', 'macro', 'while'];
-	const closingBlocks = ['endif', 'endfor', 'endblock', 'endmacro', 'endwhile'];
-
-	lines.forEach(line => {
-		const trimmedLine = line.trim();
-		const currentIndentMatch = line.match(/^(\s*)/);
-		const currentIndent = currentIndentMatch ? currentIndentMatch[1] : '';
-
-		if (trimmedLine === '') {
-			formatted += '\n';
-			return;
-		}
-
-		if (closingBlocks.some(block => trimmedLine.startsWith(`{% ${block}`))) {
-			indentLevel -= 1;
-			formatted += openingBlockIndent + trimmedLine + '\n';
-			return;
-		}
-
-		if (trimmedLine.startsWith('{%') || trimmedLine.startsWith('{{')) {
-			const newIndent = (lastNonEmptyIndent !== '' ? lastNonEmptyIndent : previousIndent) + indentType.repeat(indentLevel);
-			formatted += newIndent + trimmedLine + '\n';
-
-			if (openingBlocks.some(block => trimmedLine.startsWith(`{% ${block}`))) {
-				openingBlockIndent = newIndent;
-				indentLevel += 1;
-			}
-		} else {
-			formatted += line + '\n';
-			previousIndent = currentIndent;
-			if (trimmedLine !== '') {
-				lastNonEmptyIndent = currentIndent;
-			}
-		}
-	});
-
-	return formatted;
-}
-
-
 async function formatDocument(editor: vscode.TextEditor) {
 	const document = editor.document;
 	const fullText = document.getText();
@@ -82,7 +34,7 @@ async function formatDocument(editor: vscode.TextEditor) {
 	};
 
 	const htmlFormatted = await prettier.format(fullText, prettierOptions);
-	const finalFormatted = formatJinja2(htmlFormatted, indentType);
+	const jinja2Formatted = formatJinja2(htmlFormatted, indentType);
 
 	editor.edit(editBuilder => {
 		const lastLine = document.lineAt(document.lineCount - 1);
@@ -90,8 +42,39 @@ async function formatDocument(editor: vscode.TextEditor) {
 			new vscode.Position(0, 0),
 			lastLine.range.end
 		);
-		editBuilder.replace(range, finalFormatted);
+		editBuilder.replace(range, jinja2Formatted);
 	});
+}
+
+function formatJinja2(fullText: string, indentType: string) {
+	const lines = fullText.split('\n');
+	let jinja2Formatted = '';
+
+	const jinja2Block = /{%.*%}/;
+	const jinja2Comment = /{#.*#}/;
+	const jinja2Variable = /{{.*}}/;
+	const jinja2EndBlock = /{%.*end.*%}/;
+	const jinja2EndVariable = /{{.*}}/;
+	const jinja2EndComment = /{#.*#}/;
+
+	lines.forEach((line, index) => {
+		const isBlock = jinja2Block.test(line);
+		const isComment = jinja2Comment.test(line);
+		const isVariable = jinja2Variable.test(line);
+		const isEndBlock = jinja2EndBlock.test(line);
+		const isEndVariable = jinja2EndVariable.test(line);
+		const isEndComment = jinja2EndComment.test(line);
+
+		if (isBlock || isComment || isVariable) {
+			jinja2Formatted += `${indentType}${line}\n`;
+		} else if (isEndBlock || isEndVariable || isEndComment) {
+			jinja2Formatted += `${line}\n`;
+		} else {
+			jinja2Formatted += `${indentType}${line}\n`;
+		}
+	});
+
+	return jinja2Formatted;
 }
 
 export function deactivate() { }
