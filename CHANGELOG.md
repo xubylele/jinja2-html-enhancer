@@ -32,3 +32,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Issue:
   - Fix donation link in README.md.
+
+## [1.0.0] - 2024-10-01
+
+- Features:  
+  - Added Jinja2 formatting for better code readability.
+  - Use prettier code blocks for Jinja2 syntax within HTML files.
+  - Improved Jinja2 syntax highlighting for better readability.

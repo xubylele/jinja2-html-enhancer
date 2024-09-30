@@ -1,8 +1,8 @@
 {
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 HTML Enhancer",
-  "description": "Syntax highlighting for Jinja2 templates with .jinja2.html extension",
-  "version": "0.1.3",
+  "description": "Syntax highlighting and formatting for Jinja2 templates with .jinja2.html extension",
+  "version": "1.0.0",
   "publisher": "Xubylele",
   "icon": "assets/logo.png",
   "main": "./out/extension.js",
@@ -14,7 +14,8 @@
     "vscode": "^1.93.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Formatters"
   ],
   "contributes": {
     "commands": [

@@ -1,6 +1,6 @@
 # Jinja2 HTML Enhancer
 
-**Jinja2 HTML Enhancer** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.jinja2.html` files. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
+**Jinja2 HTML Enhancer** is a Visual Studio Code extension that adds syntax highlighting and formatting for Jinja2 templating language within HTML files. It helps developers working with Jinja2 templates to distinguish between HTML and Jinja2 code blocks, making it easier to read and write code.
 
 ## Donations
 
@@ -15,6 +15,11 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Highlights variable interpolation using `{{ }}` syntax.
   - Keywords like `for`, `if`, `block` are highlighted with a distinct color for better readability.
   - Pipe filters like `capitalize`, `default`, `length`, `lower`, etc., are highlighted after the pipe (`|`).
+
+- **Jinja2 Formatting**:
+  - Improves code readability by highlighting Jinja2 syntax within HTML files.
+  - Makes it easier to distinguish between HTML and Jinja2 code blocks.
+  - Helps identify Jinja2 control structures and variables within the HTML code.
 
 - **HTML and Jinja2 Together**:
   - Maintains the standard HTML syntax highlighting while injecting Jinja2 rules.
@@ -37,9 +42,15 @@ Alternatively, you can install the extension from the [Visual Studio Code Market
 
 ## Usage
 
-1. Open a file with the `.jinja2.html` extension.
-2. The extension will automatically apply syntax highlighting to both HTML and Jinja2 templating language.
-3. Enjoy a seamless coding experience with both HTML and Jinja2.
+- **Syntax Highlighting**:
+  - Open a file with the `.jinja2.html` extension.
+  - The extension will automatically apply syntax highlighting to both HTML and Jinja2 templating language.
+  - Enjoy a seamless coding experience with both HTML and Jinja2.
+
+- **Formatting**:
+  - The extension will automatically highlight Jinja2 syntax within HTML files.
+  - Use the color-coded syntax to identify Jinja2 control structures, variables, and filters.
+  - Write and read Jinja2 code within HTML files with ease.
 
 ## Supported Jinja2 Syntax
 
