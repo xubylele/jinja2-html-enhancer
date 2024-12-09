@@ -15,15 +15,27 @@
   "categories": [
     "Programming Languages"
   ],
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:jinja2"
+  ],
   "contributes": {
+    "commands": [
+      {
+        "command": "extension.checkJinja2Variables",
+        "title": "Check Jinja2 Variables"
+      }
+    ],
     "languages": [
       {
         "id": "html",
         "extensions": [
-          ".jinja2.html"
+          ".jinja2.html",
+          ".html"
         ],
         "aliases": [
-          "HTML (Jinja2)"
+          "HTML (Jinja2)",
+          "HTML"
         ]
       }
     ],
@@ -37,5 +49,20 @@
         ]
       }
     ]
+  },
+  "dependencies": {
+    "vscode": "^1.1.37"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^14.14.37",
+    "@types/vscode": "^1.93.0",
+    "typescript": "^4.2.4"
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
   }
 }
