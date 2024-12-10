@@ -2,6 +2,12 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.0.1] - 2024-12-10
+
+### 🐛 Fixed
+
+- Fixed logo rendering issue in package.json.
+
 ## [1.0.0] - 2024-12-10
 
 ### ✨ Added
