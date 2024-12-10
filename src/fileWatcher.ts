@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import { extractVariables } from '@/variableAnalyzer';
-import { DiagnosticsManager } from '@/diagnosticsManager';
+import { extractVariables, analyzeNestedStructures } from './variableAnalyzer';
+import { DiagnosticsManager } from './diagnosticsManager';
 
 export class FileWatcher {
   private readonly watcher: vscode.FileSystemWatcher;
@@ -21,7 +21,12 @@ export class FileWatcher {
 
     const text = document.getText();
     const { usedVariables, setVariables } = extractVariables(text);
-    this.diagnosticsManager.updateDiagnostics(document, usedVariables, setVariables);
+    const nestedVariables = analyzeNestedStructures(text);
+
+    // Combine setVariables and nestedVariables
+    const allSetVariables = [...new Set([...setVariables, ...nestedVariables])];
+
+    this.diagnosticsManager.updateDiagnostics(document, usedVariables, allSetVariables);
   }
 
   public dispose() {

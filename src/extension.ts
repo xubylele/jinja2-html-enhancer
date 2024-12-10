@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { DiagnosticsManager } from '@/diagnosticsManager';
-import { FileWatcher } from '@/fileWatcher';
-import { getMessage } from '@/messageHandler';
+import { DiagnosticsManager } from './diagnosticsManager';
+import { FileWatcher } from './fileWatcher';
+import { getMessage } from './messageHandler';
 
 let diagnosticsManager: DiagnosticsManager;
 let fileWatcher: FileWatcher;

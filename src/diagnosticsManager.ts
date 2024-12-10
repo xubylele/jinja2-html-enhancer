@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { getMessage } from '@/messageHandler';
+import { getMessage } from './messageHandler';
 
 export class DiagnosticsManager {
   private readonly diagnosticCollection: vscode.DiagnosticCollection;
