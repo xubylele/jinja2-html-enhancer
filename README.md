@@ -1,6 +1,6 @@
 # Jinja2 HTML Enhancer
 
-**Jinja2 HTML Enhancer** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.jinja2.html` files. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
+**Jinja2 HTML Enhancer** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.jinja2.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
 ## Donations
 
@@ -20,9 +20,15 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Maintains the standard HTML syntax highlighting while injecting Jinja2 rules.
   - Useful for projects that use Jinja2 templating language for dynamic content within HTML.
 
+- **Variable Checking**:
+  - Analyzes Jinja2 templates to identify used and set variables.
+  - Provides warnings for variables that are used but not set within the template.
+  - Recognizes variables set in various contexts, including `{% set %}` statements and `{% for %}` loops.
+  - Automatically checks variables on file save and provides a command to manually trigger checking.
+
 ## Example
 
-Here’s an example of the syntax highlighting:
+Here's an example of the syntax highlighting:
 
 ![Syntax Highlight Example](https://i.imgur.com/pWahcjc.png)
 
@@ -39,7 +45,9 @@ Alternatively, you can install the extension from the [Visual Studio Code Market
 
 1. Open a file with the `.jinja2.html` extension.
 2. The extension will automatically apply syntax highlighting to both HTML and Jinja2 templating language.
-3. Enjoy a seamless coding experience with both HTML and Jinja2.
+3. Variable checking will occur automatically when you save the file.
+4. To manually check variables, use the command "Check Jinja2 Variables" from the command palette (Ctrl+Shift+P).
+5. Warnings for undefined variables will appear as diagnostics in your editor.
 
 ## Supported Jinja2 Syntax
 

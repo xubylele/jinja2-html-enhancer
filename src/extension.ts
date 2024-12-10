@@ -1,42 +1,44 @@
 import * as vscode from 'vscode';
+import { DiagnosticsManager } from './diagnosticsManager';
+import { FileWatcher } from './fileWatcher';
+import { getMessage } from './messageHandler';
+
+let diagnosticsManager: DiagnosticsManager;
+let fileWatcher: FileWatcher;
 
 export function activate(context: vscode.ExtensionContext) {
-	const disposable = vscode.commands.registerCommand('extension.formatJinja2', () => {
-		const { activeTextEditor } = vscode.window;
-		if (activeTextEditor) {
-			const document = activeTextEditor.document;
-			if (document.languageId === 'html' && document.fileName.endsWith('.html')) {
-				formatDocument(activeTextEditor);
-			}
+	diagnosticsManager = new DiagnosticsManager();
+	fileWatcher = new FileWatcher(diagnosticsManager);
+
+	let disposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => {
+		vscode.window.showInformationMessage(getMessage('checkingVariables'));
+		const editor = vscode.window.activeTextEditor;
+		if (editor) {
+			fileWatcher.analyzeDocument(editor.document);
+		} else {
+			vscode.window.showWarningMessage(getMessage('noActiveEditor'));
 		}
 	});
 
 	context.subscriptions.push(disposable);
+
+	context.subscriptions.push(
+		vscode.workspace.onDidSaveTextDocument(document => {
+			if (document.languageId === 'html') {
+				vscode.window.showInformationMessage(getMessage('analyzingDocument'));
+				fileWatcher.analyzeDocument(document);
+				vscode.window.showInformationMessage(getMessage('analysisComplete'));
+			}
+		})
+	);
 }
 
-function formatDocument(editor: vscode.TextEditor) {
-	const document = editor.document;
-	const fullText = document.getText();
-
-	// Aquí puedes implementar tu lógica de formateo.
-	const formattedText = customFormatter(fullText);
-
-	editor.edit(editBuilder => {
-		const lastLine = document.lineAt(document.lineCount - 1);
-		const range = new vscode.Range(
-			new vscode.Position(0, 0),
-			lastLine.range.end
-		);
-		editBuilder.replace(range, formattedText);
-	});
+export function deactivate() {
+	if (diagnosticsManager) {
+		diagnosticsManager.clear();
+		diagnosticsManager.dispose();
+	}
+	if (fileWatcher) {
+		fileWatcher.dispose();
+	}
 }
-
-function customFormatter(text: string): string {
-	// Lógica básica de formateo para HTML con sintaxis Jinja2
-	return text
-		.replace(/\s*({%|{{)/g, '$1 ') // Asegura espacio después de {% o {{
-		.replace(/(%}|}})\s*/g, ' $1') // Asegura espacio antes de %} o }}
-		.replace(/\n\s*\n/g, '\n');    // Elimina líneas vacías consecutivas
-}
-
-export function deactivate() { }
