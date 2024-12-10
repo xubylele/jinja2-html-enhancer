@@ -26,13 +26,11 @@ export function analyzeNestedStructures(text: string): string[] {
   let match;
   while ((match = regex.exec(text)) !== null) {
     if (match[1]) {
-      // Opening tag
       if (match[1] === 'for' || match[1] === 'set') {
         definedVariables.push(match[2]);
       }
       structureStack.push(match[1]);
     } else {
-      // Closing tag
       structureStack.pop();
     }
   }
