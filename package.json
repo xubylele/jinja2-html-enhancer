@@ -1,14 +1,9 @@
 {
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 HTML Enhancer",
-  "description": "Syntax highlighting for Jinja2 templates with .jinja2.html extension",
+  "description": "Syntax highlighting and variable checking for Jinja2 templates",
   "version": "0.1.3",
   "publisher": "Xubylele",
-  "icon": "assets/logo.png",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/xubylele/jinja2-html-enhancer.git"
-  },
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -16,9 +11,9 @@
     "Programming Languages"
   ],
   "activationEvents": [
-    "onLanguage:html",
-    "onLanguage:jinja2"
+    "onLanguage:html"
   ],
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
@@ -30,12 +25,10 @@
       {
         "id": "html",
         "extensions": [
-          ".jinja2.html",
           ".html"
         ],
         "aliases": [
-          "HTML (Jinja2)",
-          "HTML"
+          "HTML (Jinja2)"
         ]
       }
     ],
@@ -54,15 +47,24 @@
     "vscode": "^1.1.37"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "^14.14.37",
     "@types/vscode": "^1.93.0",
-    "typescript": "^4.2.4"
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "14.x",
+    "eslint": "^7.27.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "typescript": "^4.3.2",
+    "vscode-test": "^1.5.2"
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
   }
 }
