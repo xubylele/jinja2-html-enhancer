@@ -2,6 +2,12 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.0.2] - 2024-12-11
+
+### 🐛 Fixed
+
+- Fixed readme, remove .jinja2.html file extension.
+
 ## [1.0.1] - 2024-12-10
 
 ### 🐛 Fixed
