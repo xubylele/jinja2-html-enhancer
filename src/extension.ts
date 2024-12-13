@@ -32,12 +32,19 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.workspace.onDidSaveTextDocument(document => {
 			if (document.languageId === 'html') {
 				vscode.window.showInformationMessage(getMessage('analyzingDocument'));
-				fileWatcher.analyzeDocument(document);
+				const result = fileWatcher.analyzeDocument(document);
+				console.log(result);
+
+				if (result) {
+					variablePanelManager.show(result.usedVariables, result.setVariables);
+				}
+
 				vscode.window.showInformationMessage(getMessage('analysisComplete'));
 			}
 		})
 	);
 }
+
 
 export function deactivate() {
 	if (diagnosticsManager) {

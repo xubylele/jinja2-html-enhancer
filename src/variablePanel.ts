@@ -46,20 +46,31 @@ export class VariablePanelManager {
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Jinja2 Variables</title>
           <script src="https://cdn.tailwindcss.com"></script>
-          <script src="https://unpkg.com/react@17/umd/react.production.min.js" nonce="${nonce}"></script>
-          <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" nonce="${nonce}"></script>
         </head>
         <body>
-          <div id="root"></div>
+          <div class="p-4">
+            <h1 class="text-2xl font-bold mb-4">Jinja2 Variables</h1>
+            <table class="table-auto w-full">
+              <thead>
+                <tr>
+                  <th class="px-4 py-2">Variable</th>
+                  <th class="px-4 py-2">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${variables.map(v => `
+                  <tr>
+                    <td class="border px-4 py-2">${v.name}</td>
+                    <td class="border px-4 py-2 ${v.isDefined ? 'text-green-500' : 'text-red-500'}" id="status-${v.name}">${v.isDefined ? 'Defined' : 'Undefined'}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>  
+
           <script nonce="${nonce}">
             const vscode = acquireVsCodeApi();
             const variables = ${JSON.stringify(variables)};
-            
-            // Render the React component
-            ReactDOM.render(
-              React.createElement(${VariablePanel.name}, { variables }),
-              document.getElementById('root')
-            );
           </script>
         </body>
         </html>

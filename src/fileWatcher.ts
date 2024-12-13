@@ -1,12 +1,7 @@
 import * as vscode from 'vscode';
+import { extractVariables, analyzeNestedStructures } from './variableAnalyzer';
+import { DiagnosticsManager } from './diagnosticsManager';
 import { VariablePanelManager } from './variablePanel';
-
-class DiagnosticsManager {
-
-  updateDiagnostics(document: vscode.TextDocument, usedVariables: string[], setVariables: string[]) {
-    // Implementation for updating diagnostics
-  }
-}
 
 export class FileWatcher {
   private readonly diagnosticsManager: DiagnosticsManager;
@@ -45,12 +40,4 @@ export class FileWatcher {
   public dispose() {
     this.watcher.dispose();
   }
-}
-
-function extractVariables(text: string): { usedVariables: string[], setVariables: string[] } {
-  return { usedVariables: [], setVariables: [] };
-}
-
-function analyzeNestedStructures(text: string): string[] {
-  return [];
 }
