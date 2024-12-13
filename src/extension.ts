@@ -2,19 +2,25 @@ import * as vscode from 'vscode';
 import { DiagnosticsManager } from './diagnosticsManager';
 import { FileWatcher } from './fileWatcher';
 import { getMessage } from './messageHandler';
+import { VariablePanelManager } from './variablePanel';
 
 let diagnosticsManager: DiagnosticsManager;
 let fileWatcher: FileWatcher;
 
 export function activate(context: vscode.ExtensionContext) {
 	diagnosticsManager = new DiagnosticsManager();
-	fileWatcher = new FileWatcher(diagnosticsManager);
+	const variablePanelManager = new VariablePanelManager(context);
+	fileWatcher = new FileWatcher(diagnosticsManager, variablePanelManager);
 
 	let disposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => {
 		vscode.window.showInformationMessage(getMessage('checkingVariables'));
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-			fileWatcher.analyzeDocument(editor.document);
+			const result = fileWatcher.analyzeDocument(editor.document);
+
+			if (result) {
+				variablePanelManager.show(result.usedVariables, result.setVariables);
+			}
 		} else {
 			vscode.window.showWarningMessage(getMessage('noActiveEditor'));
 		}

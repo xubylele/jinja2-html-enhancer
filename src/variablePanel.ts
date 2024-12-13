@@ -1,6 +1,4 @@
 import * as vscode from 'vscode';
-import * as React from 'react';
-import { VariablePanel } from './components/VariablePanel';
 
 export class VariablePanelManager {
   private panel: vscode.WebviewPanel | undefined;
@@ -48,7 +46,8 @@ export class VariablePanelManager {
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Jinja2 Variables</title>
           <script src="https://cdn.tailwindcss.com"></script>
-          <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource} https://cdn.tailwindcss.com; script-src 'nonce-${nonce}';">
+          <script src="https://unpkg.com/react@17/umd/react.production.min.js" nonce="${nonce}"></script>
+          <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" nonce="${nonce}"></script>
         </head>
         <body>
           <div id="root"></div>
