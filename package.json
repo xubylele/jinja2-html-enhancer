@@ -25,6 +25,10 @@
       {
         "command": "extension.checkJinja2Variables",
         "title": "Check Jinja2 Variables"
+      },
+      {
+        "command": "extension.openVariablePanel",
+        "title": "Open Variable Panel"
       }
     ],
     "languages": [

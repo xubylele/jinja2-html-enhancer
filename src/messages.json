@@ -4,5 +4,6 @@
   "noActiveEditor": "No active editor found.",
   "analyzingDocument": "Analyzing document...",
   "analysisComplete": "Jinja2 variable analysis complete.",
-  "errorAnalyzingDocument": "Error analyzing document: {0}"
+  "errorAnalyzingDocument": "Error analyzing document: {0}",
+  "variablesChecked": "Variables checked: {0}"
 }

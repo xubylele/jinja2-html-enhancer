@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { registerCommands } from './commands';
 import { DiagnosticsManager } from './diagnosticsManager';
 import { FileWatcher } from './fileWatcher';
 import { getMessage } from './messageHandler';
@@ -10,41 +11,23 @@ let fileWatcher: FileWatcher;
 export function activate(context: vscode.ExtensionContext) {
 	diagnosticsManager = new DiagnosticsManager();
 	const variablePanelManager = new VariablePanelManager(context);
-	fileWatcher = new FileWatcher(diagnosticsManager, variablePanelManager);
+	fileWatcher = new FileWatcher(diagnosticsManager);
 
-	let disposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => {
-		vscode.window.showInformationMessage(getMessage('checkingVariables'));
-		const editor = vscode.window.activeTextEditor;
-		if (editor) {
-			const result = fileWatcher.analyzeDocument(editor.document);
-
-			if (result) {
-				variablePanelManager.show(result.usedVariables, result.setVariables);
-			}
-		} else {
-			vscode.window.showWarningMessage(getMessage('noActiveEditor'));
-		}
-	});
-
-	context.subscriptions.push(disposable);
+	registerCommands(context, fileWatcher, variablePanelManager);
 
 	context.subscriptions.push(
 		vscode.workspace.onDidSaveTextDocument(document => {
 			if (document.languageId === 'html') {
 				vscode.window.showInformationMessage(getMessage('analyzingDocument'));
 				const result = fileWatcher.analyzeDocument(document);
-				console.log(result);
 
 				if (result) {
-					variablePanelManager.show(result.usedVariables, result.setVariables);
+					vscode.window.showInformationMessage(getMessage('analysisComplete'));
 				}
-
-				vscode.window.showInformationMessage(getMessage('analysisComplete'));
 			}
 		})
 	);
 }
-
 
 export function deactivate() {
 	if (diagnosticsManager) {
