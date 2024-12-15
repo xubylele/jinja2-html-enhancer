@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { FileWatcher } from './fileWatcher';
-import { getMessage } from './messageHandler';
-import { VariablePanelManager } from './variablePanel';
+import { FileWatcher } from './files/fileWatcher';
+import { getMessage } from './messages/messageHandler';
+import { VariablePanelManager } from './panels/variablePanel';
 
 export function registerCommands(context: vscode.ExtensionContext, fileWatcher: FileWatcher, variablePanelManager: VariablePanelManager) {
   let checkVariablesDisposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => {

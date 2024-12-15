@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 import { registerCommands } from './commands';
-import { DiagnosticsManager } from './diagnosticsManager';
-import { FileWatcher } from './fileWatcher';
-import { getMessage } from './messageHandler';
-import { VariablePanelManager } from './variablePanel';
+import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
+import { FileWatcher } from './files/fileWatcher';
+import { getMessage } from './messages/messageHandler';
+import { VariablePanelManager } from './panels/variablePanel';
 
 let diagnosticsManager: DiagnosticsManager;
 let fileWatcher: FileWatcher;

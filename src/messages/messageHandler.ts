@@ -1,4 +1,4 @@
-import messages from './messages.json';
+import messages from '../json/messages.json';
 
 export function getMessage(key: keyof typeof messages, ...args: string[]): string {
   let message = messages[key];
