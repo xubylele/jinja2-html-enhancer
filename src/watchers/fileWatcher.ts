@@ -1,17 +1,26 @@
 import * as vscode from 'vscode';
-import { extractVariables, analyzeNestedStructures } from '../diagnostics/variableAnalyzer';
 import { DiagnosticsManager } from '../diagnostics/diagnosticsManager';
-import { VariablePanelManager } from '../ui/panels/variablePanel';
+import { analyzeNestedStructures, extractVariables } from '../diagnostics/variableAnalyzer';
 
 export class FileWatcher {
   private readonly diagnosticsManager: DiagnosticsManager;
   private readonly watcher: vscode.FileSystemWatcher;
+  private _onDidAnalyzeDocument = new vscode.EventEmitter<{
+    usedVariables: string[];
+    setVariables: string[];
+  }>();
+
+  public readonly onDidAnalyzeDocument = this._onDidAnalyzeDocument.event;
 
   constructor(diagnosticsManager: DiagnosticsManager) {
     this.diagnosticsManager = diagnosticsManager;
     this.watcher = vscode.workspace.createFileSystemWatcher('**/*.html');
     this.watcher.onDidChange(this.analyzeDocument.bind(this));
     this.watcher.onDidCreate(this.analyzeDocument.bind(this));
+
+    this.diagnosticsManager.onDidUpdateDiagnostics(({ usedVariables, setVariables }) => {
+      this._onDidAnalyzeDocument.fire({ usedVariables, setVariables });
+    });
   }
 
   public analyzeDocument(document: vscode.TextDocument | vscode.Uri) {
@@ -36,5 +45,6 @@ export class FileWatcher {
 
   public dispose() {
     this.watcher.dispose();
+    this._onDidAnalyzeDocument.dispose();
   }
 }

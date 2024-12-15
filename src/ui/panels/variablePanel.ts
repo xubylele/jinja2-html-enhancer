@@ -1,9 +1,22 @@
 import * as vscode from 'vscode';
+import { FileWatcher } from 'watchers/fileWatcher';
 
 export class VariablePanelManager {
   private panel: vscode.WebviewPanel | undefined;
+  private disposables: vscode.Disposable[] = [];
 
-  constructor(private readonly context: vscode.ExtensionContext) { }
+  constructor(
+    private readonly context: vscode.ExtensionContext,
+    private fileWatcher: FileWatcher
+  ) {
+    this.disposables.push(
+      fileWatcher.onDidAnalyzeDocument(({ usedVariables, setVariables }) => {
+        if (this.panel) {
+          this.updateContent(usedVariables, setVariables);
+        }
+      })
+    );
+  }
 
   public show(usedVariables: string[], setVariables: string[]) {
     if (this.panel) {
@@ -85,5 +98,12 @@ export class VariablePanelManager {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
+  }
+
+  private dispose() {
+    this.disposables.forEach(d => d.dispose());
+    if (this.panel) {
+      this.panel.dispose();
+    }
   }
 }
