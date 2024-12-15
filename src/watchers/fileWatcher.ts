@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { extractVariables, analyzeNestedStructures } from '../diagnostics/variableAnalyzer';
 import { DiagnosticsManager } from '../diagnostics/diagnosticsManager';
-import { VariablePanelManager } from '../panels/variablePanel';
+import { VariablePanelManager } from '../ui/panels/variablePanel';
 
 export class FileWatcher {
   private readonly diagnosticsManager: DiagnosticsManager;
