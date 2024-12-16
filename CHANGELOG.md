@@ -2,6 +2,14 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.1.0] - 2024-12-16
+
+### ✨ Added
+
+- Added a new command "Open Variable Panel" to open the new variable panel.
+  - The variable panel displays a tree view of all variables used and set in the current Jinja2 template.
+- Added Internationalization (i18n) support for the extension. Currently, English and Spanish are supported.
+
 ## [1.0.2] - 2024-12-11
 
 ### 🐛 Fixed

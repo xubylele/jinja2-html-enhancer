@@ -1,14 +1,24 @@
 import * as vscode from 'vscode';
-import { getMessage } from './messageHandler';
+import I18n from '../i18n';
 
 export class DiagnosticsManager {
   private readonly diagnosticCollection: vscode.DiagnosticCollection;
+  private _onDidUpdateDiagnostics = new vscode.EventEmitter<{
+    usedVariables: string[];
+    setVariables: string[];
+  }>();
+
+  public readonly onDidUpdateDiagnostics = this._onDidUpdateDiagnostics.event;
 
   constructor() {
     this.diagnosticCollection = vscode.languages.createDiagnosticCollection('jinja2');
   }
 
-  public updateDiagnostics(document: vscode.TextDocument, usedVariables: string[], setVariables: string[]) {
+  public updateDiagnostics(
+    document: vscode.TextDocument,
+    usedVariables: string[],
+    setVariables: string[],
+  ) {
     const diagnostics: vscode.Diagnostic[] = [];
 
     usedVariables.forEach(variable => {
@@ -22,7 +32,7 @@ export class DiagnosticsManager {
 
           const diagnostic = new vscode.Diagnostic(
             range,
-            getMessage('variableNotSet', variable),
+            I18n.__('variable.variableNotSet', { variable }),
             vscode.DiagnosticSeverity.Warning
           );
           diagnostics.push(diagnostic);
@@ -31,6 +41,8 @@ export class DiagnosticsManager {
     });
 
     this.diagnosticCollection.set(document.uri, diagnostics);
+    this.diagnosticCollection.set(document.uri, diagnostics);
+    this._onDidUpdateDiagnostics.fire({ usedVariables, setVariables });
   }
 
   public clear() {
@@ -39,5 +51,6 @@ export class DiagnosticsManager {
 
   public dispose() {
     this.diagnosticCollection.dispose();
+    this._onDidUpdateDiagnostics.dispose();
   }
 }

@@ -1,8 +1,0 @@
-{
-  "variableNotSet": "Variable \"{0}\" is used but has not been set. Make sure it's defined.",
-  "checkingVariables": "Checking Jinja2 variables...",
-  "noActiveEditor": "No active editor found.",
-  "analyzingDocument": "Analyzing document...",
-  "analysisComplete": "Jinja2 variable analysis complete.",
-  "errorAnalyzingDocument": "Error analyzing document: {0}"
-}
