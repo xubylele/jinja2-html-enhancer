@@ -54,7 +54,7 @@
     ]
   },
   "engines": {
-    "vscode": "^1.60.0"
+    "vscode": "^1.96.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
