@@ -14,10 +14,20 @@ export class DiagnosticsManager {
     this.diagnosticCollection = vscode.languages.createDiagnosticCollection('jinja2');
   }
 
-  public updateDiagnostics(document: vscode.TextDocument, usedVariables: string[], setVariables: string[]) {
+  public updateDiagnostics(
+    document: vscode.TextDocument,
+    usedVariables: string[],
+    setVariables: string[],
+    allowedVariables?: string[],
+  ) {
     const diagnostics: vscode.Diagnostic[] = [];
 
-    usedVariables.forEach(variable => {
+    const problematicVariables = usedVariables.filter(
+      variable => !setVariables.includes(variable)
+        && !allowedVariables?.includes(variable)
+    );
+
+    problematicVariables.forEach(variable => {
       if (!setVariables.includes(variable)) {
         const regex = new RegExp(`\\{\\{\\s*(${variable})\\s*\\}\\}`, 'g');
         let match;

@@ -21,6 +21,20 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "Jinja2 HTML Enhancer",
+      "name": "jinja2-html-enhancer",
+      "properties": {
+        "variableAnalyzer.allowedVariables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Allowed Jinja2 variables"
+        }
+      }
+    },
     "commands": [
       {
         "command": "extension.checkJinja2Variables",
