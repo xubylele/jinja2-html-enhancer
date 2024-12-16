@@ -6,7 +6,7 @@ export class VariablePanelManager {
   private disposables: vscode.Disposable[] = [];
 
   constructor(
-    private readonly context: vscode.ExtensionContext,
+    private context: vscode.ExtensionContext,
     private fileWatcher: FileWatcher
   ) {
     this.disposables.push(
@@ -51,6 +51,12 @@ export class VariablePanelManager {
 
       const nonce = this.getNonce();
 
+      const iconPath = vscode.Uri.file(
+        this.context.asAbsolutePath('resources/logo.ico')
+      );
+
+      const iconUri = webview.asWebviewUri(iconPath);
+
       webview.html = `
         <!DOCTYPE html>
         <html lang="en">
@@ -58,6 +64,7 @@ export class VariablePanelManager {
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Jinja2 Variables</title>
+          <link rel="icon" type="image/x-icon" href="${iconUri}">
           <script src="https://cdn.tailwindcss.com"></script>
         </head>
         <body>
