@@ -10,8 +10,8 @@ let fileWatcher: FileWatcher;
 
 export function activate(context: vscode.ExtensionContext) {
 	diagnosticsManager = new DiagnosticsManager();
-	const variablePanelManager = new VariablePanelManager(context, fileWatcher);
 	fileWatcher = new FileWatcher(diagnosticsManager);
+	const variablePanelManager = new VariablePanelManager(context, fileWatcher);
 
 	registerCommands(context, fileWatcher, variablePanelManager);
 
