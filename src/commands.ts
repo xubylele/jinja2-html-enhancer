@@ -4,7 +4,7 @@ import { getMessage } from './ui/notifications/messageHandler';
 import { VariablePanelManager } from './ui/panels/variablePanel';
 
 export function registerCommands(context: vscode.ExtensionContext, fileWatcher: FileWatcher, variablePanelManager: VariablePanelManager) {
-  let checkVariablesDisposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => {
+  const checkVariablesDisposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => {
     vscode.window.showInformationMessage(getMessage('checkingVariables'));
     const editor = vscode.window.activeTextEditor;
     if (editor) {
@@ -17,7 +17,7 @@ export function registerCommands(context: vscode.ExtensionContext, fileWatcher: 
     }
   });
 
-  let openPanelDisposable = vscode.commands.registerCommand('extension.openVariablePanel', () => {
+  const openPanelDisposable = vscode.commands.registerCommand('extension.openVariablePanel', () => {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
       const result = fileWatcher.analyzeDocument(editor.document);

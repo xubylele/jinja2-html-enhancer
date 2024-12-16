@@ -1,5 +1,5 @@
-import { AllowedVariablesManager } from 'configuration/allowedVariablesManager';
 import * as vscode from 'vscode';
+import { AllowedVariablesManager } from 'configuration/allowedVariablesManager';
 
 export class QuickFixProvider implements vscode.CodeActionProvider {
   constructor(private readonly allowedVariablesManager: AllowedVariablesManager) { }
