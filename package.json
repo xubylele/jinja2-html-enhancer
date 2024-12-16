@@ -24,11 +24,11 @@
     "commands": [
       {
         "command": "extension.checkJinja2Variables",
-        "title": "Check Jinja2 Variables"
+        "title": "%checkVariables.title%"
       },
       {
         "command": "extension.openVariablePanel",
-        "title": "Open Variable Panel"
+        "title": "%openVariables.title%"
       }
     ],
     "languages": [
@@ -68,6 +68,7 @@
     "eslint": "^9.17.0",
     "glob": "^11.0.0",
     "globals": "^15.13.0",
+    "i18n": "^0.15.1",
     "mocha": "^11.0.2",
     "parcel": "^2.13.2",
     "postcss": "^8.4.49",
@@ -82,5 +83,8 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
+  },
+  "dependencies": {
+    "@types/i18n": "^0.13.12"
   }
 }

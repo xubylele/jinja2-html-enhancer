@@ -1,14 +1,16 @@
 import * as vscode from 'vscode';
-import { registerCommands } from './commands';
+import { registerCommands } from './commands/commands';
 import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
-import { FileWatcher } from './watchers/fileWatcher';
-import { getMessage } from './ui/notifications/messageHandler';
+import I18n, { setupI18n } from './I18n';
 import { VariablePanelManager } from './ui/panels/variablePanel';
+import { FileWatcher } from './watchers/fileWatcher';
 
 let diagnosticsManager: DiagnosticsManager;
 let fileWatcher: FileWatcher;
 
 export function activate(context: vscode.ExtensionContext) {
+	setupI18n(context);
+
 	diagnosticsManager = new DiagnosticsManager();
 	fileWatcher = new FileWatcher(diagnosticsManager);
 	const variablePanelManager = new VariablePanelManager(context, fileWatcher);
@@ -18,11 +20,11 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.workspace.onDidSaveTextDocument(document => {
 			if (document.languageId === 'html') {
-				vscode.window.showInformationMessage(getMessage('analyzingDocument'));
+				vscode.window.showInformationMessage(I18n.__('analyzer.analyzingDocument'));
 				const result = fileWatcher.analyzeDocument(document);
 
 				if (result) {
-					vscode.window.showInformationMessage(getMessage('analysisComplete'));
+					vscode.window.showInformationMessage(I18n.__('analyzer.analysisComplete'));
 				}
 			}
 		})

@@ -1,19 +1,19 @@
 import * as vscode from 'vscode';
-import { FileWatcher } from './watchers/fileWatcher';
-import { getMessage } from './ui/notifications/messageHandler';
-import { VariablePanelManager } from './ui/panels/variablePanel';
+import { FileWatcher } from '../watchers/fileWatcher';
+import I18n from '../I18n';
+import { VariablePanelManager } from '../ui/panels/variablePanel';
 
 export function registerCommands(context: vscode.ExtensionContext, fileWatcher: FileWatcher, variablePanelManager: VariablePanelManager) {
   const checkVariablesDisposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => {
-    vscode.window.showInformationMessage(getMessage('checkingVariables'));
+    vscode.window.showInformationMessage(I18n.__('variable.checkingVariables'));
     const editor = vscode.window.activeTextEditor;
     if (editor) {
       const result = fileWatcher.analyzeDocument(editor.document);
       if (result) {
-        vscode.window.showInformationMessage(getMessage('variablesChecked'));
+        vscode.window.showInformationMessage(I18n.__('variable.variablesChecked'));
       }
     } else {
-      vscode.window.showWarningMessage(getMessage('noActiveEditor'));
+      vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));
     }
   });
 
@@ -25,7 +25,7 @@ export function registerCommands(context: vscode.ExtensionContext, fileWatcher: 
         variablePanelManager.show(result.usedVariables, result.setVariables);
       }
     } else {
-      vscode.window.showWarningMessage(getMessage('noActiveEditor'));
+      vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));
     }
   });
 

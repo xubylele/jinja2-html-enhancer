@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { getMessage } from '../ui/notifications/messageHandler';
+import I18n from '../I18n';
 
 export class DiagnosticsManager {
   private readonly diagnosticCollection: vscode.DiagnosticCollection;
@@ -32,7 +32,7 @@ export class DiagnosticsManager {
 
           const diagnostic = new vscode.Diagnostic(
             range,
-            getMessage('variableNotSet', variable),
+            I18n.__('variable.variableNotSet', { variable }),
             vscode.DiagnosticSeverity.Warning
           );
           diagnostics.push(diagnostic);
