@@ -2,6 +2,12 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.1.4] - 2024-12-16
+
+### 🐛 Fixed v1.1.4
+
+- Implementation of esbuild to build the extension.
+
 ## [1.1.3] - 2024-12-16
 
 ### 🐛 Fixed v1.1.3
