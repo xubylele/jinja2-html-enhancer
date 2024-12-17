@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { FileWatcher } from '../watchers/fileWatcher';
-import I18n from '../i18n';
+import I18n from '../translations';
 import { VariablePanelManager } from '../ui/panels/variablePanel';
 
 export function registerCommands(context: vscode.ExtensionContext, fileWatcher: FileWatcher, variablePanelManager: VariablePanelManager) {

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import I18n from '../i18n';
+import I18n from '../translations';
 
 export class DiagnosticsManager {
   private readonly diagnosticCollection: vscode.DiagnosticCollection;
