@@ -2,9 +2,12 @@
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 HTML Enhancer",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/xubylele/jinja2-html-enhancer.git"
@@ -19,7 +22,7 @@
   "activationEvents": [
     "onLanguage:html"
   ],
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
@@ -53,23 +56,21 @@
       }
     ]
   },
-  "engines": {
-    "vscode": "^1.96.0"
-  },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^22.x",
+    "@types/node": "^22.10.2",
     "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^8.18.1",
     "@typescript-eslint/parser": "^8.18.1",
     "autoprefixer": "^10.4.20",
+    "esbuild": "^0.24.0",
     "eslint": "^9.17.0",
     "glob": "^11.0.0",
     "globals": "^15.13.0",
     "i18n": "^0.15.1",
-    "mocha": "^11.0.2",
+    "mocha": "^11.0.1",
     "parcel": "^2.13.3",
     "postcss": "^8.4.49",
     "typescript": "^5.7.2",
@@ -77,12 +78,14 @@
     "vscode-test": "^1.6.1"
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "vscode:prepublish": "yarn run package",
+    "compile": "yarn run check-types && yarn run lint && node esbuild.js",
+    "build": "node esbuild.js --production",
+    "watch": "node esbuild.js --watch",
+    "watch:esbuild": "node esbuild.js --watch",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src"
   },
   "dependencies": {
     "@types/i18n": "^0.13.12"

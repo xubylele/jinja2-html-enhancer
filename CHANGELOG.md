@@ -2,19 +2,33 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.1.4] - 2024-12-16
+
+### 🐛 Fixed v1.1.4
+
+- Implementation of esbuild to build the extension.
+
+## [1.1.3] - 2024-12-16
+
+### 🐛 Fixed v1.1.3
+
+- Fix bug that caused command "Check Jinja2 Variables" and "Open Variable Panel" to not work properly.
+
 ## [1.1.2] - 2024-12-16
 
-### 🐛 Fixed
+### 🐛 Fixed v1.1.2
 
 - Hotfix: Fixed a bug that caused the extension to not work properly with some Jinja2 templates.
 
 ## [1.1.1]
 
+## 🐛 Fixed v1.1.1
+
 - Fix bug at translations imports.
 
 ## [1.1.0] - 2024-12-16
 
-### ✨ Added
+### ✨ Added v1.1.0
 
 - Added a new command "Open Variable Panel" to open the new variable panel.
   - The variable panel displays a tree view of all variables used and set in the current Jinja2 template.
@@ -22,19 +36,19 @@ All notable changes to the "jinja2-html-enhancer" extension will be documented i
 
 ## [1.0.2] - 2024-12-11
 
-### 🐛 Fixed
+### 🐛 Fixed v1.0.2
 
 - Fixed readme, remove .jinja2.html file extension.
 
 ## [1.0.1] - 2024-12-10
 
-### 🐛 Fixed
+### 🐛 Fixed v1.0.1
 
 - Fixed logo rendering issue in package.json.
 
 ## [1.0.0] - 2024-12-10
 
-### ✨ Added
+### ✨ Added v1.0.0
 
 - Variable checking functionality:
   - Analyzes Jinja2 templates to identify used and set variables.
@@ -51,7 +65,7 @@ All notable changes to the "jinja2-html-enhancer" extension will be documented i
 - Refactored codebase for better modularity and maintainability.
 - Updated README with new feature descriptions and usage instructions.
 
-### 🐛 Fixed
+### 🐛 Fixed v1.0.0
 
 - Various minor bugs and improvements in syntax highlighting.
 - Now will support .html files instead of just .jinja2.html files.
