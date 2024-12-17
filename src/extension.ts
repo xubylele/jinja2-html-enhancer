@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { registerCommands } from './commands/commands';
+import { checkVariables, openVariablePanel } from './commands/commands';
 import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
 import I18n, { setupI18n } from './translations';
 import { VariablePanelManager } from './ui/panels/variablePanel';
@@ -15,7 +15,11 @@ export function activate(context: vscode.ExtensionContext) {
 	fileWatcher = new FileWatcher(diagnosticsManager);
 	const variablePanelManager = new VariablePanelManager(context, fileWatcher);
 
-	registerCommands(context, fileWatcher, variablePanelManager);
+	const checkVariablesDisposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => checkVariables(fileWatcher));
+	const openPanelDisposable = vscode.commands.registerCommand('extension.openVariablePanel', () => openVariablePanel(fileWatcher, variablePanelManager));
+
+	context.subscriptions.push(checkVariablesDisposable);
+	context.subscriptions.push(openPanelDisposable);
 
 	context.subscriptions.push(
 		vscode.workspace.onDidSaveTextDocument(document => {
