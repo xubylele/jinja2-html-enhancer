@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { registerCommands } from './commands/commands';
 import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
-import I18n, { setupI18n } from './i18n';
+import I18n, { setupI18n } from './translations';
 import { VariablePanelManager } from './ui/panels/variablePanel';
 import { FileWatcher } from './watchers/fileWatcher';
 

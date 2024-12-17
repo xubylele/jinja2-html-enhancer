@@ -2,6 +2,10 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.1.1]
+
+- Fix bug at translations imports.
+
 ## [1.1.0] - 2024-12-16
 
 ### ✨ Added
