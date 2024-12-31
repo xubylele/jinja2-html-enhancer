@@ -2,7 +2,7 @@
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 HTML Enhancer",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
   "engines": {

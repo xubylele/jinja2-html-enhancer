@@ -2,6 +2,13 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.2.0] - 2024-12-16
+
+### ✨ Added v1.2.0
+
+- Added a new command saveVariable to save a variable in the vscode workspace.
+  - The variable is saved in the vscode workspace to not show the warning of the variable not being set.
+
 ## [1.1.4] - 2024-12-16
 
 ### 🐛 Fixed v1.1.4
