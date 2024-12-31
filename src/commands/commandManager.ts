@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { FileWatcher } from '../watchers/fileWatcher';
 import I18n from '../translations';
 import { VariablePanelManager } from '../ui/panels/variablePanel';
+import { extractVariableName } from 'utils/variables';
 
 export class CommandManager {
   private fileWatcher: FileWatcher;
@@ -38,4 +39,31 @@ export class CommandManager {
     }
   }
 
+  public async saveVariable(diagnosticMessage: string) {
+    const variable = extractVariableName(diagnosticMessage);
+
+    if (!variable) {
+      vscode.window.showWarningMessage(I18n.__('error.variableNotFound'));
+      return;
+    }
+
+    const config = vscode.workspace.getConfiguration("jinja2-html-enhancer");
+
+    const target = vscode.workspace.workspaceFolders
+      ? vscode.ConfigurationTarget.WorkspaceFolder
+      : vscode.ConfigurationTarget.Workspace;
+
+    const targetTranslation = target === vscode.ConfigurationTarget.WorkspaceFolder
+      ? I18n.__('quickFix.workspaceTarget')
+      : I18n.__('quickFix.globalTarget');
+
+    const currentVariables = config.get<string[]>('customVariables') || [];
+
+    try {
+      await config.update('customVariables', currentVariables, target);
+      vscode.window.showInformationMessage(I18n.__('variable.variableSaved', { variable, targetTranslation }));
+    } catch (error) {
+      vscode.window.showErrorMessage(I18n.__('error.variableNotSaved', { variable, error: String(error) }));
+    }
+  }
 }

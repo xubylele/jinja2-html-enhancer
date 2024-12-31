@@ -24,6 +24,16 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "%extension.configuration.title%",
+      "properties": {
+        "jinja2-html-enhancer.customVariables": {
+          "type": "object",
+          "description": "%extension.configuration.customVariables.description%",
+          "default": {}
+        }
+      }
+    },
     "commands": [
       {
         "command": "extension.checkJinja2Variables",
@@ -32,6 +42,10 @@
       {
         "command": "extension.openVariablePanel",
         "title": "%openVariables.title%"
+      },
+      {
+        "command": "extension.saveVariable",
+        "title": "%saveVariable.title%"
       }
     ],
     "languages": [

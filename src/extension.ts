@@ -1,9 +1,10 @@
 import * as vscode from 'vscode';
+import { QuickFixProvider } from './codeActions/quickFixProvider';
+import { CommandManager } from './commands/commandManager';
 import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
 import I18n, { setupI18n } from './translations';
 import { VariablePanelManager } from './ui/panels/variablePanel';
 import { FileWatcher } from './watchers/fileWatcher';
-import { CommandManager } from './commands/commandManager';
 
 let diagnosticsManager: DiagnosticsManager;
 let fileWatcher: FileWatcher;
@@ -19,9 +20,18 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const checkVariablesDisposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => commandManager.checkVariables());
 	const openPanelDisposable = vscode.commands.registerCommand('extension.openVariablePanel', () => commandManager.openVariablePanel());
+	const saveVariableDisposable = vscode.commands.registerCommand('extension.saveVariable', (diagnosticMessage: string) => commandManager.saveVariable(diagnosticMessage));
+
 
 	context.subscriptions.push(checkVariablesDisposable);
 	context.subscriptions.push(openPanelDisposable);
+	context.subscriptions.push(saveVariableDisposable);
+	context.subscriptions.push(
+		vscode.languages.registerCodeActionsProvider(
+			{ scheme: 'file', language: 'html' },
+			new QuickFixProvider(),
+		)
+	)
 
 	context.subscriptions.push(
 		vscode.workspace.onDidSaveTextDocument(document => {

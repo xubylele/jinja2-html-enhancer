@@ -12,7 +12,8 @@
 			"preLaunchTask": "build",
 			"runtimeExecutable": "${execPath}",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}"
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--folder-uri=file://${workspaceFolder}"
 			],
 			"sourceMaps": true,
 			"stopOnEntry": false

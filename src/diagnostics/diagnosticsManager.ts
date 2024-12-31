@@ -35,6 +35,7 @@ export class DiagnosticsManager {
             I18n.__('variable.variableNotSet', { variable }),
             vscode.DiagnosticSeverity.Warning
           );
+          diagnostic.code = 'JHE0001';
           diagnostics.push(diagnostic);
         }
       }

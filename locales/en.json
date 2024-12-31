@@ -1,14 +1,22 @@
 {
   "variable": {
-    "variableNotSet": "Variable {{variable}} is used but has not been set. Make sure it's defined.",
+    "variableNotSet": "Variable '{{variable}}' is used but has not been set. Make sure it's defined.",
     "checkingVariables": "Checking Jinja2 variables...",
-    "variablesChecked": "Variables checked."
+    "variablesChecked": "Variables checked.",
+    "variableSaved": "Variable '{{variable}}' saved in configuration."
   },
   "analyzer": {
     "analyzingDocument": "Analyzing document...",
     "analysisComplete": "Jinja2 variable analysis complete."
   },
   "error": {
-    "noActiveEditor": "No active editor found."
+    "noActiveEditor": "No active editor found.",
+    "variableNotFound": "Variable not found in configuration.",
+    "variableNotSaved": "Variable '{{variable}}' not saved in configuration. {{error}}"
+  },
+  "quickFix": {
+    "save": "Save '{{variable}}' in configuration {{target}}",
+    "globalTarget": "Global",
+    "workspaceTarget": "Workspace"
   }
 }
