@@ -79,6 +79,7 @@ export class CommandManager {
       currentVariables[filePath] = [];
     }
     currentVariables[filePath].push(variable);
+    console.info(currentVariables);
     try {
       await config.update('customVariables', currentVariables, target);
       vscode.window.showInformationMessage(I18n.__('variable.variableSaved', { variable, targetTranslation }));
