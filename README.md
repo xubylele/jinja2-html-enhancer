@@ -26,10 +26,13 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Recognizes variables set in various contexts, including `{% set %}` statements and `{% for %}` loops.
   - Automatically checks variables on file save and provides a command to manually trigger checking.
 
-
 - **UI Variable Panel**:
   - Displays a panel in the sidebar that shows the variables used and set in the current template.
   - Update the panel by saving the file or manually triggering variable checking.
+
+- **Save variables in configuration**:
+  - Save the variables in the configuration file to avoid rechecking the variables every time you open the file.
+  - This feature is useful for large files with many variables, and it works with the quick fix vscode feature.
 
 ## Example
 

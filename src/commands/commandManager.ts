@@ -57,7 +57,8 @@ export class CommandManager {
       ? I18n.__('quickFix.workspaceTarget')
       : I18n.__('quickFix.globalTarget');
 
-    const currentVariables = config.get<string[]>('customVariables') || [];
+    const currentVariables = config.get<{ [key: string]: string }>('customVariables') || {};
+    currentVariables[variable] = variable;
 
     try {
       await config.update('customVariables', currentVariables, target);
