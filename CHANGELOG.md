@@ -2,7 +2,14 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
-## [1.2.1] - 2024-12-31
+## [1.2.2] - 2024-12-31
+
+### 🐛 Fixed v1.2.2
+
+- Fixed a bug that caused the extension not to save the variables in the configuration file.
+- Fixed a bug that caused the extension not considering the variables saved in the configuration file.
+
+## [1.2.1] - 2024-12-30
 
 ### 🐛 Fixed v1.2.1
 

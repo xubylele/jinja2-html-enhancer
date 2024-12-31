@@ -42,7 +42,6 @@ export class DiagnosticsManager {
     });
 
     this.diagnosticCollection.set(document.uri, diagnostics);
-    this.diagnosticCollection.set(document.uri, diagnostics);
     this._onDidUpdateDiagnostics.fire({ usedVariables, setVariables });
   }
 

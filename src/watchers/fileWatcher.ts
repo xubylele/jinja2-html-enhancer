@@ -24,6 +24,7 @@ export class FileWatcher {
   }
 
   public analyzeDocument(document: vscode.TextDocument | vscode.Uri) {
+    const customVariables = vscode.workspace.getConfiguration('jinja2-html-enhancer').get('customVariables', {});
     if (document instanceof vscode.Uri) {
       vscode.workspace.openTextDocument(document).then(this.analyzeDocument.bind(this));
       return;
@@ -33,7 +34,7 @@ export class FileWatcher {
     const { usedVariables, setVariables } = extractVariables(text);
     const nestedVariables = analyzeNestedStructures(text);
 
-    const allSetVariables = [...new Set([...setVariables, ...nestedVariables])];
+    const allSetVariables = [...new Set([...setVariables, ...nestedVariables, ...(customVariables ? Object.keys(customVariables) : [])])];
 
     this.diagnosticsManager.updateDiagnostics(document, usedVariables, allSetVariables);
 
