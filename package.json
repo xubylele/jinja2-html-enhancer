@@ -1,5 +1,5 @@
 {
-  "name": "jinja2-enhancer",
+  "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 Enhance",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
   "version": "1.2.6",
