@@ -1,6 +1,6 @@
-# Jinja2 Syntax Highlighting
+# Jinja2 Enhance
 
-**Jinja2 Syntax Highlighting** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
+**Jinja2 Enhance** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
 ## Donations
 
@@ -10,7 +10,7 @@ If you find this extension helpful, consider supporting the developer by buying 
 
 ## Features
 
-- **Jinja2 Syntax Highlighting**:
+- **Jinja2 Enhance**:
   - Supports Jinja2 control structures like `{% for %}`, `{% if %}`, `{% block %}`, etc.
   - Highlights variable interpolation using `{{ }}` syntax.
   - Keywords like `for`, `if`, `block` are highlighted with a distinct color for better readability.
@@ -48,7 +48,7 @@ And here's an example of the variable checking and UI variable panel:
 
 1. Open Visual Studio Code.
 2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or press `Ctrl+Shift+X`.
-3. Search for `Jinja2 Syntax Highlighting`.
+3. Search for `Jinja2 Enhance`.
 4. Click **Install**.
 
 Alternatively, you can install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer).
