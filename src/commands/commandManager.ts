@@ -51,23 +51,29 @@ export class CommandManager {
       vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));
       return;
     }
+
     const filePath = activeEditor.document.uri.fsPath;
 
     const workspaceFolder = vscode.workspace.getWorkspaceFolder(activeEditor.document.uri);
+
+    if (!workspaceFolder) {
+      vscode.window.showWarningMessage(I18n.__('warning.noWorkspaceFolder'));
+      return;
+    }
+
     const target = workspaceFolder
       ? vscode.ConfigurationTarget.WorkspaceFolder
       : vscode.ConfigurationTarget.Global;
-
-    if (!vscode.workspace.workspaceFolders) {
-      vscode.window.showWarningMessage(I18n.__('warning.noWorkspaceFolder'));
-    }
-
 
     const targetTranslation = target === vscode.ConfigurationTarget.WorkspaceFolder
       ? I18n.__('quickFix.workspaceTarget')
       : I18n.__('quickFix.globalTarget');
 
-    const config = vscode.workspace.getConfiguration("jinja2-html-enhancer");
+    const config = target === vscode.ConfigurationTarget.WorkspaceFolder
+      ? vscode.workspace.getConfiguration('jinja2-html-enhancer', workspaceFolder.uri)
+      : vscode.workspace.getConfiguration('jinja2-html-enhancer');
+
+    console.info('config', config);
 
     const currentVariables: { [key: string]: string[] } = config.get('customVariables', {});
 
@@ -80,7 +86,10 @@ export class CommandManager {
       currentVariables[filePath] = [];
     }
     currentVariables[filePath].push(variable);
-    console.info(currentVariables);
+    console.info('currentVariables', currentVariables);
+    console.info('target', target);
+    console.info('workspaceFolder', workspaceFolder);
+
     try {
       await config.update('customVariables', currentVariables, target);
       vscode.window.showInformationMessage(I18n.__('variable.variableSaved', { variable, targetTranslation }));

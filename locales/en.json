@@ -3,7 +3,7 @@
     "variableNotSet": "Variable '{{variable}}' is used but has not been set. Make sure it's defined.",
     "checkingVariables": "Checking Jinja2 variables...",
     "variablesChecked": "Variables checked.",
-    "variableSaved": "Variable '{{variable}}' saved in configuration."
+    "variableSaved": "Variable '{{variable}}' saved in {{target}}."
   },
   "analyzer": {
     "analyzingDocument": "Analyzing document...",
