@@ -14,6 +14,9 @@
     "variableNotFound": "Variable not found in configuration.",
     "variableNotSaved": "Variable '{{variable}}' not saved in configuration. {{error}}"
   },
+  "warning": {
+    "noWorkspaceFolder": "No workspace folder found. Variables will be saved globally."
+  },
   "quickFix": {
     "save": "Save '{{variable}}' in configuration {{target}}",
     "globalTarget": "Global",

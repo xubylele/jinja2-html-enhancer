@@ -24,7 +24,7 @@ export class FileWatcher {
   }
 
   public analyzeDocument(document: vscode.TextDocument | vscode.Uri) {
-    const customVariables = vscode.workspace.getConfiguration('jinja2-html-enhancer').get('customVariables', {});
+    const customVariables = vscode.workspace.getConfiguration('jinja2-enhancer').get('customVariables', {});
     if (document instanceof vscode.Uri) {
       vscode.workspace.openTextDocument(document).then(this.analyzeDocument.bind(this));
       return;

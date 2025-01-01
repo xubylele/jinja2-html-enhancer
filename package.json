@@ -1,8 +1,8 @@
 {
-  "name": "jinja2-html-enhancer",
+  "name": "jinja2-enhancer",
   "displayName": "Jinja2 Enhance",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
   "engines": {
@@ -27,7 +27,7 @@
     "configuration": {
       "title": "%extension.configuration.title%",
       "properties": {
-        "jinja2-html-enhancer.customVariables": {
+        "jinja2-enhancer.customVariables": {
           "type": "object",
           "description": "%extension.configuration.customVariables.description%",
           "default": {}

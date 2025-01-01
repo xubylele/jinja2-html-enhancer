@@ -13,11 +13,6 @@ export class CommandManager {
     this.variablePanelManager = variablePanelManager;
   }
 
-  private async getCustomVariables(): Promise<{ [key: string]: string[] }> {
-    const config = vscode.workspace.getConfiguration("jinja2-html-enhancer");
-    return config.get('customVariables', {});
-  }
-
   public async checkVariables() {
     vscode.window.showInformationMessage(I18n.__('variable.checkingVariables'));
     const editor = vscode.window.activeTextEditor;
@@ -58,15 +53,21 @@ export class CommandManager {
     }
     const filePath = activeEditor.document.uri.fsPath;
 
-    const target = vscode.workspace.workspaceFolders
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(activeEditor.document.uri);
+    const target = workspaceFolder
       ? vscode.ConfigurationTarget.WorkspaceFolder
-      : vscode.ConfigurationTarget.Workspace;
+      : vscode.ConfigurationTarget.Global;
+
+    if (!vscode.workspace.workspaceFolders) {
+      vscode.window.showWarningMessage(I18n.__('warning.noWorkspaceFolder'));
+    }
+
 
     const targetTranslation = target === vscode.ConfigurationTarget.WorkspaceFolder
       ? I18n.__('quickFix.workspaceTarget')
       : I18n.__('quickFix.globalTarget');
 
-    const config = vscode.workspace.getConfiguration("jinja2-html-enhancer");
+    const config = vscode.workspace.getConfiguration("jinja2-enhancer");
 
     const currentVariables: { [key: string]: string[] } = config.get('customVariables', {});
 
