@@ -51,7 +51,7 @@ And here's an example of the variable checking and UI variable panel:
 3. Search for `Jinja2 Enhance`.
 4. Click **Install**.
 
-Alternatively, you can install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-enhancer).
+Alternatively, you can install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer).
 
 ## Usage
 
@@ -75,7 +75,7 @@ You can customize the colors used for Jinja2 syntax highlighting by modifying yo
 
 ## Contributing
 
-If you want to contribute to this project, feel free to submit issues or pull requests in the [GitHub repository](https://github.com/xubylele/jinja2-enhancer?tab=readme-ov-file)
+If you want to contribute to this project, feel free to submit issues or pull requests in the [GitHub repository](https://github.com/xubylele/jinja2-html-enhancer?tab=readme-ov-file)
 
 ## License
 

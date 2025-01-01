@@ -67,7 +67,7 @@ export class CommandManager {
       ? I18n.__('quickFix.workspaceTarget')
       : I18n.__('quickFix.globalTarget');
 
-    const config = vscode.workspace.getConfiguration("jinja2-enhancer");
+    const config = vscode.workspace.getConfiguration("jinja2-html-enhancer");
 
     const currentVariables: { [key: string]: string[] } = config.get('customVariables', {});
 

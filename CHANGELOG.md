@@ -1,6 +1,11 @@
 # Change Log
 
-All notable changes to the "jinja2-enhancer" extension will be documented in this file.
+All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
+
+## [1.2.7] - 2025-01-01
+
+- Work in progress: Fixed a bug that caused the extension not to save the variables in the configuration file.
+- Get back original extension identifier.
 
 ## [1.2.6] - 2025-01-01
 
