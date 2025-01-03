@@ -1,4 +1,4 @@
-import { getVscodeConfigTarget } from 'utils/variables';
+import { getConfiguration, getVscodeConfigTarget } from 'utils/variables';
 import * as vscode from 'vscode';
 import { DiagnosticsManager } from '../diagnostics/diagnosticsManager';
 import { analyzeNestedStructures, extractVariables } from '../diagnostics/variableAnalyzer';
@@ -25,7 +25,14 @@ export class FileWatcher {
     });
   }
 
-  public analyzeDocument(document: vscode.TextDocument | vscode.Uri) {
+  public async analyzeDocument(document: vscode.TextDocument | vscode.Uri) {
+    const canCheckVariables = await getConfiguration('toggleVariableCheck');
+
+    if (!canCheckVariables) {
+      vscode.window.showWarningMessage(I18n.__('warning.noToggleVariableCheck'));
+      return;
+    }
+
     const activeEditor = vscode.window.activeTextEditor;
     if (!activeEditor) {
       vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));

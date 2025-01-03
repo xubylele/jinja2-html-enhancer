@@ -11,11 +11,17 @@
   "error": {
     "noActiveEditor": "No se encontró un editor activo.",
     "variableNotFound": "Variable no encontrada en configuración.",
-    "variableNotSaved": "Variable '{{variable}}' no guardada en configuración. {{error}}"
+    "variableNotSaved": "Variable '{{variable}}' no guardada en configuración. {{error}}",
+    "configurationChangeFailed": "La configuración {{type}} no se pudo cambiar. {{error}}"
   },
   "warning": {
     "noWorkspaceFolder": "No se encontró una carpeta de espacio de trabajo. Las variables se guardarán global",
-    "variableExists": "Variable '{{variable}}' ya existe en {{target}}."
+    "variableExists": "Variable '{{variable}}' ya existe en {{target}}.",
+    "noToggleVariableCheck": "La opción de verificación de variables Jinja2 no está activa en este editor."
+  },
+  "configuration": {
+    "toggleVariableCheck": "Activar/Desactivar verificación de variables Jinja2",
+    "configurationChanged": "Configuración '{{type}}' cambiada."
   },
   "quickFix": {
     "save": "Guardar '{{variable}}' en {{target}}",

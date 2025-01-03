@@ -34,6 +34,12 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Save the variables in the configuration file to avoid rechecking the variables every time you open the file.
   - This feature is useful for large files with many variables, and it works with the quick fix vscode feature.
 
+- **Toggle Variable Checking**:
+  - Allows you to toggle the variable checking feature on and off.
+  - Useful for debugging or when you want to temporarily disable variable checking.
+  - Use command "Toggle check jinja2 variable check" to toggle the feature.
+  - Use configuration `Toggle check jinja2 variable check` to set the variable checking feature.
+
 ## Example
 
 Here's an example of the syntax highlighting in action:

@@ -2,6 +2,14 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.4.0] - 2025-01-03
+
+### ✨ Added v1.4.0
+
+- Added a new command "Toggle check jinja2 variable check" to toggle the variable checking feature on and off.
+  - Useful for debugging or when you want to temporarily disable variable checking.
+  - You can configure it using the `Toggle check jinja2 variable check` configuration.
+
 ## [1.2.9] - 2025-01-03
 
 ### 🐛 Fixed v1.2.9

@@ -12,11 +12,16 @@
 		"noActiveEditor": "No active editor found.",
 		"variableNotFound": "Variable not found in configuration.",
 		"variableNotSaved": "Variable '{{variable}}' not saved in configuration. {{error}}",
-		"configurationChangeFailed": "error.configurationChangeFailed"
+		"configurationChangeFailed": "Configuration {{type}} change failed. {{error}}"
 	},
 	"warning": {
 		"noWorkspaceFolder": "No workspace folder found. Variables will be saved globally.",
-		"variableExists": "Variable '{{variable}}' already exists in {{target}}."
+		"variableExists": "Variable '{{variable}}' already exists in {{target}}.",
+		"noToggleVariableCheck": "Toggle variable check is not active in this editor."
+	},
+	"configuration": {
+		"toggleVariableCheck": "Toggle variable check",
+		"configurationChanged": "Configuration '{{type}}' changed."
 	},
 	"quickFix": {
 		"save": "Save '{{variable}}' in {{target}}.",

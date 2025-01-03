@@ -36,10 +36,10 @@ export function activate(context: vscode.ExtensionContext) {
 	)
 
 	context.subscriptions.push(
-		vscode.workspace.onDidSaveTextDocument(document => {
+		vscode.workspace.onDidSaveTextDocument(async document => {
 			if (document.languageId === 'html') {
 				vscode.window.showInformationMessage(I18n.__('analyzer.analyzingDocument'));
-				const result = fileWatcher.analyzeDocument(document);
+				const result = await fileWatcher.analyzeDocument(document);
 
 				if (result) {
 					vscode.window.showInformationMessage(I18n.__('analyzer.analysisComplete'));
