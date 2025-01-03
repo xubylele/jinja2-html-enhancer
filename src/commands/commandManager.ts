@@ -38,6 +38,25 @@ export class CommandManager {
     }
   }
 
+  public async changeConfiguration(type: string) {
+    const config = vscode.workspace.getConfiguration('jinja2-html-enhancer');
+    const currentConfig = config.get(type);
+    let newValue;
+
+    if (!currentConfig) {
+      newValue = true;
+    } else {
+      newValue = !currentConfig;
+    }
+
+    try {
+      await config.update(type, newValue);
+      vscode.window.showInformationMessage(I18n.__('variable.configurationChanged'));
+    } catch (error) {
+      vscode.window.showErrorMessage(I18n.__('error.configurationChangeFailed', { error: String(error) }));
+    }
+  }
+
   public async saveVariable(diagnosticMessage: string) {
     const variable = extractVariableName(diagnosticMessage);
     const activeEditor = vscode.window.activeTextEditor;

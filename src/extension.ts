@@ -21,11 +21,13 @@ export function activate(context: vscode.ExtensionContext) {
 	const checkVariablesDisposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => commandManager.checkVariables());
 	const openPanelDisposable = vscode.commands.registerCommand('extension.openVariablePanel', () => commandManager.openVariablePanel());
 	const saveVariableDisposable = vscode.commands.registerCommand('extension.saveVariable', (diagnosticMessage: string) => commandManager.saveVariable(diagnosticMessage));
+	const toggleVariableCheck = vscode.commands.registerCommand('extension.toggleVariableCheck', () => commandManager.changeConfiguration('toggleVariableCheck'));
 
 
 	context.subscriptions.push(checkVariablesDisposable);
 	context.subscriptions.push(openPanelDisposable);
 	context.subscriptions.push(saveVariableDisposable);
+	context.subscriptions.push(toggleVariableCheck);
 	context.subscriptions.push(
 		vscode.languages.registerCodeActionsProvider(
 			{ scheme: 'file', language: 'html' },

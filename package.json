@@ -2,7 +2,7 @@
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 Enhance",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
-  "version": "1.2.9",
+  "version": "1.2.11-pre",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
   "engines": {
@@ -32,6 +32,12 @@
           "description": "%extension.configuration.customVariables.description%",
           "default": {},
           "scope": "resource"
+        },
+        "jinja2-html-enhancer.toggleVariableCheck": {
+          "type": "boolean",
+          "description": "%extension.configuration.toggleVariableCheck.description%",
+          "default": false,
+          "scope": "resource"
         }
       }
     },
@@ -47,6 +53,10 @@
       {
         "command": "extension.saveVariable",
         "title": "%saveVariable.title%"
+      },
+      {
+        "command": "extension.toggleVariableCheck",
+        "title": "%toggleCheck.title%"
       }
     ],
     "languages": [
