@@ -1,9 +1,9 @@
-name: Publish Extension
+name: Publish Extension Pre-Release
 
 on:
   push:
     branches:
-      - main
+      - pre-release
 
 jobs:
   publish:
@@ -24,7 +24,7 @@ jobs:
     - name: Install VSCE
       run: npm install -g @vscode/vsce
 
-    - name: Publish to Marketplace
+    - name: Publish to Marketplace Pre-Release
       env:
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
-      run: vsce publish
+      run: vsce publish --pre-release

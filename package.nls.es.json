@@ -1,4 +1,7 @@
 {
   "checkVariables.title": "Verificar Variables de jinja2",
-  "openVariables.title": "Abrir panel de variables de jinja2"
+  "openVariables.title": "Abrir panel de variables de jinja2",
+  "saveVariable.title": "Guardar variable en configuración",
+  "extension.configuration.title": "Jinja2 Enhance",
+  "extension.configuration.customVariables.description": "Configuración de variables personalizadas para Jinja2"
 }

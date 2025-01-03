@@ -2,6 +2,55 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.2.9] - 2025-01-03
+
+### 🐛 Fixed v1.2.9
+
+- Fixed a bug that causes the extension not validating the variables in the configuration file.
+
+### ✨ Added v1.2.9
+
+- Added a feature to check the variables when a variable is saved in the configuration file.
+  - This feature is useful for large files with many variables, and it works with the quick fix vscode feature.
+
+## [1.2.8] - 2025-01-03
+
+### 🐛 Fixed v1.2.8
+
+- Fixed a bug that caused the extension not to save the variables in the configuration file.
+
+## [1.2.7] - 2025-01-01
+
+- Work in progress: Fixed a bug that caused the extension not to save the variables in the configuration file.
+- Get back original extension identifier.
+
+## [1.2.6] - 2025-01-01
+
+### 🐛 Fixed v1.2.6
+
+- Work in progress: Fixed a bug that caused the extension not to save the variables in the configuration file.
+- Change extension name to Jinja2 Enhancer.
+
+## [1.2.2] - 2024-12-31
+
+### 🐛 Fixed v1.2.2
+
+- Fixed a bug that caused the extension not to save the variables in the configuration file.
+- Fixed a bug that caused the extension not considering the variables saved in the configuration file.
+
+## [1.2.1] - 2024-12-30
+
+### 🐛 Fixed v1.2.1
+
+- Fixed a bug that caused the extension not to save the variables in the configuration file.
+
+## [1.2.0] - 2024-12-30
+
+### ✨ Added v1.2.0
+
+- Added a new command saveVariable to save a variable in the vscode workspace.
+  - The variable is saved in the vscode workspace to not show the warning of the variable not being set.
+
 ## [1.1.4] - 2024-12-16
 
 ### 🐛 Fixed v1.1.4

@@ -1,6 +1,6 @@
-# Jinja2 HTML Enhancer
+# Jinja2 Enhance
 
-**Jinja2 HTML Enhancer** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
+**Jinja2 Enhance** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
 ## Donations
 
@@ -10,7 +10,7 @@ If you find this extension helpful, consider supporting the developer by buying 
 
 ## Features
 
-- **Jinja2 Syntax Highlighting**:
+- **Jinja2 Enhance**:
   - Supports Jinja2 control structures like `{% for %}`, `{% if %}`, `{% block %}`, etc.
   - Highlights variable interpolation using `{{ }}` syntax.
   - Keywords like `for`, `if`, `block` are highlighted with a distinct color for better readability.
@@ -26,10 +26,13 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Recognizes variables set in various contexts, including `{% set %}` statements and `{% for %}` loops.
   - Automatically checks variables on file save and provides a command to manually trigger checking.
 
-
 - **UI Variable Panel**:
   - Displays a panel in the sidebar that shows the variables used and set in the current template.
   - Update the panel by saving the file or manually triggering variable checking.
+
+- **Save variables in configuration**:
+  - Save the variables in the configuration file to avoid rechecking the variables every time you open the file.
+  - This feature is useful for large files with many variables, and it works with the quick fix vscode feature.
 
 ## Example
 
@@ -41,11 +44,15 @@ And here's an example of the variable checking and UI variable panel:
 
 ![Variable Checking Example](https://i.imgur.com/qk46DYx.png)
 
+And here's an example of the variable saving in the configuration file:
+
+![Variable Saving Example](https://i.imgur.com/7ojKh5D.gif)
+
 ## Installation
 
 1. Open Visual Studio Code.
 2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or press `Ctrl+Shift+X`.
-3. Search for `Jinja2 HTML Enhancer`.
+3. Search for `Jinja2 Enhance`.
 4. Click **Install**.
 
 Alternatively, you can install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer).
