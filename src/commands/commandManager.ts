@@ -58,41 +58,36 @@ export class CommandManager {
 
     if (!workspaceFolder) {
       vscode.window.showWarningMessage(I18n.__('warning.noWorkspaceFolder'));
-      return;
     }
 
     const target = workspaceFolder
       ? vscode.ConfigurationTarget.WorkspaceFolder
       : vscode.ConfigurationTarget.Global;
 
-    const targetTranslation = target === vscode.ConfigurationTarget.WorkspaceFolder
+    const targetTranslation = (target === vscode.ConfigurationTarget.WorkspaceFolder) && workspaceFolder
       ? I18n.__('quickFix.workspaceTarget')
       : I18n.__('quickFix.globalTarget');
 
-    const config = target === vscode.ConfigurationTarget.WorkspaceFolder
+    console.log('targetTranslation', targetTranslation)
+
+    const config = (target === vscode.ConfigurationTarget.WorkspaceFolder) && workspaceFolder
       ? vscode.workspace.getConfiguration('jinja2-html-enhancer', workspaceFolder.uri)
       : vscode.workspace.getConfiguration('jinja2-html-enhancer');
-
-    console.info('config', config);
 
     const currentVariables: { [key: string]: string[] } = config.get('customVariables', {});
 
     if (currentVariables[filePath] && currentVariables[filePath].includes(variable)) {
-      vscode.window.showWarningMessage(I18n.__('variable.variableExists', { variable }));
+      vscode.window.showWarningMessage(I18n.__('warning.variableExists', { variable, target: targetTranslation }));
       return;
     }
 
-    if (!currentVariables[filePath]) {
-      currentVariables[filePath] = [];
-    }
-    currentVariables[filePath].push(variable);
-    console.info('currentVariables', currentVariables);
-    console.info('target', target);
-    console.info('workspaceFolder', workspaceFolder);
+    const variableArray = currentVariables[filePath] || [];
+
+    variableArray.push(variable);
 
     try {
-      await config.update('customVariables', currentVariables, target);
-      vscode.window.showInformationMessage(I18n.__('variable.variableSaved', { variable, targetTranslation }));
+      await config.update('customVariables', { ...currentVariables, [filePath]: variableArray }, target);
+      vscode.window.showInformationMessage(I18n.__('quickFix.save', { variable, target: targetTranslation }));
     } catch (error) {
       vscode.window.showErrorMessage(I18n.__('error.variableNotSaved', { variable, error: String(error) }));
     }

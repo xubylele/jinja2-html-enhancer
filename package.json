@@ -30,7 +30,8 @@
         "jinja2-html-enhancer.customVariables": {
           "type": "object",
           "description": "%extension.configuration.customVariables.description%",
-          "default": {}
+          "default": {},
+          "scope": "resource"
         }
       }
     },

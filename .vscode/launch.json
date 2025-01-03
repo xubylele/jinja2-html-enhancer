@@ -3,7 +3,7 @@
 	"configurations": [
 		{
 			"name": "Run Extension",
-			"type": "node",
+			"type": "extensionHost",
 			"request": "launch",
 			"program": "${workspaceFolder}/out/extension.js",
 			"outFiles": [
@@ -13,7 +13,8 @@
 			"runtimeExecutable": "${execPath}",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--folder-uri=file://${workspaceFolder}"
+				"--folder-uri=file://${workspaceFolder}",
+				"--disable-extensions"
 			],
 			"sourceMaps": true,
 			"stopOnEntry": false
