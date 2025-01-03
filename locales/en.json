@@ -2,8 +2,7 @@
   "variable": {
     "variableNotSet": "Variable '{{variable}}' is used but has not been set. Make sure it's defined.",
     "checkingVariables": "Checking Jinja2 variables...",
-    "variablesChecked": "Variables checked.",
-    "variableSaved": "Variable '{{variable}}' saved in configuration."
+    "variablesChecked": "Variables checked."
   },
   "analyzer": {
     "analyzingDocument": "Analyzing document...",
@@ -15,10 +14,11 @@
     "variableNotSaved": "Variable '{{variable}}' not saved in configuration. {{error}}"
   },
   "warning": {
-    "noWorkspaceFolder": "No workspace folder found. Variables will be saved globally."
+    "noWorkspaceFolder": "No workspace folder found. Variables will be saved globally.",
+    "variableExists": "Variable '{{variable}}' already exists in {{target}}."
   },
   "quickFix": {
-    "save": "Save '{{variable}}' in configuration {{target}}",
+    "save": "Save '{{variable}}' in {{target}}.",
     "globalTarget": "Global",
     "workspaceTarget": "Workspace"
   }

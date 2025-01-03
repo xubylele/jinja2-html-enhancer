@@ -44,6 +44,10 @@ And here's an example of the variable checking and UI variable panel:
 
 ![Variable Checking Example](https://i.imgur.com/qk46DYx.png)
 
+And here's an example of the variable saving in the configuration file:
+
+![Variable Saving Example](https://i.imgur.com/7ojKh5D.gif)
+
 ## Installation
 
 1. Open Visual Studio Code.
