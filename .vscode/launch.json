@@ -5,7 +5,6 @@
 			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",
-			"program": "${workspaceFolder}/out/extension.js",
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
 			],
@@ -14,10 +13,11 @@
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--folder-uri=file://${workspaceFolder}",
-				"--disable-extensions"
+				"--disable-extensions",
+				"--locale",
+				"en"
 			],
-			"sourceMaps": true,
-			"stopOnEntry": false
+			"sourceMaps": true
 		}
 	]
 }

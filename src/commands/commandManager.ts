@@ -1,8 +1,8 @@
+import { extractVariableName, getVscodeConfigTarget } from 'utils/variables';
 import * as vscode from 'vscode';
-import { FileWatcher } from '../watchers/fileWatcher';
 import I18n from '../translations';
 import { VariablePanelManager } from '../ui/panels/variablePanel';
-import { extractVariableName } from 'utils/variables';
+import { FileWatcher } from '../watchers/fileWatcher';
 
 export class CommandManager {
   private fileWatcher: FileWatcher;
@@ -53,22 +53,17 @@ export class CommandManager {
     }
 
     const filePath = activeEditor.document.uri.fsPath;
-
     const workspaceFolder = vscode.workspace.getWorkspaceFolder(activeEditor.document.uri);
 
     if (!workspaceFolder) {
       vscode.window.showWarningMessage(I18n.__('warning.noWorkspaceFolder'));
     }
 
-    const target = workspaceFolder
-      ? vscode.ConfigurationTarget.WorkspaceFolder
-      : vscode.ConfigurationTarget.Global;
+    const target = getVscodeConfigTarget(activeEditor);
 
     const targetTranslation = (target === vscode.ConfigurationTarget.WorkspaceFolder) && workspaceFolder
       ? I18n.__('quickFix.workspaceTarget')
       : I18n.__('quickFix.globalTarget');
-
-    console.log('targetTranslation', targetTranslation)
 
     const config = (target === vscode.ConfigurationTarget.WorkspaceFolder) && workspaceFolder
       ? vscode.workspace.getConfiguration('jinja2-html-enhancer', workspaceFolder.uri)
@@ -82,12 +77,12 @@ export class CommandManager {
     }
 
     const variableArray = currentVariables[filePath] || [];
-
     variableArray.push(variable);
 
     try {
       await config.update('customVariables', { ...currentVariables, [filePath]: variableArray }, target);
       vscode.window.showInformationMessage(I18n.__('quickFix.save', { variable, target: targetTranslation }));
+      await this.checkVariables();
     } catch (error) {
       vscode.window.showErrorMessage(I18n.__('error.variableNotSaved', { variable, error: String(error) }));
     }

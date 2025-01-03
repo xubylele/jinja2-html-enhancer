@@ -2,6 +2,17 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.2.9] - 2025-01-03
+
+### 🐛 Fixed v1.2.9
+
+- Fixed a bug that causes the extension not validating the variables in the configuration file.
+
+### ✨ Added v1.2.9
+
+- Added a feature to check the variables when a variable is saved in the configuration file.
+  - This feature is useful for large files with many variables, and it works with the quick fix vscode feature.
+
 ## [1.2.8] - 2025-01-03
 
 ### 🐛 Fixed v1.2.8
