@@ -1,25 +1,31 @@
 {
-  "variable": {
-    "variableNotSet": "Variable '{{variable}}' is used but has not been set. Make sure it's defined.",
-    "checkingVariables": "Checking Jinja2 variables...",
-    "variablesChecked": "Variables checked."
-  },
-  "analyzer": {
-    "analyzingDocument": "Analyzing document...",
-    "analysisComplete": "Jinja2 variable analysis complete."
-  },
-  "error": {
-    "noActiveEditor": "No active editor found.",
-    "variableNotFound": "Variable not found in configuration.",
-    "variableNotSaved": "Variable '{{variable}}' not saved in configuration. {{error}}"
-  },
-  "warning": {
-    "noWorkspaceFolder": "No workspace folder found. Variables will be saved globally.",
-    "variableExists": "Variable '{{variable}}' already exists in {{target}}."
-  },
-  "quickFix": {
-    "save": "Save '{{variable}}' in {{target}}.",
-    "globalTarget": "Global",
-    "workspaceTarget": "Workspace"
-  }
+	"variable": {
+		"variableNotSet": "Variable '{{variable}}' is used but has not been set. Make sure it's defined.",
+		"checkingVariables": "Checking Jinja2 variables...",
+		"variablesChecked": "Variables checked."
+	},
+	"analyzer": {
+		"analyzingDocument": "Analyzing document...",
+		"analysisComplete": "Jinja2 variable analysis complete."
+	},
+	"error": {
+		"noActiveEditor": "No active editor found.",
+		"variableNotFound": "Variable not found in configuration.",
+		"variableNotSaved": "Variable '{{variable}}' not saved in configuration. {{error}}",
+		"configurationChangeFailed": "Configuration {{type}} change failed. {{error}}"
+	},
+	"warning": {
+		"noWorkspaceFolder": "No workspace folder found. Variables will be saved globally.",
+		"variableExists": "Variable '{{variable}}' already exists in {{target}}.",
+		"noToggleVariableCheck": "Toggle variable check is not active in this editor."
+	},
+	"configuration": {
+		"toggleVariableCheck": "Toggle variable check",
+		"configurationChanged": "Configuration '{{type}}' changed."
+	},
+	"quickFix": {
+		"save": "Save '{{variable}}' in {{target}}.",
+		"globalTarget": "Global",
+		"workspaceTarget": "Workspace"
+	}
 }

@@ -17,7 +17,7 @@ export class CommandManager {
     vscode.window.showInformationMessage(I18n.__('variable.checkingVariables'));
     const editor = vscode.window.activeTextEditor;
     if (editor) {
-      const result = this.fileWatcher.analyzeDocument(editor.document);
+      const result = await this.fileWatcher.analyzeDocument(editor.document);
       if (result) {
         vscode.window.showInformationMessage(I18n.__('variable.variablesChecked'));
       }
@@ -26,15 +26,36 @@ export class CommandManager {
     }
   }
 
-  public openVariablePanel() {
+  public async openVariablePanel() {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
-      const result = this.fileWatcher.analyzeDocument(editor.document);
+      const result = await this.fileWatcher.analyzeDocument(editor.document);
       if (result) {
         this.variablePanelManager.show(result.usedVariables, result.setVariables);
       }
     } else {
       vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));
+    }
+  }
+
+  public async changeConfiguration(type: string) {
+    const config = vscode.workspace.getConfiguration('jinja2-html-enhancer');
+    const currentConfig = config.get(type);
+    let newValue;
+
+    if (!currentConfig) {
+      newValue = true;
+    } else {
+      newValue = !currentConfig;
+    }
+
+    const typeTranslation = I18n.__(`configuration.${type}`);
+
+    try {
+      await config.update(type, newValue);
+      vscode.window.showInformationMessage(I18n.__('configuration.configurationChanged', { type: typeTranslation }));
+    } catch (error) {
+      vscode.window.showErrorMessage(I18n.__('error.configurationChangeFailed', { error: String(error) }));
     }
   }
 
