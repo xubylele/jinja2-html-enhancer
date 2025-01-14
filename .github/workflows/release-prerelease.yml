@@ -24,7 +24,7 @@ jobs:
     - name: Install VSCE
       run: npm install -g @vscode/vsce
 
-    - name: Publish to Marketplace
+    - name: Publish to Marketplace (Pre-release)
       env:
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
       run: vsce publish --pre-release
