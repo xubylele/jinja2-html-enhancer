@@ -1,7 +1,7 @@
-import { extractVariableName, getVscodeConfigTarget } from 'utils/variables';
 import * as vscode from 'vscode';
 import I18n from '../translations';
 import { VariablePanelManager } from '../ui/panels/variablePanel';
+import { extractVariableName, getVscodeConfigTarget } from '../utils/variables';
 import { FileWatcher } from '../watchers/fileWatcher';
 
 export class CommandManager {
