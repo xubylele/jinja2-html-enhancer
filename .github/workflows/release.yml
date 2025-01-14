@@ -3,6 +3,7 @@ name: Publish Extension Pre-Release
 on:
   push:
     branches:
+      - main
       - pre-release
 
 jobs:
@@ -27,4 +28,9 @@ jobs:
     - name: Publish to Marketplace Pre-Release
       env:
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
-      run: vsce publish --pre-release
+      run: |
+        if [ "${{ github.ref_name }}" == "main" ]; then
+          vsce publish
+        elif [ "${{ github.ref_name }}" == "pre-release" ]; then
+          vsce publish --pre-release
+        fi
