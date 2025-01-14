@@ -1,9 +1,8 @@
-name: Publish Extension Pre-Release
+name: Publish Extension Pre-release
 
 on:
   push:
     branches:
-      - main
       - pre-release
 
 jobs:
@@ -25,12 +24,7 @@ jobs:
     - name: Install VSCE
       run: npm install -g @vscode/vsce
 
-    - name: Publish to Marketplace Pre-Release
+    - name: Publish to Marketplace
       env:
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
-      run: |
-        if [ "${{ github.ref_name }}" == "main" ]; then
-          vsce publish
-        elif [ "${{ github.ref_name }}" == "pre-release" ]; then
-          vsce publish --pre-release
-        fi
+      run: vsce publish --pre-release

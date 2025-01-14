@@ -33,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
 			{ scheme: 'file', language: 'html' },
 			new QuickFixProvider(),
 		)
-	)
+	);
 
 	context.subscriptions.push(
 		vscode.workspace.onDidSaveTextDocument(async document => {

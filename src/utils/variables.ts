@@ -22,4 +22,4 @@ export const getConfiguration = async (type: string) => {
   const config = vscode.workspace.getConfiguration('jinja2-html-enhancer');
 
   return config.get(type);
-}
+};

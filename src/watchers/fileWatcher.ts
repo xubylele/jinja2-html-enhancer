@@ -1,8 +1,8 @@
-import { getConfiguration, getVscodeConfigTarget } from 'utils/variables';
 import * as vscode from 'vscode';
 import { DiagnosticsManager } from '../diagnostics/diagnosticsManager';
 import { analyzeNestedStructures, extractVariables } from '../diagnostics/variableAnalyzer';
 import I18n from '../translations';
+import { getConfiguration, getVscodeConfigTarget } from '../utils/variables';
 
 export class FileWatcher {
   private readonly diagnosticsManager: DiagnosticsManager;
