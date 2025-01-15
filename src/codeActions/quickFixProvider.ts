@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import I18n from '../translations';
-import { extractVariableName } from 'utils/variables';
+import { extractVariableName } from '../utils/variables';
 
 export class QuickFixProvider implements vscode.CodeActionProvider {
   public provideCodeActions(

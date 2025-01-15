@@ -2,6 +2,48 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.6.1] - 2025-01-14
+
+### 🐛 Fixed v1.6.1
+
+- Update CHANGELOG.md to fix the version number.
+
+## [1.6.0 - Pre-release] - 2025-01-13
+
+### ✨ Added v1.6.0
+
+- **VariablePanel Component**:
+  - Introduced a dedicated component to display Jinja2 variables, improving usability and clarity.
+- **Tailwind CSS Integration**:
+  - Added Tailwind CSS to enhance and modernize the UI styling of the extension.
+- **Jest Setup**:
+  - Added `jest.setup.js` and `jest.config.js` to establish a robust testing framework for the project.
+- **Babel Configuration**:
+  - Included `.babelrc` to support advanced JavaScript features.
+- **Build Validation**:
+  - Added `validate-build.js` to ensure build integrity.
+
+### 🔧 Changed v1.6.0
+
+- **Project Structure**:
+  - Renamed `LICENSE.md` to `LICENSE.txt` for consistency.
+  - Updated `.gitignore` to exclude `.DS_Store` files.
+  - Refactored `quickFixProvider.ts` and `commandManager.ts` with updated import paths.
+  - Renamed release workflow files for clarity.
+- **TypeScript Configuration**:
+  - Updated `tsconfig.json` to improve development efficiency.
+- **ESLint Configuration**:
+  - Enhanced ESLint rules for better TypeScript support.
+
+### 🐛 Fixed v1.6.0
+
+- **Code Formatting**:
+  - Corrected formatting issues in `variables.ts` and `extension.ts`.
+
+### 📄 Additional Changes
+
+- Added `FUNDING.yml` to provide sponsorship details and invite community contributions.
+
 ## [1.4.0] - 2025-01-03
 
 ### ✨ Added v1.4.0

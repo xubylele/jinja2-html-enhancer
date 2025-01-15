@@ -1,5 +1,7 @@
+import * as path from 'path';
 import * as vscode from 'vscode';
-import { FileWatcher } from 'watchers/fileWatcher';
+import i18n from '../../translations';
+import { FileWatcher } from '../../watchers/fileWatcher';
 
 export class VariablePanelManager {
   private panel: vscode.WebviewPanel | undefined;
@@ -42,20 +44,25 @@ export class VariablePanelManager {
 
   private updateContent(usedVariables: string[], setVariables: string[]) {
     if (this.panel) {
-      const variables = usedVariables.map(v => ({
-        name: v,
-        isDefined: setVariables.includes(v)
-      }));
-
+      const translations = i18n.getCatalog();
       const webview = this.panel.webview;
 
-      const nonce = this.getNonce();
-
-      const iconPath = vscode.Uri.file(
-        this.context.asAbsolutePath('resources/logo.ico')
+      const cssUri = webview.asWebviewUri(
+        vscode.Uri.file(
+          path.join(this.context.extensionPath, 'out', 'css', 'output.css')
+        )
+      );
+      const jsUri = webview.asWebviewUri(
+        vscode.Uri.file(
+          path.join(this.context.extensionPath, 'out', 'App.js')
+        )
       );
 
-      const iconUri = webview.asWebviewUri(iconPath);
+      const params = {
+        usedVariables,
+        setVariables,
+        translations,
+      };
 
       webview.html = `
         <!DOCTYPE html>
@@ -64,47 +71,22 @@ export class VariablePanelManager {
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Jinja2 Variables</title>
-          <link rel="icon" type="image/x-icon" href="${iconUri}">
-          <script src="https://cdn.tailwindcss.com"></script>
+          <link href="${cssUri}" rel="stylesheet">
         </head>
         <body>
-          <div class="p-4">
-            <h1 class="text-2xl font-bold mb-4">Jinja2 Variables</h1>
-            <table class="table-auto w-full">
-              <thead>
-                <tr>
-                  <th class="px-4 py-2">Variable</th>
-                  <th class="px-4 py-2">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${variables.map(v => `
-                  <tr>
-                    <td class="border px-4 py-2">${v.name}</td>
-                    <td class="border px-4 py-2 ${v.isDefined ? 'text-green-500' : 'text-red-500'}" id="status-${v.name}">${v.isDefined ? 'Defined' : 'Undefined'}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          </div>  
-
-          <script nonce="${nonce}">
-            const vscode = acquireVsCodeApi();
-            const variables = ${JSON.stringify(variables)};
+          <div id="root">Loading...</div>
+          <script>
+            if (!window.vscode) {
+              window.vscode = acquireVsCodeApi();
+            }
           </script>
+          <script>
+            const params = ${JSON.stringify(params)};
+          </script>
+          <script type="module" src="${jsUri}"></script>
         </body>
-        </html>
-      `;
+        </html>`;
     }
-  }
-
-  private getNonce() {
-    let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 32; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
   }
 
   private dispose() {

@@ -1,28 +1,29 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "ES2020",
-		"moduleResolution": "node",
-		"allowSyntheticDefaultImports": true,
-		"outDir": "out",
+		"module": "Node16",
+		"target": "ES2022",
+		"jsx": "react",
 		"lib": [
-			"ES2020",
+			"ES2022",
 			"dom"
 		],
 		"sourceMap": true,
 		"rootDir": "src",
 		"strict": true,
-		"esModuleInterop": true,
+		"typeRoots": [
+			"./node_modules/@types"
+		],
+		"types": [
+			"node",
+			"vscode",
+			"jest",
+			"@testing-library/jest-dom"
+		],
 		"skipLibCheck": true,
-		"baseUrl": "src",
-		"resolveJsonModule": true,
-		"forceConsistentCasingInFileNames": true
+		"outDir": "out"
 	},
 	"include": [
-		"src"
-	],
-	"exclude": [
-		"node_modules",
-		".vscode-test"
+		"src/**/*",
+		"test/**/*"
 	]
 }
