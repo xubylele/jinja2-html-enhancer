@@ -9,7 +9,7 @@ All notable changes to the "jinja2-html-enhancer" extension will be documented i
 - Update CHANGELOG.md to fix the version number.
 - Fix footer copyright.
 
-## [1.5.1] - 2025-01-14
+## [1.6.1] - 2025-01-14
 
 ### 🐛 Fixed v1.6.1
 
