@@ -2,6 +2,14 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
+## [1.7.3] - 2025-07-18
+
+### ✨ Added v1.7.3
+
+- **Token Color Customizations** (work in progress):
+  - Introducing a new configuration option `jinja2-html-enhancer.tokenColorCustomizations` to allow users to customize the colors of Jinja2 tokens in their templates.
+  - This feature will enhance the visual distinction of Jinja2 syntax elements, improving readability and user experience.
+
 ## [1.7.2] - 2025-07-17
 
 ### 🐛 Fixed v1.7.2
