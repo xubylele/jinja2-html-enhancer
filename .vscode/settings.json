@@ -11,4 +11,5 @@
 	"CodeGPT.apiKey": "CodeGPT Plus Beta",
 	"jinja2-html-enhancer.customVariables": {},
 	"jinja2-html-enhancer.toggleVariableCheck": true,
+	"jinja2-html-enhancer.tokenColorCustomizations": {},
 }

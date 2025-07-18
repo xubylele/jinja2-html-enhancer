@@ -27,5 +27,9 @@
 		"save": "Save '{{variable}}' in {{target}}.",
 		"globalTarget": "Global",
 		"workspaceTarget": "Workspace"
+	},
+	"theme": {
+		"themeChanged": "Tema cambiado a '{{theme}}'.",
+		"themeChangeFailed": "No se pudo cambiar el tema. {{error}}"
 	}
 }

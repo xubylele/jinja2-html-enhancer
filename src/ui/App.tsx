@@ -37,19 +37,19 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans">
-      <header className="py-4 bg-gray-200 dark:bg-gray-800 shadow">
-        <div className="container mx-auto px-6 flex justify-between items-center">
+      <header className="bg-gray-200 dark:bg-gray-800 shadow">
+        <div className="mx-auto w-full max-w-7xl px-6 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold">Jinja2 Enhanced</h1>
         </div>
       </header>
-      <main className="flex-grow container mx-auto p-6">
+      <main className="flex-grow w-full max-w-7xl mx-auto px-6 py-6">
         <VariablePanel
           usedVariables={params.usedVariables}
           setVariables={params.setVariables}
         />
       </main>
-      <footer className="py-4 bg-gray-200 dark:bg-gray-800 text-center mt-auto">
-        <p className="text-sm">Xubylele &copy; 2024</p>
+      <footer className="bg-gray-200 dark:bg-gray-800 text-center py-4 mt-auto">
+        <p className="text-sm">&copy; 2024 Xubylele</p>
       </footer>
     </div>
   );
