@@ -2,22 +2,30 @@
 
 All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
 
-## [1.7.2] - 2025-07-17
+## [1.8.3] - 2025-07-18
 
-### 🐛 Fixed v1.7.2
+### ✨ Added v1.8.3
+
+- **Token Color Customizations** (work in progress):
+  - Introducing a new configuration option `jinja2-html-enhancer.tokenColorCustomizations` to allow users to customize the colors of Jinja2 tokens in their templates.
+  - This feature will enhance the visual distinction of Jinja2 syntax elements, improving readability and user experience.
+
+## [1.8.2] - 2025-07-17
+
+### 🐛 Fixed v1.8.2
 
 - Update CHANGELOG.md to fix the version number.
 - Fix footer copyright.
 
-## [1.5.1] - 2025-01-14
+## [1.6.1] - 2025-01-14
 
-### 🐛 Fixed v1.5.1
+### 🐛 Fixed v1.6.1
 
 - Update CHANGELOG.md to fix the version number.
 
-## [1.5.0 - Pre-release] - 2025-01-13
+## [1.6.0 - Pre-release] - 2025-01-13
 
-### ✨ Added v1.5.0
+### ✨ Added v1.6.0
 
 - **VariablePanel Component**:
   - Introduced a dedicated component to display Jinja2 variables, improving usability and clarity.
@@ -30,7 +38,7 @@ All notable changes to the "jinja2-html-enhancer" extension will be documented i
 - **Build Validation**:
   - Added `validate-build.js` to ensure build integrity.
 
-### 🔧 Changed v1.5.0
+### 🔧 Changed v1.6.0
 
 - **Project Structure**:
   - Renamed `LICENSE.md` to `LICENSE.txt` for consistency.
@@ -42,7 +50,7 @@ All notable changes to the "jinja2-html-enhancer" extension will be documented i
 - **ESLint Configuration**:
   - Enhanced ESLint rules for better TypeScript support.
 
-### 🐛 Fixed v1.5.0
+### 🐛 Fixed v1.6.0
 
 - **Code Formatting**:
   - Corrected formatting issues in `variables.ts` and `extension.ts`.
