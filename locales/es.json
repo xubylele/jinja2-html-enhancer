@@ -13,7 +13,7 @@
 		"variableNotFound": "Variable no encontrada en configuración.",
 		"variableNotSaved": "Variable '{{variable}}' no guardada en configuración. {{error}}",
 		"configurationChangeFailed": "La configuración {{type}} no se pudo cambiar. {{error}}",
-		"themeChangeFailed": "error.themeChangeFailed"
+		"themeChangeFailed": "No se pudo cambiar el tema. {{error}}"
 	},
 	"warning": {
 		"noWorkspaceFolder": "No se encontró una carpeta de espacio de trabajo. Las variables se guardarán global",
@@ -30,7 +30,17 @@
 		"workspaceTarget": "Configuración de espacio de trabajo"
 	},
 	"theme": {
-		"themeChanged": "Tema cambiado a '{{theme}}'.",
-		"themeChangeFailed": "No se pudo cambiar el tema. {{error}}"
+		"selectAction": "Seleccionar acción de color Jinja2",
+		"selectActionPlaceholder": "Seleccionar una acción",
+		"apply": "🎨 Aplicar colores Jinja2",
+		"darkDefault": "Predeterminado oscuro",
+		"lightDefault": "Predeterminado claro",
+		"darkHighContrast": "Contraste alto oscuro",
+		"lightHighContrast": "Contraste alto claro",
+		"jinja2Colors": "Colores Jinja2",
+		"xubySelection": "Selección de Xuby",
+		"remove": "🧹 Eliminar colores Jinja2",
+		"cancel": "❌ Cancelar",
+		"themeChanged": "Tema cambiado a '{{theme}}'."
 	}
 }

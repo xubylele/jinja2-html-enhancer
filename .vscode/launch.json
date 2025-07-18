@@ -17,9 +17,7 @@
 				"--locale",
 				"en",
 				"--profile",
-				"empty",
-				"--workstation",
-				"/home/xubylele/jinja2-text.code-worspace"
+				"empty"
 			],
 			"sourceMaps": true
 		}

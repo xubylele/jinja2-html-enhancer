@@ -40,12 +40,6 @@
           "description": "%extension.configuration.toggleVariableCheck.description%",
           "default": false,
           "scope": "resource"
-        },
-        "jinja2-html-enhancer.tokenColorCustomizations": {
-          "type": "object",
-          "description": "%extension.configuration.tokenColorCustomizations.description%",
-          "default": {},
-          "scope": "resource"
         }
       }
     },
