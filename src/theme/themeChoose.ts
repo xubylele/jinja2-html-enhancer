@@ -1,9 +1,14 @@
 import * as vscode from 'vscode';
 import I18n from '../translations';
-import { darkDefaultTheme } from '../themes/darkDefaultTheme';
-import { lightDefaultTheme } from '../themes/lightDefaultTheme';
+import {
+  darkDefaultTheme,
+  darkHighContrast,
+  lightDefaultTheme,
+  lightHighContrast,
+  xubySelectionTheme,
+} from '../themes';
 
-type ThemeName = 'darkDefault' | 'lightDefault';
+type ThemeName = 'darkDefault' | 'lightDefault' | 'darkHighContrast' | 'lightHighContrast' | 'xubySelection';
 type Theme = {
   textMateRules: Array<{
     scope: string;
@@ -17,6 +22,9 @@ type Theme = {
 const themes: Record<ThemeName, Theme> = {
   darkDefault: darkDefaultTheme,
   lightDefault: lightDefaultTheme,
+  darkHighContrast: darkHighContrast,
+  lightHighContrast: lightHighContrast,
+  xubySelection: xubySelectionTheme
 };
 
 export const chooseThemeSelector = () => {
@@ -25,7 +33,6 @@ export const chooseThemeSelector = () => {
     { label: I18n.__('theme.lightDefault'), value: 'lightDefault' },
     { label: I18n.__('theme.darkHighContrast'), value: 'darkHighContrast' },
     { label: I18n.__('theme.lightHighContrast'), value: 'lightHighContrast' },
-    { label: I18n.__('theme.jinja2Colors'), value: 'jinja2Colors' },
     { label: I18n.__('theme.xubySelection'), value: 'xubySelection' }
   ];
 
@@ -65,7 +72,6 @@ export const chooseThemeSelector = () => {
     try {
       await vscode.workspace.getConfiguration().update('editor.tokenColorCustomizations', merged, target);
       vscode.window.showInformationMessage(I18n.__('theme.themeChanged', { theme: 'Jinja2' }));
-      await vscode.commands.executeCommand('workbench.action.reloadWindow');
     } catch (error) {
       console.error('Error changing theme:', error);
       vscode.window.showErrorMessage(I18n.__('error.themeChangeFailed', { error: String(error) }));

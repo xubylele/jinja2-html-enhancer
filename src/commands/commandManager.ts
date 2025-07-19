@@ -136,7 +136,6 @@ export class CommandManager {
       try {
         await vscode.workspace.getConfiguration().update('editor.tokenColorCustomizations', { textMateRules: updatedRules }, vscode.ConfigurationTarget.Global);
         vscode.window.showInformationMessage(I18n.__('theme.themeChanged', { theme: 'Default' }));
-        await vscode.commands.executeCommand('workbench.action.reloadWindow');
       } catch (error) {
         console.error('Error removing theme:', error);
         vscode.window.showErrorMessage(I18n.__('error.themeChangeFailed', { error: String(error) }));
