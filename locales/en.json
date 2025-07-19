@@ -12,7 +12,8 @@
 		"noActiveEditor": "No active editor found.",
 		"variableNotFound": "Variable not found in configuration.",
 		"variableNotSaved": "Variable '{{variable}}' not saved in configuration. {{error}}",
-		"configurationChangeFailed": "Configuration {{type}} change failed. {{error}}"
+		"configurationChangeFailed": "Configuration {{type}} change failed. {{error}}",
+		"themeChangeFailed": "Theme change failed. {{error}}"
 	},
 	"warning": {
 		"noWorkspaceFolder": "No workspace folder found. Variables will be saved globally.",
@@ -27,5 +28,19 @@
 		"save": "Save '{{variable}}' in {{target}}.",
 		"globalTarget": "Global",
 		"workspaceTarget": "Workspace"
+	},
+	"theme": {
+		"selectAction": "Select Jinja2 Color Action",
+		"selectActionPlaceholder": "Select an action",
+		"apply": "🎨 Apply Jinja2 Colors",
+		"remove": "🧹 Remove Jinja2 Colors",
+		"cancel": "❌ Cancel",
+		"themeChanged": "Theme changed to '{{theme}}'.",
+		"darkDefault": "Dark Default",
+		"lightDefault": "Light Default",
+		"darkHighContrast": "Dark High Contrast",
+		"lightHighContrast": "Light High Contrast",
+		"jinja2Colors": "Jinja2 Colors",
+		"xubySelection": "Xuby Selection"
 	}
 }

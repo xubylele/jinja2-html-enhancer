@@ -2,7 +2,7 @@
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 Enhance",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
-  "version": "1.8.3",
+  "version": "1.9.0",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
   "engines": {
@@ -16,6 +16,8 @@
     "url": "https://github.com/xubylele/jinja2-html-enhancer/issues"
   },
   "homepage": "https://github.com/xubylele/jinja2-html-enhancer#readme",
+  "changelog": "https://github.com/xubylele/jinja2-html-enhancer/blob/main/CHANGELOG.md",
+  "license": "MIT",
   "categories": [
     "Programming Languages"
   ],
@@ -38,12 +40,6 @@
           "description": "%extension.configuration.toggleVariableCheck.description%",
           "default": false,
           "scope": "resource"
-        },
-        "jinja2-html-enhancer.tokenColorCustomizations": {
-          "type": "object",
-          "description": "%extension.configuration.tokenColorCustomizations.description%",
-          "default": {},
-          "scope": "resource"
         }
       }
     },
@@ -63,6 +59,10 @@
       {
         "command": "extension.toggleVariableCheck",
         "title": "%toggleVariableCheck.title%"
+      },
+      {
+        "command": "extension.changeTheme",
+        "title": "%changeTheme.title%"
       }
     ],
     "languages": [
@@ -88,45 +88,45 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "@babel/preset-react": "^7.26.3",
-    "@babel/preset-typescript": "^7.26.0",
-    "@eslint-community/eslint-utils": "^4.4.1",
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@eslint-community/eslint-utils": "^4.7.0",
     "@eslint-community/regexpp": "^4.12.1",
-    "@eslint/config-array": "^0.19.1",
-    "@eslint/core": "^0.10.0",
-    "@eslint/eslintrc": "^3.2.0",
-    "@eslint/object-schema": "^2.1.5",
-    "@eslint/plugin-kit": "^0.2.5",
-    "@jest/globals": "^29.7.0",
+    "@eslint/config-array": "^0.21.0",
+    "@eslint/core": "^0.15.1",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/object-schema": "^2.1.6",
+    "@eslint/plugin-kit": "^0.3.3",
+    "@jest/globals": "^30.0.4",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.1.0",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/glob": "^8.1.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/glob": "^9.0.0",
     "@types/i18n": "^0.13.12",
-    "@types/jest": "^29.5.14",
+    "@types/jest": "^30.0.0",
     "@types/mocha": "^10.0.10",
-    "@types/node": "22.10.5",
-    "@types/react": "^19.0.4",
-    "@types/react-dom": "^19.0.2",
-    "@types/testing-library__jest-dom": "^5.14.9",
-    "@types/vscode": "1.96.0",
-    "@typescript-eslint/eslint-plugin": "^8.19.1",
-    "@typescript-eslint/parser": "^8.19.1",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1",
-    "babel-jest": "^29.7.0",
+    "@types/node": "24.0.14",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/testing-library__jest-dom": "^6.0.0",
+    "@types/vscode": "1.102.0",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "babel-jest": "^30.0.4",
     "downlevel-dts": "^0.11.0",
-    "esbuild": "^0.24.2",
-    "eslint": "^9.18.0",
+    "esbuild": "^0.25.6",
+    "eslint": "^9.31.0",
     "i18n": "^0.15.1",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
+    "jest": "^30.0.4",
+    "jest-environment-jsdom": "^30.0.4",
     "jest-specific-snapshot": "^8.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.4.2",
-    "typescript": "^5.7.3",
+    "prettier": "^3.6.2",
+    "typescript": "^5.8.3",
     "vscode-test": "^1.6.1"
   },
   "scripts": {
@@ -142,12 +142,13 @@
     "validate-build": "node validate-build.js"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.20",
+    "@tailwindcss/cli": "^4.1.11",
+    "autoprefixer": "^10.4.21",
     "coveralls": "^3.1.1",
-    "postcss": "^8.4.49",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "^3.4.17",
-    "uuid": "^11.0.5"
+    "postcss": "^8.5.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.11",
+    "uuid": "^11.1.0"
   }
 }

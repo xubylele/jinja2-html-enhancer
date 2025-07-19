@@ -22,12 +22,13 @@ export function activate(context: vscode.ExtensionContext) {
 	const openPanelDisposable = vscode.commands.registerCommand('extension.openVariablePanel', () => commandManager.openVariablePanel());
 	const saveVariableDisposable = vscode.commands.registerCommand('extension.saveVariable', (diagnosticMessage: string) => commandManager.saveVariable(diagnosticMessage));
 	const toggleVariableCheck = vscode.commands.registerCommand('extension.toggleVariableCheck', () => commandManager.changeConfiguration('toggleVariableCheck'));
-
+	const themeChangeDisposable = vscode.commands.registerCommand('extension.changeTheme', () => commandManager.changeTheme());
 
 	context.subscriptions.push(checkVariablesDisposable);
 	context.subscriptions.push(openPanelDisposable);
 	context.subscriptions.push(saveVariableDisposable);
 	context.subscriptions.push(toggleVariableCheck);
+	context.subscriptions.push(themeChangeDisposable);
 	context.subscriptions.push(
 		vscode.languages.registerCodeActionsProvider(
 			{ scheme: 'file', language: 'html' },
