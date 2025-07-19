@@ -16,8 +16,7 @@
 		"types": [
 			"node",
 			"vscode",
-			"jest",
-			"@testing-library/jest-dom"
+			"jest"
 		],
 		"skipLibCheck": true,
 		"outDir": "out"
