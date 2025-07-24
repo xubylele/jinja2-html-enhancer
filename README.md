@@ -6,9 +6,9 @@
 
 If you find this extension helpful, consider supporting the developer by buying them a coffee:
 
-<a href="https://www.buymeacoffee.com/xubylelec"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=xubylelec&button_colour=BD5FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00" /></a>
+<a href="https://www.buymeacoffee.com/xubylelec" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-## **1.9.0 Has Been Pre-Released!**
+## **1.10.0 Has Been Released!**
 
 This release includes new themes and an updated theme selection feature. You can now choose from multiple themes to customize your Jinja2 syntax highlighting experience.
 
