@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { chooseThemeSelector } from '../theme/themeChoose';
 import I18n from '../translations';
 import { VariablePanelManager } from '../ui/panels/variablePanel';
 import { extractVariableName, getVscodeConfigTarget } from '../utils/variables';
@@ -107,5 +108,40 @@ export class CommandManager {
     } catch (error) {
       vscode.window.showErrorMessage(I18n.__('error.variableNotSaved', { variable, error: String(error) }));
     }
+  }
+
+  public async changeTheme() {
+    const action = await vscode.window.showQuickPick(
+      [
+        { label: I18n.__('theme.apply'), value: 'apply' },
+        { label: I18n.__('theme.remove'), value: 'remove' },
+        { label: I18n.__('theme.cancel'), value: 'cancel' }
+      ],
+      {
+        title: I18n.__('theme.selectAction'),
+        placeHolder: I18n.__('theme.selectActionPlaceholder'),
+      }
+    );
+
+    if (!action || action.value === 'cancel') {
+      return;
+    }
+
+    if (action.value === 'remove') {
+      const currentTheme = vscode.workspace.getConfiguration('workbench').get('editor.tokenColorCustomizations', {});
+      const updatedRules = ((currentTheme as any)?.textMateRules || []).filter(
+        (rule: any) => !rule.scope.startsWith('jinja2')
+      );
+
+      try {
+        await vscode.workspace.getConfiguration().update('editor.tokenColorCustomizations', { textMateRules: updatedRules }, vscode.ConfigurationTarget.Global);
+        vscode.window.showInformationMessage(I18n.__('theme.themeChanged', { theme: 'Default' }));
+      } catch (error) {
+        console.error('Error removing theme:', error);
+        vscode.window.showErrorMessage(I18n.__('error.themeChangeFailed', { error: String(error) }));
+      }
+      return;
+    }
+    await chooseThemeSelector();
   }
 }

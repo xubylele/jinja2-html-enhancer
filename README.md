@@ -6,7 +6,11 @@
 
 If you find this extension helpful, consider supporting the developer by buying them a coffee:
 
-<a href="https://www.buymeacoffee.com/xubylelec"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=xubylelec&button_colour=BD5FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00" /></a>
+<a href="https://www.buymeacoffee.com/xubylelec" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+## **1.10.0 Has Been Released!**
+
+This release includes new themes and an updated theme selection feature. You can now choose from multiple themes to customize your Jinja2 syntax highlighting experience.
 
 ## Features
 
@@ -40,6 +44,18 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Use command "Toggle check jinja2 variable check" to toggle the feature.
   - Use configuration `Toggle check jinja2 variable check` to set the variable checking feature.
 
+- **Theme Support**:
+  - Choose from multiple themes for Jinja2 syntax highlighting.
+  - You can select a theme using the command "Choose Jinja2 Theme" from the command palette (`Ctrl+Shift+P`).
+  - Themes include:
+    - Dark Default
+    - Light Default
+    - Dark High Contrast
+    - Light High Contrast
+    - Xuby Selection (custom theme)
+  - Also you can change the theme colors on your settings:
+  - Enter `"editor.tokenColorCustomizations": { "textMateRules": [] }` in your settings.json file.
+
 ## Example
 
 Here's an example of the syntax highlighting in action:
@@ -53,6 +69,25 @@ And here's an example of the variable checking and UI variable panel:
 And here's an example of the variable saving in the configuration file:
 
 ![Variable Saving Example](https://i.imgur.com/7ojKh5D.gif)
+
+## Theme Selection
+
+You can choose from multiple themes for Jinja2 syntax highlighting. To select a theme, use the command "Choose Jinja2 Theme" from the command palette (`Ctrl+Shift+P`). The available themes are:
+
+Dark Default theme, which provides a dark background with contrasting colors for Jinja2 syntax.
+![Dark Default Theme Example](https://i.imgur.com/1wueoPs.png)
+
+Light Default theme, which provides a light background with contrasting colors for Jinja2 syntax.
+![Light Default Theme Example](https://i.imgur.com/DOOWGA4.png)
+
+Dark High Contrast theme, which provides a high contrast dark background for better visibility.
+![Dark High Contrast Theme Example](https://i.imgur.com/iNGNdrC.png)
+
+Light High Contrast theme, which provides a high contrast light background for better visibility.
+![Light High Contrast Theme Example](https://i.imgur.com/BqRi5yp.png)
+
+Xuby Selection theme, which is a custom theme with unique colors for Jinja2 syntax.
+![Xuby Selection Theme Example](https://i.imgur.com/gj7j9yQ.png)
 
 ## Installation
 

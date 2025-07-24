@@ -2,7 +2,7 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Run Extension",
+			"name": "Run Extension (Empty Profile)",
 			"type": "extensionHost",
 			"request": "launch",
 			"outFiles": [
@@ -12,10 +12,12 @@
 			"runtimeExecutable": "${execPath}",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--folder-uri=file://${workspaceFolder}",
+				"--user-data-dir=${workspaceFolder}/.vscode-test-profile",
 				"--disable-extensions",
 				"--locale",
-				"en"
+				"en",
+				"--profile",
+				"empty"
 			],
 			"sourceMaps": true
 		}
