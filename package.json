@@ -139,6 +139,8 @@
     "package": "npm run check-types && npm run lint && npm run build:tailwind && node esbuild.js --production && npm run validate-build",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
+    "test": "jest --runInBand",
+    "test:coverage": "jest --coverage --runInBand",
     "build:tailwind": "npx tailwindcss -i ./src/ui/css/tailwind.css -o ./out/css/output.css --minify",
     "validate-build": "node validate-build.js"
   },

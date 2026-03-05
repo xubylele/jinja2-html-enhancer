@@ -1,17 +1,14 @@
-name: Release VS Code Extension
+name: CI
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-    paths:
-      - package.json
-      - CHANGELOG.md
-  workflow_dispatch:
+      - pre-release
 
 jobs:
-  release:
-    name: Build, Lint, Package, and Publish to VS Code
+  build-lint:
+    name: Build, Lint, Test, and Package
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -29,28 +26,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install vsce
-        run: npm install -g @vscode/vsce
+      - name: Install tools (vsce + xvfb)
+        run: |
+          npm install -g @vscode/vsce
+          sudo apt-get update
+          sudo apt-get install -y xvfb
 
       - name: Build extension
         run: npm run build
+
+      - name: Run tests with coverage (headless)
+        run: xvfb-run -a npm run test:coverage
 
       - name: Lint
         run: npm run lint
 
       - name: Package VSIX
-        run: npx vsce package
+        run: vsce package
 
       - name: Get VSIX filename
         id: vsix
         run: echo "file=$(ls *.vsix)" >> $GITHUB_OUTPUT
 
-      - name: Publish VS Code Stable
-        if: github.ref_name == 'main'
-        run: npx vsce publish --pat "${{ secrets.VSCE_PAT }}" --no-update-package-json --packagePath "${{ steps.vsix.outputs.file }}"
-
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
         with:
-          name: schema-forge-vsix-vscode-${{ github.ref_name }}-${{ github.sha }}
-          path: "*.vsix"
+          name: jinja2-html-enhancer-vsix-${{ github.event.pull_request.number }}-${{ github.sha }}
+          path: "${{ steps.vsix.outputs.file }}"
