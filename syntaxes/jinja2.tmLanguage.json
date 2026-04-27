@@ -1,10 +1,7 @@
 {
   "scopeName": "text.html.jinja2",
-  "injectionSelector": "text.html",
+  "injectionSelector": "L:text.html",
   "patterns": [
-    {
-      "include": "text.html.basic"
-    },
     {
       "name": "meta.tag.jinja2",
       "begin": "{%",
