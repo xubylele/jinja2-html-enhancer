@@ -19,6 +19,10 @@ export const xubySelectionTheme = {
     {
       scope: 'punctuation.section.group.begin.jinja2, punctuation.section.group.end.jinja2',
       settings: { foreground: '#ec8fd0' }
+    },
+    {
+      scope: 'comment.block.jinja2',
+      settings: { foreground: '#9E86A0', fontStyle: 'italic' }
     }
   ]
 };

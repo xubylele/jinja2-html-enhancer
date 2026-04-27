@@ -2,7 +2,7 @@
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 Enhance",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
-  "version": "1.10.4",
+  "version": "1.11.0",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
   "engines": {
@@ -63,6 +63,18 @@
       {
         "command": "extension.changeTheme",
         "title": "%changeTheme.title%"
+      },
+      {
+        "command": "extension.toggleJinja2Comment",
+        "title": "%toggleJinja2Comment.title%"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.toggleJinja2Comment",
+        "key": "ctrl+/",
+        "mac": "cmd+/",
+        "when": "editorTextFocus && editorLangId == 'html'"
       }
     ],
     "languages": [
@@ -140,10 +152,12 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "jest --runInBand",
+    "test:ci": "jest --runInBand --ci",
     "test:coverage": "jest --coverage --runInBand",
     "build:tailwind": "npx tailwindcss -i ./src/ui/css/tailwind.css -o ./out/css/output.css --minify",
     "validate-build": "node validate-build.js",
     "changeset": "npx changeset",
+    "changeset:check": "node -e \"const f=require('fs').readdirSync('.changeset').filter(n=>n.endsWith('.md')&&n!=='README.md');if(!f.length){process.stderr.write('No changeset found. Run: npm run changeset\\n');process.exit(1)}else{console.log('Changesets found:',f.join(', '))}\"",
     "version": "npx changeset version && npm install"
   },
   "dependencies": {

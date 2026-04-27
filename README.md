@@ -8,9 +8,9 @@ If you find this extension helpful, consider supporting the developer by buying 
 
 <a href="https://www.buymeacoffee.com/xubylelec" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-## **1.10.0 Has Been Released!**
+## **1.11.0 Has Been Released!**
 
-This release includes new themes and an updated theme selection feature. You can now choose from multiple themes to customize your Jinja2 syntax highlighting experience.
+This release introduces Jinja2-native comment toggling. Pressing `Ctrl+/` (`Cmd+/` on macOS) in any `.html` file now inserts `{# #}` instead of `<!-- -->`, so your comments are always valid Jinja2 syntax.
 
 ## Features
 
@@ -43,6 +43,12 @@ This release includes new themes and an updated theme selection feature. You can
   - Useful for debugging or when you want to temporarily disable variable checking.
   - Use command "Toggle check jinja2 variable check" to toggle the feature.
   - Use configuration `Toggle check jinja2 variable check` to set the variable checking feature.
+
+- **Jinja2 Comment Toggling**:
+  - Press `Ctrl+/` (`Cmd+/` on macOS) to toggle Jinja2-style comments `{# #}` on the current line or selected lines.
+  - Automatically detects whether a line is already commented and toggles accordingly.
+  - Works with single lines and multi-line selections — all selected lines are commented or uncommented together.
+  - Preserves indentation when adding or removing comment markers.
 
 - **Theme Support**:
   - Choose from multiple themes for Jinja2 syntax highlighting.

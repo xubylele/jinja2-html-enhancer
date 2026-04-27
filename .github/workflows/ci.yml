@@ -5,44 +5,68 @@ on:
     branches:
       - main
       - pre-release
+      - develop
+  push:
+    branches:
+      - main
 
 jobs:
-  build-lint:
-    name: Build, Lint, Test, and Package
+  ci:
+    name: Test & Changeset Check
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     permissions:
       contents: read
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
 
-      - name: Install tools (vsce + xvfb)
+      - name: Run tests
+        run: npm run test:ci
+
+      - name: Fail if changeset files exist (PR → main/pre*)
+        if: github.base_ref == 'main' || startsWith(github.base_ref, 'pre')
         run: |
-          npm install -g @vscode/vsce
-          sudo apt-get update
-          sudo apt-get install -y xvfb
+          files=$(find .changeset -name "*.md" ! -name "README.md")
+          if [ -n "$files" ]; then
+            echo "::error::Changeset files found. Consume them before merging to ${{ github.base_ref }}."
+            echo "$files"
+            exit 1
+          fi
 
-      - name: Build extension
-        run: npm run build
+      - name: Fail if no changeset (PR → develop)
+        if: github.base_ref == 'develop'
+        run: npm run changeset:check
 
-      - name: Run tests with coverage (headless)
-        run: xvfb-run -a npm run test:coverage
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
 
-      - name: Lint
-        run: npm run lint
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Package VSIX
-        run: vsce package
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+
+      - name: Package extension
+        run: npm run package
 
       - name: Get VSIX filename
         id: vsix
@@ -51,5 +75,5 @@ jobs:
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
         with:
-          name: jinja2-html-enhancer-vsix-${{ github.event.pull_request.number }}-${{ github.sha }}
-          path: "${{ steps.vsix.outputs.file }}"
+          name: jinja2-html-enhancer-vsix-${{ github.sha }}
+          path: ${{ steps.vsix.outputs.file }}

@@ -19,6 +19,10 @@ export const darkDefaultTheme = {
     {
       scope: 'punctuation.section.group.begin.jinja2, punctuation.section.group.end.jinja2',
       settings: { foreground: '#FF66FF' }
+    },
+    {
+      scope: 'comment.block.jinja2',
+      settings: { foreground: '#6A9955', fontStyle: 'italic' }
     }
   ]
 };

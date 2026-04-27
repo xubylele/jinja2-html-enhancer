@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { QuickFixProvider } from './codeActions/quickFixProvider';
 import { CommandManager } from './commands/commandManager';
+import { CommentToggle } from './commands/commentToggle';
 import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
 import I18n, { setupI18n } from './translations';
 import { VariablePanelManager } from './ui/panels/variablePanel';
@@ -17,18 +18,21 @@ export function activate(context: vscode.ExtensionContext) {
 	const variablePanelManager = new VariablePanelManager(context, fileWatcher);
 
 	const commandManager = new CommandManager(fileWatcher, variablePanelManager);
+	const commentToggle = new CommentToggle();
 
 	const checkVariablesDisposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => commandManager.checkVariables());
 	const openPanelDisposable = vscode.commands.registerCommand('extension.openVariablePanel', () => commandManager.openVariablePanel());
 	const saveVariableDisposable = vscode.commands.registerCommand('extension.saveVariable', (diagnosticMessage: string) => commandManager.saveVariable(diagnosticMessage));
 	const toggleVariableCheck = vscode.commands.registerCommand('extension.toggleVariableCheck', () => commandManager.changeConfiguration('toggleVariableCheck'));
 	const themeChangeDisposable = vscode.commands.registerCommand('extension.changeTheme', () => commandManager.changeTheme());
+	const toggleCommentDisposable = vscode.commands.registerCommand('extension.toggleJinja2Comment', () => commentToggle.toggle());
 
 	context.subscriptions.push(checkVariablesDisposable);
 	context.subscriptions.push(openPanelDisposable);
 	context.subscriptions.push(saveVariableDisposable);
 	context.subscriptions.push(toggleVariableCheck);
 	context.subscriptions.push(themeChangeDisposable);
+	context.subscriptions.push(toggleCommentDisposable);
 	context.subscriptions.push(
 		vscode.languages.registerCodeActionsProvider(
 			{ scheme: 'file', language: 'html' },
