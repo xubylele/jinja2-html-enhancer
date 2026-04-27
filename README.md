@@ -96,7 +96,9 @@ Xuby Selection theme, which is a custom theme with unique colors for Jinja2 synt
 3. Search for `Jinja2 Enhance`.
 4. Click **Install**.
 
-Alternatively, you can install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer).
+Alternatively, you can install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer) or the [Open VSX Registry](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer).
+
+[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/Xubylele.jinja2-html-enhancer)](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer) [![Open VSX](https://img.shields.io/open-vsx/v/xubylele/jinja2-html-enhancer)](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer)
 
 ## Usage
 
