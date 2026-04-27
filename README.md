@@ -120,6 +120,10 @@ Alternatively, you can install the extension from the [Visual Studio Code Market
 
 You can customize the colors used for Jinja2 syntax highlighting by modifying your VSCode theme settings. For example, to change the color of keywords and filters, you can add the following to your settings:
 
+## Roadmap
+
+Curious about what's coming next? Check out the [**Roadmap**](ROADMAP.md) for the full list of planned features — including upcoming free improvements, and what's on the horizon for Pro and Team tiers.
+
 ## Contributing
 
 If you want to contribute to this project, feel free to submit issues or pull requests in the [GitHub repository](https://github.com/xubylele/jinja2-html-enhancer?tab=readme-ov-file)

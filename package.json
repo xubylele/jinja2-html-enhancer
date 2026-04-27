@@ -2,7 +2,7 @@
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 Enhance",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
-  "version": "1.10.3",
+  "version": "1.10.4",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
   "engines": {
@@ -143,8 +143,8 @@
     "test:coverage": "jest --coverage --runInBand",
     "build:tailwind": "npx tailwindcss -i ./src/ui/css/tailwind.css -o ./out/css/output.css --minify",
     "validate-build": "node validate-build.js",
-    "changeset": "npm changeset",
-    "version": "npm changeset version"
+    "changeset": "npx changeset",
+    "version": "npx changeset version && npm install"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.2.4",
