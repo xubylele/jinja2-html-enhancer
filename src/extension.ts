@@ -53,6 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
 			).then(selection => {
 				if (selection === leaveLabel) {
 					vscode.env.openExternal(vscode.Uri.parse('https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer'));
+					vscode.env.openExternal(vscode.Uri.parse('https://open-vsx.org/extension/xubylele/jinja2-html-enhancer'));
 					context.globalState.update('jinja2.reviewRequested', true);
 				} else if (selection === neverLabel) {
 					context.globalState.update('jinja2.reviewRequested', true);

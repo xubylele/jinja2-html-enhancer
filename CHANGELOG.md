@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.10.3
+
+### Patch Changes
+
+- add openvsx link to README.md.
+
 ## 1.10.2
 
 ### Patch Changes
