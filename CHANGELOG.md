@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.10.4
+
+### Patch Changes
+
+- fix changelog issue and add ROADMAP to set the future features and improvements of the extension.
+
 ## 1.10.3
 
 ### Patch Changes
