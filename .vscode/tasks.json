@@ -4,7 +4,7 @@
 		{
 			"label": "build",
 			"type": "shell",
-			"command": "yarn run build",
+			"command": "npm run build",
 			"problemMatcher": [],
 			"group": {
 				"kind": "build",
@@ -15,7 +15,7 @@
 		{
 			"label": "watch",
 			"type": "shell",
-			"command": "yarn run watch",
+			"command": "npm run watch",
 			"problemMatcher": [],
 			"isBackground": true,
 			"group": {

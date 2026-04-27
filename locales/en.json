@@ -1,46 +1,55 @@
 {
 	"variable": {
-		"variableNotSet": "Variable '{{variable}}' is used but has not been set. Make sure it's defined.",
-		"checkingVariables": "Checking Jinja2 variables...",
-		"variablesChecked": "Variables checked."
+		"variableNotSet": "⚠️ Variable '{{variable}}' is used but has not been set. Make sure it's defined.",
+		"checkingVariables": "🔍 Checking Jinja2 variables...",
+		"variablesChecked": "✅ Variables checked."
 	},
 	"analyzer": {
-		"analyzingDocument": "Analyzing document...",
-		"analysisComplete": "Jinja2 variable analysis complete."
+		"analyzingDocument": "🔄 Analyzing document...",
+		"analysisComplete": "✅ Jinja2 variable analysis complete."
 	},
 	"error": {
-		"noActiveEditor": "No active editor found.",
-		"variableNotFound": "Variable not found in configuration.",
-		"variableNotSaved": "Variable '{{variable}}' not saved in configuration. {{error}}",
-		"configurationChangeFailed": "Configuration {{type}} change failed. {{error}}",
-		"themeChangeFailed": "Theme change failed. {{error}}"
+		"noActiveEditor": "❌ No active editor found.",
+		"variableNotFound": "❌ Variable not found in configuration.",
+		"variableNotSaved": "❌ Variable '{{variable}}' not saved in configuration. {{error}}",
+		"configurationChangeFailed": "❌ Configuration {{type}} change failed. {{error}}",
+		"themeChangeFailed": "❌ Theme change failed. {{error}}"
 	},
 	"warning": {
-		"noWorkspaceFolder": "No workspace folder found. Variables will be saved globally.",
-		"variableExists": "Variable '{{variable}}' already exists in {{target}}.",
-		"noToggleVariableCheck": "Toggle variable check is not active in this editor."
+		"noWorkspaceFolder": "⚠️ No workspace folder found. Variables will be saved globally.",
+		"variableExists": "⚠️ Variable '{{variable}}' already exists in {{target}}.",
+		"noToggleVariableCheck": "⚠️ Toggle variable check is not active in this editor."
 	},
 	"configuration": {
-		"toggleVariableCheck": "Toggle variable check",
-		"configurationChanged": "Configuration '{{type}}' changed."
+		"toggleVariableCheck": "🔄 Toggle variable check",
+		"configurationChanged": "✅ Configuration '{{type}}' changed."
 	},
 	"quickFix": {
-		"save": "Save '{{variable}}' in {{target}}.",
-		"globalTarget": "Global",
-		"workspaceTarget": "Workspace"
+		"save": "💾 Save '{{variable}}' in {{target}}.",
+		"globalTarget": "🌐 Global",
+		"workspaceTarget": "📁 Workspace"
+	},
+	"review": {
+		"welcomeMessage": "👋 Welcome to Jinja2 Enhance! Check out the extension settings to customize your experience.",
+		"message": "✨ Enjoying Jinja2 Enhance? A quick review helps a lot",
+		"action": {
+			"leave": "⭐ Leave a review",
+			"later": "⏰ Maybe later",
+			"never": "🚫 Dont ask again"
+		}
 	},
 	"theme": {
-		"selectAction": "Select Jinja2 Color Action",
+		"selectAction": "🎨 Select Jinja2 Color Action",
 		"selectActionPlaceholder": "Select an action",
 		"apply": "🎨 Apply Jinja2 Colors",
 		"remove": "🧹 Remove Jinja2 Colors",
 		"cancel": "❌ Cancel",
-		"themeChanged": "Theme changed to '{{theme}}'.",
-		"darkDefault": "Dark Default",
-		"lightDefault": "Light Default",
-		"darkHighContrast": "Dark High Contrast",
-		"lightHighContrast": "Light High Contrast",
-		"jinja2Colors": "Jinja2 Colors",
-		"xubySelection": "Xuby Selection"
+		"themeChanged": "🎨 Theme changed to '{{theme}}'.",
+		"darkDefault": "🌙 Dark Default",
+		"lightDefault": "☀️ Light Default",
+		"darkHighContrast": "🌑 Dark High Contrast",
+		"lightHighContrast": "🌕 Light High Contrast",
+		"jinja2Colors": "🎨 Jinja2 Colors",
+		"xubySelection": "⭐ Xuby Selection"
 	}
 }
