@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.10.2
+
+### Patch Changes
+
+- Fix HTML comment injection inside `<style>` and `<script>` blocks
+  - Removed `"include": "text.html.basic"` from the injection grammar. Re-including it inside an injection grammar caused HTML comment patterns to bleed into embedded CSS and JS scopes.
+  - Removed `"language": "html"` from the grammar contribution in `package.json`, converting it to a pure injection grammar. VS Code's built-in HTML grammar now handles HTML parsing; this extension only injects Jinja2 patterns on top.
+  - Changed `injectionSelector` from `"text.html"` to `"L:text.html"` so Jinja2 `{% %}` and `{{ }}` patterns are still applied inside `<style>` and `<script>` blocks.
+
 ## 1.10.1
 
 ### Patch Changes
