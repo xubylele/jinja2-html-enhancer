@@ -1,6 +1,13 @@
 # Change Log
 
-All notable changes to the "jinja2-html-enhancer" extension will be documented in this file.
+## 1.10.1
+
+### Patch Changes
+
+- Add review prompt after 7 days of use
+  - Added a review prompt that appears after 7 days of first activation, asking users to leave a review on the VS Code Marketplace. Tracks state via `globalState` keys `jinja2.firstActivation` and `jinja2.reviewRequested`.
+  - Added NLS localization keys for the review prompt in `package.nls.json` and `package.nls.es.json`.
+  - Updated `activate()` in `extension.ts` to include review prompt logic.
 
 ## [1.10.0] - 2025-07-24 Release
 
