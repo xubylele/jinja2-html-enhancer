@@ -5,16 +5,16 @@ on:
     branches:
       - main
       - pre-release
+      - develop
   push:
     branches:
-      - develop
       - main
 
 jobs:
   ci:
     name: Test & Changeset Check
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/develop'
+    if: github.event_name == 'pull_request'
     permissions:
       contents: read
 
@@ -32,7 +32,7 @@ jobs:
         run: npm run test:ci
 
       - name: Fail if changeset files exist (PR → main/pre*)
-        if: github.event_name == 'pull_request'
+        if: github.base_ref == 'main' || startsWith(github.base_ref, 'pre')
         run: |
           files=$(find .changeset -name "*.md" ! -name "README.md")
           if [ -n "$files" ]; then
@@ -41,8 +41,8 @@ jobs:
             exit 1
           fi
 
-      - name: Fail if no changeset (push → develop)
-        if: github.ref == 'refs/heads/develop'
+      - name: Fail if no changeset (PR → develop)
+        if: github.base_ref == 'develop'
         run: npm run changeset:check
 
   deploy:
