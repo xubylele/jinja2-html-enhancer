@@ -6,7 +6,11 @@
 
 If you find this extension helpful, consider supporting the developer by buying them a coffee:
 
-<a href="https://www.buymeacoffee.com/xubylelec"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=xubylelec&button_colour=BD5FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00" /></a>
+<a href="https://www.buymeacoffee.com/xubylelec" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+## **1.11.0 Has Been Released!**
+
+This release introduces Jinja2-native comment toggling. Pressing `Ctrl+/` (`Cmd+/` on macOS) in any `.html` file now inserts `{# #}` instead of `<!-- -->`, so your comments are always valid Jinja2 syntax.
 
 ## **1.9.0 Has Been Pre-Released!**
 
@@ -43,6 +47,12 @@ This release includes new themes and an updated theme selection feature. You can
   - Useful for debugging or when you want to temporarily disable variable checking.
   - Use command "Toggle check jinja2 variable check" to toggle the feature.
   - Use configuration `Toggle check jinja2 variable check` to set the variable checking feature.
+
+- **Jinja2 Comment Toggling**:
+  - Press `Ctrl+/` (`Cmd+/` on macOS) to toggle Jinja2-style comments `{# #}` on the current line or selected lines.
+  - Automatically detects whether a line is already commented and toggles accordingly.
+  - Works with single lines and multi-line selections — all selected lines are commented or uncommented together.
+  - Preserves indentation when adding or removing comment markers.
 
 - **Theme Support**:
   - Choose from multiple themes for Jinja2 syntax highlighting.
@@ -96,7 +106,9 @@ Xuby Selection theme, which is a custom theme with unique colors for Jinja2 synt
 3. Search for `Jinja2 Enhance`.
 4. Click **Install**.
 
-Alternatively, you can install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer).
+Alternatively, you can install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer) or the [Open VSX Registry](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer).
+
+[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/Xubylele.jinja2-html-enhancer)](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer) [![Open VSX](https://img.shields.io/open-vsx/v/xubylele/jinja2-html-enhancer)](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer)
 
 ## Usage
 
@@ -117,6 +129,10 @@ Alternatively, you can install the extension from the [Visual Studio Code Market
 ## Customization
 
 You can customize the colors used for Jinja2 syntax highlighting by modifying your VSCode theme settings. For example, to change the color of keywords and filters, you can add the following to your settings:
+
+## Roadmap
+
+Curious about what's coming next? Check out the [**Roadmap**](ROADMAP.md) for the full list of planned features — including upcoming free improvements, and what's on the horizon for Pro and Team tiers.
 
 ## Contributing
 

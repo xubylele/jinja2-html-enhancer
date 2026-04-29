@@ -26,3 +26,6 @@ tailwind.config.js
 !out/css/output.css
 !package.nls.json
 !package.nls.*.json
+!CHANGELOG.md
+!README.md
+!ROADMAP.md

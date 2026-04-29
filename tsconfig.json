@@ -8,7 +8,7 @@
 			"dom"
 		],
 		"sourceMap": true,
-		"rootDir": "src",
+		"rootDir": ".",
 		"strict": true,
 		"typeRoots": [
 			"./node_modules/@types"
