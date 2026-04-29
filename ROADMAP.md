@@ -14,6 +14,7 @@ Everything below is free and ships with the extension right now.
 - Variable highlighting inside `{{ }}` expressions
 - Pipe filter highlighting — `| capitalize`, `| length`, `| lower`, etc.
 - Works inside `<style>` and `<script>` blocks, not just HTML content
+- **`{# #}` comment toggling** — Jinja2 uses `{# #}` for comments, not `<!-- -->`. Pressing the comment shortcut (`Ctrl+/`) or (`Cmd+/`) will insert the correct syntax
 
 ### 🎭 Themes
 
@@ -40,12 +41,16 @@ Everything below is free and ships with the extension right now.
 
 ---
 
+### ⌨️ Code Snippets
+
+- 10 built-in snippets for Jinja2 control structures — type `for`, `if`, `ife`, `block`, `extends`, `include`, `set`, `macro`, `with`, or `filter` and press `Tab` to expand
+
+---
+
 ## 🔜 Coming Soon — Still Free
 
 These improvements are small and foundational — they'll ship in an upcoming free update.
 
-- **`{# #}` comment toggling** — Jinja2 uses `{# #}` for comments, not `<!-- -->`. Pressing the comment shortcut (`Ctrl+/`) will insert the correct syntax
-- **Code snippets** — type `for`, `if`, or `block` and get a ready-to-use Jinja2 snippet
 - **File icon support** — `.jinja2`, `.j2`, and `.jinja` files will get a proper icon in the file explorer
 
 ---
@@ -176,7 +181,7 @@ Here's the order features will be tackled, prioritized by daily impact vs. effor
 | # | Feature | Tier | Impact |
 | --- | --- | --- | --- |
 | 1 | `{# #}` comment toggling | Free | Used every day — wrong comment syntax is constantly annoying |
-| 2 | Code snippets | Free | Speeds up writing boilerplate control structures |
+| 2 | ~~Code snippets~~ | Free | ✅ Shipped — speeds up writing boilerplate control structures |
 | 3 | Filter docs on hover | Pro | Easy win — filter list is finite and well-documented |
 | 4 | Advanced linting rules | Pro | Builds on the existing warning system |
 | 5 | Macro IntelliSense | Pro | The grammar already recognizes macros — completion is the next step |

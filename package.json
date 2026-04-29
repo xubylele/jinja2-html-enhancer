@@ -96,6 +96,12 @@
           "text.html"
         ]
       }
+    ],
+    "snippets": [
+      {
+        "language": "html",
+        "path": "./snippets/jinja2.json"
+      }
     ]
   },
   "devDependencies": {

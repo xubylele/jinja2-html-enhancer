@@ -1,0 +1,52 @@
+{
+  "For Loop": {
+    "prefix": ["for"],
+    "body": ["{% for ${1:item} in ${2:items} %}", "\t$0", "{% endfor %}"],
+    "description": "Jinja2 for loop"
+  },
+  "If Statement": {
+    "prefix": ["if"],
+    "body": ["{% if ${1:condition} %}", "\t$0", "{% endif %}"],
+    "description": "Jinja2 if statement"
+  },
+  "If Elif Else": {
+    "prefix": ["ife"],
+    "body": ["{% if ${1:condition} %}", "\t$2", "{% elif ${3:condition} %}", "\t$4", "{% else %}", "\t$5", "{% endif %}"],
+    "description": "Jinja2 if/elif/else statement"
+  },
+  "Block": {
+    "prefix": ["block"],
+    "body": ["{% block ${1:name} %}", "\t$0", "{% endblock %}"],
+    "description": "Jinja2 block definition"
+  },
+  "Extends": {
+    "prefix": ["extends"],
+    "body": ["{% extends \"${1:base.html}\" %}"],
+    "description": "Jinja2 template inheritance"
+  },
+  "Include": {
+    "prefix": ["include"],
+    "body": ["{% include \"${1:partial.html}\" %}"],
+    "description": "Jinja2 include template"
+  },
+  "Set Variable": {
+    "prefix": ["set"],
+    "body": ["{% set ${1:var} = ${2:value} %}"],
+    "description": "Jinja2 set variable"
+  },
+  "Macro": {
+    "prefix": ["macro"],
+    "body": ["{% macro ${1:name}(${2:args}) %}", "\t$0", "{% endmacro %}"],
+    "description": "Jinja2 macro definition"
+  },
+  "With Block": {
+    "prefix": ["with"],
+    "body": ["{% with ${1:var}=${2:value} %}", "\t$0", "{% endwith %}"],
+    "description": "Jinja2 with block"
+  },
+  "Filter Block": {
+    "prefix": ["filter"],
+    "body": ["{% filter ${1:name} %}", "\t$0", "{% endfilter %}"],
+    "description": "Jinja2 filter block"
+  }
+}

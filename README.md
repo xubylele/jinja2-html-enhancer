@@ -8,13 +8,9 @@ If you find this extension helpful, consider supporting the developer by buying 
 
 <a href="https://www.buymeacoffee.com/xubylelec" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-## **1.11.0 Has Been Released!**
+## **Code Snippets Just Landed!**
 
-This release introduces Jinja2-native comment toggling. Pressing `Ctrl+/` (`Cmd+/` on macOS) in any `.html` file now inserts `{# #}` instead of `<!-- -->`, so your comments are always valid Jinja2 syntax.
-
-## **1.9.0 Has Been Pre-Released!**
-
-This release includes new themes and an updated theme selection feature. You can now choose from multiple themes to customize your Jinja2 syntax highlighting experience.
+Type `for`, `if`, `block`, `extends`, `include`, `set`, `macro`, `with`, or `filter` in any `.html` file and get a ready-to-use Jinja2 snippet with placeholder tabstops. Press `Tab` to jump between fields.
 
 ## Features
 
