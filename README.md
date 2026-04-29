@@ -136,6 +136,8 @@ You can customize the colors used for Jinja2 syntax highlighting by modifying yo
 
 Curious about what's coming next? Check out the [**Roadmap**](ROADMAP.md) for the full list of planned features — including upcoming free improvements, and what's on the horizon for Pro and Team tiers.
 
+> ℹ️ **Note about Pro & shared code.** This repository (the free extension) remains MIT and open source. The Pro / Team feature set, and the underlying `jinja2-enhanced-shared` analyzer package that both extensions consume, are developed in **separate, private repositories** and are not part of this codebase. Pro is distributed only via the paid Marketplace listing.
+
 ## Contributing
 
 If you want to contribute to this project, feel free to submit issues or pull requests in the [GitHub repository](https://github.com/xubylele/jinja2-html-enhancer?tab=readme-ov-file)

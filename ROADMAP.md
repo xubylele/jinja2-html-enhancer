@@ -1,6 +1,7 @@
 # 🗺️ Jinja2 Enhance — Roadmap
 
 > This document describes what the extension does today, what's coming next for free, and what's planned for paid tiers. Feature suggestions are always welcome — [open an issue on GitHub](https://github.com/xubylele/jinja2-html-enhancer/issues).
+> 🔒 **Where the code lives.** This repository ships the **free** extension and is MIT-licensed. The **Pro** and **Team** features listed below are implemented in a separate, **private** repository (`jinja2-html-enhancer-pro`). The shared analyzer package (`jinja2-enhanced-shared`) that both the free and Pro extensions consume is also a separate, private repository, distributed over git+ssh by tag. Issues and pull requests against Pro/Team features cannot be accepted here — track them in the Marketplace listing's support channel.
 
 ---
 
