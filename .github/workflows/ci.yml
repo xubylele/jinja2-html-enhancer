@@ -42,7 +42,7 @@ jobs:
           fi
 
       - name: Fail if no changeset (PR → develop)
-        if: github.base_ref == 'develop'
+        if: github.base_ref == 'develop' && github.head_ref != 'pre-release' && github.head_ref != 'main'
         run: npm run changeset:check
 
   deploy:
