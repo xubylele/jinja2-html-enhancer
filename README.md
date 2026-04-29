@@ -2,15 +2,21 @@
 
 **Jinja2 Enhance** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
+## What's New
+
+### **File Icon Support Just Landed!**
+
+Files with `.jinja2`, `.j2`, and `.jinja` extensions now display a proper Jinja2 icon in the VS Code file explorer, making it easy to spot your template files at a glance.
+
+### **Code Snippets Just Landed!**
+
+Type `for`, `if`, `block`, `extends`, `include`, `set`, `macro`, `with`, or `filter` in any `.html` file and get a ready-to-use Jinja2 snippet with placeholder tabstops. Press `Tab` to jump between fields.
+
 ## Donations
 
 If you find this extension helpful, consider supporting the developer by buying them a coffee:
 
 <a href="https://www.buymeacoffee.com/xubylelec" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
-
-## **Code Snippets Just Landed!**
-
-Type `for`, `if`, `block`, `extends`, `include`, `set`, `macro`, `with`, or `filter` in any `.html` file and get a ready-to-use Jinja2 snippet with placeholder tabstops. Press `Tab` to jump between fields.
 
 ## Features
 

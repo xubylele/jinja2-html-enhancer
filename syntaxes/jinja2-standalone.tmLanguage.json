@@ -1,0 +1,63 @@
+{
+  "scopeName": "text.jinja2",
+  "patterns": [
+    {
+      "name": "comment.block.jinja2",
+      "begin": "\\{#",
+      "end": "#\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.comment.begin.jinja2" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.comment.end.jinja2" }
+      }
+    },
+    {
+      "name": "meta.tag.jinja2",
+      "begin": "{%",
+      "end": "%}",
+      "captures": {
+        "0": { "name": "punctuation.definition.tag.jinja2" }
+      },
+      "patterns": [
+        {
+          "match": "\\b(for|endfor|if|endif|else|elif|block|endblock|extends|include|set|macro|endmacro|call|endcall|import|with|endwith|filter|endfilter|raw|endraw)\\b",
+          "name": "keyword.control.jinja2"
+        },
+        {
+          "match": "\\|\\s*(capitalize|default|length|lower|upper|sort|join|replace|trim|reverse|first|last|escape|batch|round|abs|float|int)\\b",
+          "name": "entity.filter.jinja2"
+        }
+      ]
+    },
+    {
+      "name": "meta.interpolation.jinja2",
+      "begin": "{{",
+      "end": "}}",
+      "captures": {
+        "0": { "name": "punctuation.definition.interpolation.jinja2" }
+      },
+      "patterns": [
+        {
+          "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b",
+          "name": "variable.interpolation.jinja2"
+        },
+        {
+          "match": "\\|\\s*(capitalize|default|length|lower|upper|sort|join|replace|trim|reverse|first|last|escape|batch|round|abs|float|int)\\b",
+          "name": "entity.filter.jinja2"
+        },
+        {
+          "match": "\\(",
+          "name": "punctuation.section.group.begin.jinja2"
+        },
+        {
+          "match": "\\)",
+          "name": "punctuation.section.group.end.jinja2"
+        }
+      ]
+    },
+    {
+      "include": "text.html.basic"
+    }
+  ]
+}
