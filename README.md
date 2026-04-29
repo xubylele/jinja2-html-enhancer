@@ -12,6 +12,10 @@ If you find this extension helpful, consider supporting the developer by buying 
 
 This release introduces Jinja2-native comment toggling. Pressing `Ctrl+/` (`Cmd+/` on macOS) in any `.html` file now inserts `{# #}` instead of `<!-- -->`, so your comments are always valid Jinja2 syntax.
 
+## **1.9.0 Has Been Pre-Released!**
+
+This release includes new themes and an updated theme selection feature. You can now choose from multiple themes to customize your Jinja2 syntax highlighting experience.
+
 ## Features
 
 - **Jinja2 Enhance**:

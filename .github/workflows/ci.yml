@@ -42,7 +42,8 @@ jobs:
           fi
 
       - name: Fail if no changeset (PR → develop)
-        if: github.base_ref == 'develop'
+        if: github.base_ref == 'develop' && github.head_ref != 'pre-release' &&
+          github.head_ref != 'main'
         run: npm run changeset:check
 
   deploy:
@@ -68,12 +69,8 @@ jobs:
       - name: Package extension
         run: npm run package
 
-      - name: Get VSIX filename
-        id: vsix
-        run: echo "file=$(ls *.vsix)" >> $GITHUB_OUTPUT
-
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
         with:
           name: jinja2-html-enhancer-vsix-${{ github.sha }}
-          path: ${{ steps.vsix.outputs.file }}
+          path: "*.vsix"

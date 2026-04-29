@@ -1,5 +1,19 @@
 # Change Log
 
+## 1.11.0
+
+### Minor Changes
+
+- 7588e9d: Add Jinja2 comment toggling via `Ctrl+/` (`Cmd+/` on macOS)
+
+  Pressing the comment shortcut in any `.html` file now inserts `{# #}` instead of `<!-- -->`, matching the correct Jinja2 comment syntax. The command supports:
+  - Single-line toggling at the cursor position
+  - Multi-line toggling across a selection (all lines commented or uncommented together based on current state)
+  - Indentation preservation when adding or removing comment markers
+  - Skipping empty lines within a multi-line selection
+
+  The command is also available via the command palette as "Toggle Jinja2 Comment".
+
 ## 1.10.4
 
 ### Patch Changes
@@ -51,6 +65,35 @@
 - **Code Structure**:
   - Improved the organization of theme-related code, making it easier to maintain and extend in the future.
   - Updated import paths and module structures to align with the new theme management system.
+- **Updated node package versions**:
+  - Updated dependencies in `package.json` and `package-lock.json` to ensure compatibility with the latest VS Code API and improve overall performance.
+- **Documentation**:
+  - Updated the `CHANGELOG.md` to reflect the new features and changes in this release.
+  - Updated the README to include instructions on how to use the new token color customizations and theme selection features.
+
+## [1.9.0] - 2025-07-20 Pre-release
+
+### ✨ Added v1.9.0
+
+- **Token Color Customizations**:
+  - Introduced support for the standard `editor.tokenColorCustomizations` configuration, allowing users to customize the colors of Jinja2 tokens directly through their VS Code settings, without needing to create or switch themes.
+    - This feature improves the visual distinction of Jinja2 syntax elements, enhancing readability and user experience.
+- **Theme Selection**:
+  - Added theme options for `jinja2-html-enhancer.darkDefault`, `jinja2-html-enhancer.lightDefault`, `jinja2-html-enhancer.darkHighContrast`, and `jinja2-html-enhancer.lightHighContrast` to the theme selection menu.
+  - Users can now easily switch between these themes to suit their preferences and improve their coding environment.
+- **Xuby Selection Theme**:
+  - Added a new theme option `jinja2-html-enhancer.xubySelection` to the theme selection menu, providing users with a unique color scheme specifically designed for Jinja2 templates.
+
+### 🔧 Changed v1.9.0
+
+- **Theme Management**:
+  - Refactored theme management to support the new token color customizations and theme selection options.
+  - Updated the `themeChoose.ts` file to include the new themes and ensure they are correctly registered in the VS Code settings.
+
+- **Code Structure**:
+  - Improved the organization of theme-related code, making it easier to maintain and extend in the future.
+  - Updated import paths and module structures to align with the new theme management system.
+
 - **Updated node package versions**:
   - Updated dependencies in `package.json` and `package-lock.json` to ensure compatibility with the latest VS Code API and improve overall performance.
 - **Documentation**:
