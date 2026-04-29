@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
+import { getVscodeConfigTarget } from '../config/configService';
+import { extractVariableName } from 'jinja2-enhanced-shared';
 import { chooseThemeSelector } from '../theme/themeChoose';
 import I18n from '../translations';
 import { VariablePanelManager } from '../ui/panels/variablePanel';
-import { extractVariableName, getVscodeConfigTarget } from '../utils/variables';
 import { FileWatcher } from '../watchers/fileWatcher';
 
 export class CommandManager {

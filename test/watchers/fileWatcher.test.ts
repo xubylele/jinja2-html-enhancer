@@ -8,17 +8,17 @@ jest.mock('../../src/translations', () => ({
   },
 }));
 
-jest.mock('../../src/diagnostics/variableAnalyzer', () => ({
+jest.mock('jinja2-enhanced-shared', () => ({
   extractVariables: jest.fn(() => ({ usedVariables: ['user'], setVariables: ['local'] })),
   analyzeNestedStructures: jest.fn(() => ['loopVar']),
 }));
 
-jest.mock('../../src/utils/variables', () => ({
+jest.mock('../../src/config/configService', () => ({
   getConfiguration: jest.fn(),
   getVscodeConfigTarget: jest.fn(),
 }));
 
-const { getConfiguration, getVscodeConfigTarget } = jest.requireMock('../../src/utils/variables') as {
+const { getConfiguration, getVscodeConfigTarget } = jest.requireMock('../../src/config/configService') as {
   getConfiguration: jest.Mock;
   getVscodeConfigTarget: jest.Mock;
 };
