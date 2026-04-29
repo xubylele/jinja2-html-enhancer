@@ -1,9 +1,9 @@
-name: Release VS Code Extension
+name: Release Open VSX Extension Pre-release
 
 on:
   push:
     branches:
-      - main
+      - pre-release
     paths:
       - package.json
       - CHANGELOG.md
@@ -11,7 +11,7 @@ on:
 
 jobs:
   release:
-    name: Build, Lint, Package, and Publish to VS Code
+    name: Build, Lint, Package, and Publish Pre-release to Open VSX
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -32,6 +32,9 @@ jobs:
       - name: Install vsce
         run: npm install -g @vscode/vsce
 
+      - name: Install ovsx
+        run: npm install -g ovsx
+
       - name: Build extension
         run: npm run build
 
@@ -39,18 +42,18 @@ jobs:
         run: npm run lint
 
       - name: Package VSIX
-        run: npx vsce package
+        run: npx vsce package --pre-release
 
       - name: Get VSIX filename
         id: vsix
         run: echo "file=$(ls *.vsix)" >> $GITHUB_OUTPUT
 
-      - name: Publish VS Code Stable
-        if: github.ref_name == 'main'
-        run: npx vsce publish --pat "${{ secrets.VSCE_PAT }}" --no-update-package-json --packagePath "${{ steps.vsix.outputs.file }}"
+      - name: Publish Open VSX Pre-release
+        if: github.ref_name == 'pre-release'
+        run: ovsx publish "${{ steps.vsix.outputs.file }}" --pre-release -p "${{ secrets.OVSX_PAT }}"
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
         with:
-          name: schema-forge-vsix-vscode-${{ github.ref_name }}-${{ github.sha }}
+          name: schema-forge-vsix-open-vsx-${{ github.ref_name }}-${{ github.sha }}
           path: "*.vsix"

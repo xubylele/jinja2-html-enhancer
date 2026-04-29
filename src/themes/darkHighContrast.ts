@@ -19,6 +19,10 @@ export const darkHighContrast = {
     {
       scope: 'punctuation.section.group.begin.jinja2, punctuation.section.group.end.jinja2',
       settings: { foreground: '#FF00FF' }
+    },
+    {
+      scope: 'comment.block.jinja2',
+      settings: { foreground: '#7EC862', fontStyle: 'italic' }
     }
   ]
 };

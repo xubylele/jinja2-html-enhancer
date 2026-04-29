@@ -2,7 +2,7 @@
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 Enhance",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
-  "version": "1.9.1",
+  "version": "1.11.0",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
   "engines": {
@@ -63,6 +63,18 @@
       {
         "command": "extension.changeTheme",
         "title": "%changeTheme.title%"
+      },
+      {
+        "command": "extension.toggleJinja2Comment",
+        "title": "%toggleJinja2Comment.title%"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.toggleJinja2Comment",
+        "key": "ctrl+/",
+        "mac": "cmd+/",
+        "when": "editorTextFocus && editorLangId == 'html'"
       }
     ],
     "languages": [
@@ -78,7 +90,6 @@
     ],
     "grammars": [
       {
-        "language": "html",
         "scopeName": "text.html.jinja2",
         "path": "./syntaxes/jinja2.tmLanguage.json",
         "injectTo": [
@@ -88,46 +99,47 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.28.0",
-    "@babel/preset-env": "^7.28.0",
-    "@babel/preset-react": "^7.27.1",
-    "@babel/preset-typescript": "^7.27.1",
-    "@eslint-community/eslint-utils": "^4.7.0",
-    "@eslint-community/regexpp": "^4.12.1",
-    "@eslint/config-array": "^0.21.0",
-    "@eslint/core": "^0.15.1",
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/object-schema": "^2.1.6",
-    "@eslint/plugin-kit": "^0.3.3",
-    "@jest/globals": "^30.0.4",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
+    "@changesets/cli": "^2.31.0",
+    "@eslint-community/eslint-utils": "^4.9.1",
+    "@eslint-community/regexpp": "^4.12.2",
+    "@eslint/config-array": "^0.23.5",
+    "@eslint/core": "^1.2.1",
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/object-schema": "^3.0.5",
+    "@eslint/plugin-kit": "^0.7.1",
+    "@jest/globals": "^30.3.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@tybys/wasm-util": "^0.9.0",
+    "@tybys/wasm-util": "^0.10.1",
     "@types/glob": "^9.0.0",
     "@types/i18n": "^0.13.12",
     "@types/jest": "^30.0.0",
     "@types/mocha": "^10.0.10",
-    "@types/node": "24.0.14",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
+    "@types/node": "25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@types/testing-library__jest-dom": "^6.0.0",
-    "@types/vscode": "1.102.0",
-    "@typescript-eslint/eslint-plugin": "^8.37.0",
-    "@typescript-eslint/parser": "^8.37.0",
-    "@vscode/test-cli": "^0.0.11",
+    "@types/vscode": "^1.102.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.0",
+    "@typescript-eslint/parser": "^8.59.0",
+    "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
-    "babel-jest": "^30.0.4",
+    "babel-jest": "^30.3.0",
     "downlevel-dts": "^0.11.0",
-    "esbuild": "^0.25.6",
-    "eslint": "^9.31.0",
-    "i18n": "^0.15.1",
-    "jest": "^30.0.4",
-    "jest-environment-jsdom": "^30.0.4",
+    "esbuild": "^0.28.0",
+    "eslint": "^10.2.1",
+    "i18n": "^0.15.3",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "jest-specific-snapshot": "^8.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.6.2",
-    "typescript": "^5.8.3",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3",
     "vscode-test": "^1.6.1"
   },
   "scripts": {
@@ -139,17 +151,23 @@
     "package": "npm run check-types && npm run lint && npm run build:tailwind && node esbuild.js --production && npm run validate-build",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
+    "test": "jest --runInBand",
+    "test:ci": "jest --runInBand --ci",
+    "test:coverage": "jest --coverage --runInBand",
     "build:tailwind": "npx tailwindcss -i ./src/ui/css/tailwind.css -o ./out/css/output.css --minify",
-    "validate-build": "node validate-build.js"
+    "validate-build": "node validate-build.js",
+    "changeset": "npx changeset",
+    "changeset:check": "node -e \"const f=require('fs').readdirSync('.changeset').filter(n=>n.endsWith('.md')&&n!=='README.md');if(!f.length){process.stderr.write('No changeset found. Run: npm run changeset\\n');process.exit(1)}else{console.log('Changesets found:',f.join(', '))}\"",
+    "version": "npx changeset version && npm install"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.11",
-    "autoprefixer": "^10.4.21",
+    "@tailwindcss/cli": "^4.2.4",
+    "autoprefixer": "^10.5.0",
     "coveralls": "^3.1.1",
-    "postcss": "^8.5.6",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "tailwindcss": "^4.1.11",
-    "uuid": "^11.1.0"
+    "postcss": "^8.5.12",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tailwindcss": "^4.2.4",
+    "uuid": "^14.0.0"
   }
 }
