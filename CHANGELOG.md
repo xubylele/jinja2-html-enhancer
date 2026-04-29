@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.12.0
+
+### Minor Changes
+
+- 19e3b03: Add standalone Jinja2 language support with file icons for `.jinja2`, `.j2`, and `.jinja` files. Files now display a proper Jinja2 icon in the VS Code file explorer and get syntax highlighting when opened directly.
+- c3e9a79: Add 10 built-in Jinja2 code snippets. Type `for`, `if`, `ife`, `block`, `extends`, `include`, `set`, `macro`, `with`, or `filter` in any `.html` file and get a ready-to-use Jinja2 snippet with tabstop placeholders.
+
 ## 1.11.0
 
 ### Minor Changes
