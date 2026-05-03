@@ -1,14 +1,9 @@
 import * as vscode from 'vscode';
-import { extractVariableName, getConfiguration, getVscodeConfigTarget } from '../../src/utils/variables';
+import { getConfiguration, getVscodeConfigTarget } from '../../src/config/configService';
 
-describe('variables utils', () => {
+describe('configService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-  });
-
-  it('extracts variable name from diagnostic text', () => {
-    expect(extractVariableName("Variable 'customer' is not defined")).toBe('customer');
-    expect(extractVariableName('No variable in this message')).toBeNull();
   });
 
   it('returns workspace-folder target when editor is provided', () => {

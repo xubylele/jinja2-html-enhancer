@@ -132,9 +132,22 @@ Alternatively, you can install the extension from the [Visual Studio Code Market
 
 You can customize the colors used for Jinja2 syntax highlighting by modifying your VSCode theme settings. For example, to change the color of keywords and filters, you can add the following to your settings:
 
+## Pro features
+
+The following are part of [**Jinja2 Enhance Pro**](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer-pro) — they are **not** included in this free extension, but the free extension ships the syntax + diagnostic foundation Pro builds on:
+
+- **Backend Variables panel.** A dedicated webview that lists every variable the backend (Flask `render_template`, Django `render`, FastAPI `TemplateResponse`, Express / Nunjucks `.render()`, …) passes to the active template, with a one-click **Go to definition** button per location.
+- **Go to backend definition.** `cmd+click` (or `F12`) on a variable inside `{{ … }}` / `{% … %}` jumps to the line in your `.py` / `.js` / `.ts` source where it's declared.
+- **Hover with backend info.** Hovering a variable in a template shows the backend file:line where it's set, as a clickable link.
+- **Quick-fix / lightbulb action.** `cmd+.` on a variable offers "Go to backend definition of '<var>'" — one entry per declaration site.
+
+See the Pro extension's README for screenshots and full details.
+
 ## Roadmap
 
 Curious about what's coming next? Check out the [**Roadmap**](ROADMAP.md) for the full list of planned features — including upcoming free improvements, and what's on the horizon for Pro and Team tiers.
+
+> ℹ️ **Note about Pro & shared code.** This repository (the free extension) remains MIT and open source. The Pro / Team feature set, and the underlying `jinja2-enhanced-shared` analyzer package that both extensions consume, are developed in **separate, private repositories** and are not part of this codebase. Pro is distributed only via the paid Marketplace listing.
 
 ## Contributing
 
