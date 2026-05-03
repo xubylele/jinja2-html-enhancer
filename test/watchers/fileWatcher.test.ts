@@ -8,7 +8,7 @@ jest.mock('../../src/translations', () => ({
   },
 }));
 
-jest.mock('jinja2-enhanced-shared', () => ({
+jest.mock('@xubylele/jinja2-enhanced-shared', () => ({
   extractVariables: jest.fn(() => ({ usedVariables: ['user'], setVariables: ['local'] })),
   analyzeNestedStructures: jest.fn(() => ['loopVar']),
 }));
