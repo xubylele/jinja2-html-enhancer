@@ -1,10 +1,5 @@
 import * as vscode from 'vscode';
 
-export function extractVariableName(diagnosticMessage: string): string | null {
-  const match = diagnosticMessage.match(/'([^']+)'/);
-  return match ? match[1] : null;
-}
-
 export const getVscodeConfigTarget = (activeEditor?: vscode.TextEditor) => {
   let workspaceFolder;
   if (activeEditor) {

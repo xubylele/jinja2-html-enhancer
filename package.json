@@ -2,7 +2,7 @@
   "name": "jinja2-html-enhancer",
   "displayName": "Jinja2 Enhance",
   "description": "Syntax highlighting and variable checking for Jinja2 templates",
-  "version": "1.12.0",
+  "version": "1.12.2",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
   "engines": {
@@ -97,11 +97,7 @@
         ],
         "aliases": [
           "Jinja2"
-        ],
-        "icon": {
-          "light": "./resources/icons/jinja2-light.svg",
-          "dark": "./resources/icons/jinja2-dark.svg"
-        }
+        ]
       }
     ],
     "grammars": [
@@ -195,6 +191,7 @@
     "@tailwindcss/cli": "^4.2.4",
     "autoprefixer": "^10.5.0",
     "coveralls": "^3.1.1",
+    "@xubylele/jinja2-enhanced-shared": "^0.2.0",
     "postcss": "^8.5.12",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

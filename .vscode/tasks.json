@@ -2,6 +2,18 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "install",
+			"type": "shell",
+			"command": "npm ci",
+			"options": {
+				"env": {
+					"NODE_AUTH_TOKEN": "${env:NODE_AUTH_TOKEN}"
+				}
+			},
+			"problemMatcher": [],
+			"detail": "Install deps from GitHub Packages (requires NODE_AUTH_TOKEN in shell env)"
+		},
+		{
 			"label": "build",
 			"type": "shell",
 			"command": "npm run build",

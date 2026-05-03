@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
+import { getConfiguration, getVscodeConfigTarget } from '../config/configService';
 import { DiagnosticsManager } from '../diagnostics/diagnosticsManager';
-import { analyzeNestedStructures, extractVariables } from '../diagnostics/variableAnalyzer';
+import { analyzeNestedStructures, extractVariables } from '@xubylele/jinja2-enhanced-shared';
 import I18n from '../translations';
-import { getConfiguration, getVscodeConfigTarget } from '../utils/variables';
 
 export class FileWatcher {
   private readonly diagnosticsManager: DiagnosticsManager;
