@@ -1,4 +1,8 @@
 import * as vscode from 'vscode';
+import {
+	registerOriginProvider,
+	unregisterOriginProvider,
+} from './api/originProviderRegistry';
 import { QuickFixProvider } from './codeActions/quickFixProvider';
 import { CommandManager } from './commands/commandManager';
 import { CommentToggle } from './commands/commentToggle';
@@ -38,6 +42,19 @@ export function activate(context: vscode.ExtensionContext) {
 			{ scheme: 'file', language: 'html' },
 			new QuickFixProvider(),
 		)
+	);
+
+	// Public contribution API — sister extensions (Jinja2 Enhance Pro) inject
+	// origin metadata into the Variable Panel. See src/types/originProvider.ts.
+	context.subscriptions.push(
+		vscode.commands.registerCommand(
+			'jinja2-html-enhancer.registerOriginProvider',
+			(reg: { id: string; provider: any }) => registerOriginProvider(reg),
+		),
+		vscode.commands.registerCommand(
+			'jinja2-html-enhancer.unregisterOriginProvider',
+			(reg: { id: string }) => unregisterOriginProvider(reg),
+		),
 	);
 
 	const firstActivation = context.globalState.get<number>('jinja2.firstActivation');
