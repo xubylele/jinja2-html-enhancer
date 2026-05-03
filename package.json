@@ -97,11 +97,7 @@
         ],
         "aliases": [
           "Jinja2"
-        ],
-        "icon": {
-          "light": "./resources/icons/jinja2-light.svg",
-          "dark": "./resources/icons/jinja2-dark.svg"
-        }
+        ]
       }
     ],
     "grammars": [
