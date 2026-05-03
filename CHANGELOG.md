@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.12.2
+
+### Patch Changes
+
+- 75e718f: Update the roadmap to reflect only the features that are currently implemented in the free extension, removing any references to Pro features or future plans.
+
 ## 1.12.1
 
 ### Patch Changes
