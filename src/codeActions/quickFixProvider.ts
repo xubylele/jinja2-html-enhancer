@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { extractVariableName } from 'jinja2-enhanced-shared';
+import { extractVariableName } from '@xubylele/jinja2-enhanced-shared';
 import I18n from '../translations';
 
 export class QuickFixProvider implements vscode.CodeActionProvider {

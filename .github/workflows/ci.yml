@@ -27,7 +27,8 @@ jobs:
           cache: npm
 
       - run: npm ci
-
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
       - name: Run tests
         run: npm run test:ci
 
@@ -62,7 +63,8 @@ jobs:
           cache: npm
 
       - run: npm ci
-
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
       - name: Install vsce
         run: npm install -g @vscode/vsce
 

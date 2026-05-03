@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { getVscodeConfigTarget } from '../config/configService';
-import { extractVariableName } from 'jinja2-enhanced-shared';
+import { extractVariableName } from '@xubylele/jinja2-enhanced-shared';
 import { chooseThemeSelector } from '../theme/themeChoose';
 import I18n from '../translations';
 import { VariablePanelManager } from '../ui/panels/variablePanel';
