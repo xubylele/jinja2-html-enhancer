@@ -1,5 +1,7 @@
 # Jinja2 Enhance
 
+🌐 **Website:** [jinja2.xuby.cl](https://jinja2.xuby.cl/) — features, screenshots, and Pro roadmap.
+
 **Jinja2 Enhance** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
 ## What's New
