@@ -39,7 +39,7 @@
         "jinja2-html-enhancer.toggleVariableCheck": {
           "type": "boolean",
           "description": "%extension.configuration.toggleVariableCheck.description%",
-          "default": false,
+          "default": true,
           "scope": "resource"
         }
       }

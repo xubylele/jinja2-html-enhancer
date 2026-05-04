@@ -85,13 +85,19 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.workspace.onDidSaveTextDocument(async document => {
-			if (document.languageId === 'html') {
-				vscode.window.showInformationMessage(I18n.__('analyzer.analyzingDocument'));
+			if (document.languageId === 'html' || document.languageId === 'jinja2') {
 				const result = await fileWatcher.analyzeDocument(document);
-
 				if (result) {
 					vscode.window.showInformationMessage(I18n.__('analyzer.analysisComplete'));
 				}
+			}
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.workspace.onDidOpenTextDocument(async document => {
+			if (document.languageId === 'html' || document.languageId === 'jinja2') {
+				await fileWatcher.analyzeDocument(document);
 			}
 		})
 	);

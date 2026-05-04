@@ -25,7 +25,7 @@ export class FileWatcher {
     });
   }
 
-  public async analyzeDocument(document: vscode.TextDocument | vscode.Uri) {
+  public async analyzeDocument(document: vscode.TextDocument | vscode.Uri): Promise<{ usedVariables: string[]; setVariables: string[] } | undefined> {
     const canCheckVariables = await getConfiguration('toggleVariableCheck');
 
     if (!canCheckVariables) {
@@ -33,28 +33,18 @@ export class FileWatcher {
       return;
     }
 
-    const activeEditor = vscode.window.activeTextEditor;
-    if (!activeEditor) {
-      vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));
-      return;
+    if (document instanceof vscode.Uri) {
+      const doc = await vscode.workspace.openTextDocument(document);
+      return this.analyzeDocument(doc);
     }
 
-    const workspaceFolder = vscode.workspace.getWorkspaceFolder(activeEditor.document.uri);
-    if (!workspaceFolder) {
-      vscode.window.showWarningMessage(I18n.__('warning.noWorkspaceFolder'));
-    }
-
-    const target = getVscodeConfigTarget(activeEditor);
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+    const target = getVscodeConfigTarget(null, document);
     const config = (target === vscode.ConfigurationTarget.WorkspaceFolder) && workspaceFolder
       ? vscode.workspace.getConfiguration('jinja2-html-enhancer', workspaceFolder.uri)
       : vscode.workspace.getConfiguration('jinja2-html-enhancer');
 
     const customVariables: { [key: string]: string[] } = config.get('customVariables', {});
-
-    if (document instanceof vscode.Uri) {
-      vscode.workspace.openTextDocument(document).then(this.analyzeDocument.bind(this));
-      return;
-    }
 
     const text = document.getText();
     const { usedVariables, setVariables } = extractVariables(text);
