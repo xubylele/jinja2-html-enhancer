@@ -17,6 +17,7 @@ module.exports = {
     '!src/ui/**',
     '!src/translations.ts',
     '!src/extension.ts',
+    '!src/types/**',
   ],
   coverageThreshold: {
     global: {
