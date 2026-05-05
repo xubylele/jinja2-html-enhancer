@@ -1,5 +1,28 @@
 # Change Log
 
+## 1.13.0
+
+### Minor Changes
+
+- 1f1ae86: ✨ Variables checked automatically — zero config required
+
+  Variable checking is now **ON by default** after install. Open any HTML or Jinja2 file and undefined variables appear immediately as diagnostics — no settings toggle needed.
+  - **Auto-analyze on file open.** Opening a file triggers variable analysis automatically. No more manual "Check Variables" command.
+  - **Save still re-checks.** Editing and saving a file continues to refresh diagnostics instantly.
+  - Existing users who explicitly turned variable checking off keep their preference — the new default only applies to fresh installs.
+
+- 1f1ae86: ✨ Variable Panel: Origin column + contribution API for sister extensions
+
+  The Variable Panel now has room for a third **Origin** column that explains _where each variable comes from_ — local, inherited from a parent template, imported, or passed by the backend. The column only appears when origin metadata is available; existing free-only installs see no UI change.
+  - **New Status: Inherited.** Variables that aren't declared locally but are recognized by an origin provider now render as **Inherited** (blue) instead of **Undefined** (red). The third state makes it instantly obvious which "missing" names are actually fine.
+  - **Public contribution API.** Sister extensions (e.g. Jinja2 Enhance Pro) can call two new VS Code commands to inject origin metadata into the panel:
+    - `jinja2-html-enhancer.registerOriginProvider({ id, provider })`
+    - `jinja2-html-enhancer.unregisterOriginProvider({ id })`
+
+    The provider callback receives `{ uri, names }` and returns `Record<string, { label, uri?, line? }>`. Async providers are supported. Provider exceptions are isolated — a buggy sister extension can't break the panel. Type contracts live in `src/types/originProvider.ts`.
+
+  - **Cleanup.** Removed the dead `src/intelligence/` directory called out in `docs/architecture.md`.
+
 ## 1.12.2
 
 ### Patch Changes
