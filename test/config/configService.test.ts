@@ -9,9 +9,13 @@ describe('configService', () => {
   it('returns workspace-folder target when editor is provided', () => {
     const editor = {
       document: {
-        uri: { fsPath: '/tmp/file.html' },
+        uri: vscode.Uri.file('/tmp/file.html'),
       },
     } as any;
+
+    (vscode.workspace.getWorkspaceFolder as jest.Mock).mockReturnValue({
+      uri: vscode.Uri.file('/tmp'),
+    });
 
     expect(getVscodeConfigTarget(editor)).toBe(vscode.ConfigurationTarget.WorkspaceFolder);
     expect(getVscodeConfigTarget()).toBe(vscode.ConfigurationTarget.Global);

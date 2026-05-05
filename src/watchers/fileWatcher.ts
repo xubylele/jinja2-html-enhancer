@@ -46,6 +46,11 @@ export class FileWatcher {
 
     const customVariables: { [key: string]: string[] } = config.get('customVariables', {});
 
+    if (!vscode.window.activeTextEditor) {
+      vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));
+      return;
+    }
+
     const text = document.getText();
     const { usedVariables, setVariables } = extractVariables(text);
     const nestedVariables = analyzeNestedStructures(text);
