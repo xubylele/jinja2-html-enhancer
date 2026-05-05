@@ -6,13 +6,13 @@
 
 ## What's New
 
-### **File Icon Support Just Landed!**
+### 1.13.0
 
-Files with `.jinja2`, `.j2`, and `.jinja` extensions now display a proper Jinja2 icon in the VS Code file explorer, making it easy to spot your template files at a glance.
+#### Minor Changes
 
-### **Code Snippets Just Landed!**
+- ✨ Variables checked automatically — zero config required. Auto-analyzes on file open, re-checks on save; existing users who disabled variable checking retain their preference.
 
-Type `for`, `if`, `block`, `extends`, `include`, `set`, `macro`, `with`, or `filter` in any `.html` file and get a ready-to-use Jinja2 snippet with placeholder tabstops. Press `Tab` to jump between fields.
+- ✨ Variable Panel adds Origin column, Inherited status for variables from parent/import/backend, and public API for sister extensions to inject origin metadata. Removed unused `src/intelligence/` directory.
 
 ## Donations
 
