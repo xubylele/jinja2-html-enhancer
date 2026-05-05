@@ -142,6 +142,7 @@ The following are part of [**Jinja2 Enhance Pro**](https://marketplace.visualstu
 - **Go to backend definition.** `cmd+click` (or `F12`) on a variable inside `{{ … }}` / `{% … %}` jumps to the line in your `.py` / `.js` / `.ts` source where it's declared.
 - **Hover with backend info.** Hovering a variable in a template shows the backend file:line where it's set, as a clickable link.
 - **Quick-fix / lightbulb action.** `cmd+.` on a variable offers "Go to backend definition of '<var>'" — one entry per declaration site.
+- **Template Preview** (coming soon) — Render templates with backend variables directly in VS Code to catch missing variables before render time.
 
 See the Pro extension's README for screenshots and full details.
 
