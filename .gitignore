@@ -5,5 +5,3 @@ node_modules
 *.vsix
 .DS_Store
 coverage/
-docs/
-AGENTS.md
