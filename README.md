@@ -1,5 +1,7 @@
 # Jinja2 Enhance
 
+🌐 **Website:** [jinja2.xuby.cl](https://jinja2.xuby.cl/) — features, screenshots, and Pro roadmap.
+
 **Jinja2 Enhance** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
 ## What's New
@@ -140,6 +142,7 @@ The following are part of [**Jinja2 Enhance Pro**](https://marketplace.visualstu
 - **Go to backend definition.** `cmd+click` (or `F12`) on a variable inside `{{ … }}` / `{% … %}` jumps to the line in your `.py` / `.js` / `.ts` source where it's declared.
 - **Hover with backend info.** Hovering a variable in a template shows the backend file:line where it's set, as a clickable link.
 - **Quick-fix / lightbulb action.** `cmd+.` on a variable offers "Go to backend definition of '<var>'" — one entry per declaration site.
+- **Template Preview** (coming soon) — Render templates with backend variables directly in VS Code to catch missing variables before render time.
 
 See the Pro extension's README for screenshots and full details.
 

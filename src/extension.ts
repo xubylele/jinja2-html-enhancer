@@ -1,4 +1,8 @@
 import * as vscode from 'vscode';
+import {
+	registerOriginProvider,
+	unregisterOriginProvider,
+} from './api/originProviderRegistry';
 import { QuickFixProvider } from './codeActions/quickFixProvider';
 import { CommandManager } from './commands/commandManager';
 import { CommentToggle } from './commands/commentToggle';
@@ -40,6 +44,19 @@ export function activate(context: vscode.ExtensionContext) {
 		)
 	);
 
+	// Public contribution API — sister extensions (Jinja2 Enhance Pro) inject
+	// origin metadata into the Variable Panel. See src/types/originProvider.ts.
+	context.subscriptions.push(
+		vscode.commands.registerCommand(
+			'jinja2-html-enhancer.registerOriginProvider',
+			(reg: { id: string; provider: any }) => registerOriginProvider(reg),
+		),
+		vscode.commands.registerCommand(
+			'jinja2-html-enhancer.unregisterOriginProvider',
+			(reg: { id: string }) => unregisterOriginProvider(reg),
+		),
+	);
+
 	const firstActivation = context.globalState.get<number>('jinja2.firstActivation');
 	if (firstActivation === undefined) {
 		context.globalState.update('jinja2.firstActivation', Date.now() - 8 * 24 * 60 * 60 * 1000);
@@ -68,13 +85,19 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.workspace.onDidSaveTextDocument(async document => {
-			if (document.languageId === 'html') {
-				vscode.window.showInformationMessage(I18n.__('analyzer.analyzingDocument'));
+			if (document.languageId === 'html' || document.languageId === 'jinja2') {
 				const result = await fileWatcher.analyzeDocument(document);
-
 				if (result) {
 					vscode.window.showInformationMessage(I18n.__('analyzer.analysisComplete'));
 				}
+			}
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.workspace.onDidOpenTextDocument(async document => {
+			if (document.languageId === 'html' || document.languageId === 'jinja2') {
+				await fileWatcher.analyzeDocument(document);
 			}
 		})
 	);

@@ -1,16 +1,17 @@
 import * as vscode from 'vscode';
 
-export const getVscodeConfigTarget = (activeEditor?: vscode.TextEditor) => {
-  let workspaceFolder;
+export const getVscodeConfigTarget = (activeEditor?: vscode.TextEditor | null, document?: vscode.TextDocument) => {
+  let hasWorkspaceFolder = false;
+
   if (activeEditor) {
-    workspaceFolder = activeEditor.document.uri.fsPath;
+    hasWorkspaceFolder = !!vscode.workspace.getWorkspaceFolder(activeEditor.document.uri);
+  } else if (document) {
+    hasWorkspaceFolder = !!vscode.workspace.getWorkspaceFolder(document.uri);
   }
 
-  const vscodeConfigTarget = workspaceFolder
+  return hasWorkspaceFolder
     ? vscode.ConfigurationTarget.WorkspaceFolder
     : vscode.ConfigurationTarget.Global;
-
-  return vscodeConfigTarget;
 };
 
 export const getConfiguration = async (type: string) => {
