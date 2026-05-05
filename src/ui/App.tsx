@@ -6,6 +6,7 @@ declare const params: {
   translations: Record<string, string>;
   usedVariables: string[];
   setVariables: string[];
+  origins?: Record<string, { label: string; uri?: string; line?: number }>;
 };
 
 declare global {
@@ -46,6 +47,7 @@ const App: React.FC = () => {
         <VariablePanel
           usedVariables={params.usedVariables}
           setVariables={params.setVariables}
+          origins={params.origins}
         />
       </main>
       <footer className="bg-gray-200 dark:bg-gray-800 text-center py-4 mt-auto">
