@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.14.0
+
+### Minor Changes
+
+- dada25b: ✨ Improve Template Preview styling with dark theme background, blue-bordered preview container, and enhanced missing variable highlighting for better visibility
+
 ## 1.13.0
 
 ### Minor Changes
