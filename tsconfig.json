@@ -13,16 +13,17 @@
 		"typeRoots": [
 			"./node_modules/@types"
 		],
-		"types": [
-			"node",
-			"vscode",
-			"jest"
-		],
+		"types": ["node", "vscode"],
 		"skipLibCheck": true,
 		"outDir": "out"
 	},
 	"include": [
-		"src/**/*",
-		"test/**/*"
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"out",
+		"test",
+		"**/*.test.ts"
 	]
 }
