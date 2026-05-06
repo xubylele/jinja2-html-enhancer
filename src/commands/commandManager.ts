@@ -4,15 +4,18 @@ import { extractVariableName } from '@xubylele/jinja2-enhanced-shared';
 import { chooseThemeSelector } from '../theme/themeChoose';
 import I18n from '../translations';
 import { VariablePanelManager } from '../ui/panels/variablePanel';
+import { TemplatePreviewPanel } from '../ui/panels/templatePreviewPanel';
 import { FileWatcher } from '../watchers/fileWatcher';
 
 export class CommandManager {
   private fileWatcher: FileWatcher;
   private variablePanelManager: VariablePanelManager;
+  private templatePreviewPanel: TemplatePreviewPanel;
 
-  constructor(fileWatcher: FileWatcher, variablePanelManager: VariablePanelManager) {
+  constructor(fileWatcher: FileWatcher, variablePanelManager: VariablePanelManager, templatePreviewPanel: TemplatePreviewPanel) {
     this.fileWatcher = fileWatcher;
     this.variablePanelManager = variablePanelManager;
+    this.templatePreviewPanel = templatePreviewPanel;
   }
 
   public async checkVariables() {
@@ -109,6 +112,33 @@ export class CommandManager {
     } catch (error) {
       vscode.window.showErrorMessage(I18n.__('error.variableNotSaved', { variable, error: String(error) }));
     }
+  }
+
+  public async openTemplatePreview() {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+      vscode.window.showWarningMessage('No active editor found');
+      return;
+    }
+
+    const document = editor.document;
+    if (document.languageId !== 'html' && document.languageId !== 'jinja2') {
+      vscode.window.showWarningMessage('Active file is not a Jinja2 template');
+      return;
+    }
+
+    const content = document.getText();
+    const config = vscode.workspace.getConfiguration('jinja2-html-enhancer');
+    const customVariables = config.get<Record<string, string[]>>('customVariables', {});
+    const filePath = document.uri.fsPath;
+    const fileVars = customVariables[filePath] || [];
+
+    const context: Record<string, unknown> = {};
+    for (const v of fileVars) {
+      context[v] = '';
+    }
+
+    this.templatePreviewPanel.show(content, context);
   }
 
   public async changeTheme() {

@@ -9,6 +9,7 @@ import { CommentToggle } from './commands/commentToggle';
 import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
 import I18n, { setupI18n } from './translations';
 import { VariablePanelManager } from './ui/panels/variablePanel';
+import { TemplatePreviewPanel } from './ui/panels/templatePreviewPanel';
 import { FileWatcher } from './watchers/fileWatcher';
 
 let diagnosticsManager: DiagnosticsManager;
@@ -20,8 +21,9 @@ export function activate(context: vscode.ExtensionContext) {
 	diagnosticsManager = new DiagnosticsManager();
 	fileWatcher = new FileWatcher(diagnosticsManager);
 	const variablePanelManager = new VariablePanelManager(context, fileWatcher);
+	const templatePreviewPanel = new TemplatePreviewPanel(context);
 
-	const commandManager = new CommandManager(fileWatcher, variablePanelManager);
+	const commandManager = new CommandManager(fileWatcher, variablePanelManager, templatePreviewPanel);
 	const commentToggle = new CommentToggle();
 
 	const checkVariablesDisposable = vscode.commands.registerCommand('extension.checkJinja2Variables', () => commandManager.checkVariables());
@@ -30,6 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 	const toggleVariableCheck = vscode.commands.registerCommand('extension.toggleVariableCheck', () => commandManager.changeConfiguration('toggleVariableCheck'));
 	const themeChangeDisposable = vscode.commands.registerCommand('extension.changeTheme', () => commandManager.changeTheme());
 	const toggleCommentDisposable = vscode.commands.registerCommand('extension.toggleJinja2Comment', () => commentToggle.toggle());
+	const openPreviewDisposable = vscode.commands.registerCommand('extension.openTemplatePreview', () => commandManager.openTemplatePreview());
 
 	context.subscriptions.push(checkVariablesDisposable);
 	context.subscriptions.push(openPanelDisposable);
@@ -37,6 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(toggleVariableCheck);
 	context.subscriptions.push(themeChangeDisposable);
 	context.subscriptions.push(toggleCommentDisposable);
+	context.subscriptions.push(openPreviewDisposable);
 	context.subscriptions.push(
 		vscode.languages.registerCodeActionsProvider(
 			{ scheme: 'file', language: 'html' },

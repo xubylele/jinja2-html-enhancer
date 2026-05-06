@@ -58,6 +58,14 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Works with single lines and multi-line selections — all selected lines are commented or uncommented together.
   - Preserves indentation when adding or removing comment markers.
 
+- **Template Preview**:
+  - Run **`Jinja2: Open Template Preview`** to see how your template renders with available variables.
+  - Displays rendered HTML output with highlighted missing variables (red background).
+  - Shows status of variable resolution (all resolved or lists missing variables).
+  - Dark-themed preview panel with clear visual separation from the editor.
+
+![Template Preview](https://i.imgur.com/v3IB2yT.png)
+
 - **Theme Support**:
   - Choose from multiple themes for Jinja2 syntax highlighting.
   - You can select a theme using the command "Choose Jinja2 Theme" from the command palette (`Ctrl+Shift+P`).

@@ -23,6 +23,7 @@ const extensionConfig = {
   minify: production,
   loader: {
     '.ts': 'ts',
+    '.node': 'file',
   },
 };
 
