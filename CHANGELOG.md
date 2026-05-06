@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.15.0
+
+### Minor Changes
+
+- 🎉 Template Preview is now officially released — available in the stable release (removed pre-release status)
+- ✨ Template Preview panel — see rendered HTML with variable highlighting, dark-themed UI with improved visibility for missing variables
+
 ## 1.14.2
 
 ### Patch Changes

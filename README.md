@@ -6,11 +6,12 @@
 
 ## What's New
 
-### 1.14.0
+### 1.15.0
 
 #### Minor Changes
 
-- ✨ Template Preview panel — see rendered HTML with variable highlighting, dark-themed UI with improved visibility for missing variables. Available now in `pre-release` branch.
+- 🎉 Template Preview is now officially released — available in the stable release (removed pre-release status)
+- ✨ Template Preview panel — see rendered HTML with variable highlighting, dark-themed UI with improved visibility for missing variables. Now available in the latest release.
 
 ## Donations
 
@@ -61,7 +62,7 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Displays rendered HTML output with highlighted missing variables (red background).
   - Shows status of variable resolution (all resolved or lists missing variables).
   - Dark-themed preview panel with clear visual separation from the editor.
-  - **Now available in `pre-release` branch** — install from [GitHub](https://github.com/xubylele/jinja2-html-enhancer/tree/pre-release) to try it early.
+  - **Now available in the latest release** — install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer) or [Open VSX Registry](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer).
 
 ![Template Preview](https://i.imgur.com/v3IB2yT.png)
 
