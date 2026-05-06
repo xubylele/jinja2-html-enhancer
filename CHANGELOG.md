@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.14.1
+
+### Patch Changes
+
+- cadd613: fix readme
+
 ## 1.14.0
 
 ### Minor Changes
