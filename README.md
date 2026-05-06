@@ -6,13 +6,11 @@
 
 ## What's New
 
-### 1.13.0
+### 1.14.0
 
 #### Minor Changes
 
-- ✨ Variables checked automatically — zero config required. Auto-analyzes on file open, re-checks on save; existing users who disabled variable checking retain their preference.
-
-- ✨ Variable Panel adds Origin column, Inherited status for variables from parent/import/backend, and public API for sister extensions to inject origin metadata. Removed unused `src/intelligence/` directory.
+- ✨ Template Preview panel — see rendered HTML with variable highlighting, dark-themed UI with improved visibility for missing variables. Available now in `pre-release` branch.
 
 ## Donations
 
@@ -63,6 +61,7 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Displays rendered HTML output with highlighted missing variables (red background).
   - Shows status of variable resolution (all resolved or lists missing variables).
   - Dark-themed preview panel with clear visual separation from the editor.
+  - **Now available in `pre-release` branch** — install from [GitHub](https://github.com/xubylele/jinja2-html-enhancer/tree/pre-release) to try it early.
 
 ![Template Preview](https://i.imgur.com/v3IB2yT.png)
 
