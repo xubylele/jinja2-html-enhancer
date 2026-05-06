@@ -193,7 +193,7 @@
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.2.4",
-    "@xubylele/jinja2-enhanced-shared": "^0.4.1",
+    "@xubylele/jinja2-enhanced-shared": "^0.4.4",
     "autoprefixer": "^10.5.0",
     "coveralls": "^3.1.1",
     "postcss": "^8.5.12",
