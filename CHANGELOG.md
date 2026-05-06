@@ -1,11 +1,5 @@
 # Change Log
 
-## 1.14.0
-
-### Minor Changes
-
-- Add Template Preview feature (Free tier). Includes basic template rendering with manual/static context input, missing variable highlighting with styled `<span>` placeholders. New command: `extension.openTemplatePreview`.
-
 ## 1.13.0
 
 ### Minor Changes
