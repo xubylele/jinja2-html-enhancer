@@ -62,6 +62,11 @@ Required build order: `check-types` → `lint` → `build:tailwind` → `esbuild
 - PR → `main` / `pre*` must have no `.changeset/*.md` files (they must be consumed first)
 - Apply: `npm run version` (runs `changeset version` + `npm install`)
 
+## Shared Dependency
+
+- Consumes `@xubylele/jinja2-enhanced-shared` from npmjs.com (public package)
+- Update version in `package.json` dependencies when shared releases a new version
+
 ## Commands
 
 | Command | Keybinding | Description |
