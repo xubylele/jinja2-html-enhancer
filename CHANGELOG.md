@@ -1,5 +1,30 @@
 # Change Log
 
+## 1.15.0
+
+### Minor Changes
+
+- 🎉 Template Preview is now officially released — available in the stable release (removed pre-release status)
+- ✨ Template Preview panel — see rendered HTML with variable highlighting, dark-themed UI with improved visibility for missing variables
+
+## 1.14.2
+
+### Patch Changes
+
+- adc99ce: Update CI workflow to remove GitHub Packages token dependency. Shared package now published to public npmjs.com. Update AGENTS.md to reflect shared dependency change from git+ssh to npm registry.
+
+## 1.14.1
+
+### Patch Changes
+
+- cadd613: fix readme
+
+## 1.14.0
+
+### Minor Changes
+
+- dada25b: ✨ Improve Template Preview styling with dark theme background, blue-bordered preview container, and enhanced missing variable highlighting for better visibility
+
 ## 1.13.0
 
 ### Minor Changes

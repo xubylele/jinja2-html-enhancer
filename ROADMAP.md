@@ -26,6 +26,17 @@ Status legend: ✅ Shipped · 🚧 In progress · ❌ Planned
 
 ---
 
+## ✅ Free Feature Status (Updated)
+
+| Feature | Status |
+| --- | --- |
+| **Template Preview (Basic)** — Render Jinja2 templates with manual/static context input, highlight missing variables with styled `<span>` placeholders | ✅ Shipped |
+
+---
+
+> 💬 **Have a feature idea?** Open an issue at [github.com/xubylele/jinja2-html-enhancer](https://github.com/xubylele/jinja2-html-enhancer/issues) — community feedback shapes what gets built next.
+>
+> ⚡ **Looking for backend intelligence, cross-file tracking, macro IntelliSense, advanced linting, type hints, filter hover docs, or full-featured Template Preview?** Those live in **Jinja2 Enhance Pro** — see the Pro Marketplace listing.
 > 💬 **Have a feature idea?** Open an issue at [github.com/xubylele/jinja2-html-enhancer](https://github.com/xubylele/jinja2-html-enhancer/issues) — community feedback shapes what gets built next.
 >
 > ⚡ **Looking for backend intelligence, cross-file tracking, macro IntelliSense, advanced linting, type hints, or filter hover docs?** Those live in **Jinja2 Enhance Pro** — see the Pro Marketplace listing.

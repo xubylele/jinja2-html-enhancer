@@ -6,13 +6,12 @@
 
 ## What's New
 
-### 1.13.0
+### 1.15.0
 
 #### Minor Changes
 
-- ✨ Variables checked automatically — zero config required. Auto-analyzes on file open, re-checks on save; existing users who disabled variable checking retain their preference.
-
-- ✨ Variable Panel adds Origin column, Inherited status for variables from parent/import/backend, and public API for sister extensions to inject origin metadata. Removed unused `src/intelligence/` directory.
+- 🎉 Template Preview is now officially released — available in the stable release (removed pre-release status)
+- ✨ Template Preview panel — see rendered HTML with variable highlighting, dark-themed UI with improved visibility for missing variables. Now available in the latest release.
 
 ## Donations
 
@@ -57,6 +56,15 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Automatically detects whether a line is already commented and toggles accordingly.
   - Works with single lines and multi-line selections — all selected lines are commented or uncommented together.
   - Preserves indentation when adding or removing comment markers.
+
+- **Template Preview**:
+  - Run **`Jinja2: Open Template Preview`** to see how your template renders with available variables.
+  - Displays rendered HTML output with highlighted missing variables (red background).
+  - Shows status of variable resolution (all resolved or lists missing variables).
+  - Dark-themed preview panel with clear visual separation from the editor.
+  - **Now available in the latest release** — install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer) or [Open VSX Registry](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer).
+
+![Template Preview](https://i.imgur.com/v3IB2yT.png)
 
 - **Theme Support**:
   - Choose from multiple themes for Jinja2 syntax highlighting.
