@@ -10,6 +10,7 @@ import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
 import I18n, { setupI18n } from './translations';
 import { VariablePanelManager } from './ui/panels/variablePanel';
 import { TemplatePreviewPanel } from './ui/panels/templatePreviewPanel';
+import { maybePromptProUpsell } from './upsell/proUpsell';
 import { FileWatcher } from './watchers/fileWatcher';
 
 let diagnosticsManager: DiagnosticsManager;
@@ -86,6 +87,8 @@ export function activate(context: vscode.ExtensionContext) {
 			});
 		}
 	}
+
+	void maybePromptProUpsell(context);
 
 	context.subscriptions.push(
 		vscode.workspace.onDidSaveTextDocument(async document => {
