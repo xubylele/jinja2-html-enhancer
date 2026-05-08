@@ -27,6 +27,10 @@ class Uri {
   static file(path: string) {
     return new Uri(path);
   }
+
+  static parse(value: string) {
+    return new Uri(value);
+  }
 }
 
 class Range {
@@ -110,6 +114,16 @@ const languages = {
 
 const env = {
   language: 'en',
+  openExternal: jest.fn(),
+};
+
+const extensions = {
+  getExtension: jest.fn(),
+};
+
+const commands = {
+  executeCommand: jest.fn(),
+  registerCommand: jest.fn(),
 };
 
 export = {
@@ -125,4 +139,6 @@ export = {
   workspace,
   languages,
   env,
+  extensions,
+  commands,
 };

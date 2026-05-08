@@ -6,9 +6,9 @@
 
 > 🚧 **Pro is in pre-release.** Backend-aware variables, cross-file go-to-definition, macro IntelliSense, and advanced linting for Flask, Django, FastAPI, and Express are all shipping now from the `pre-release` branch. **[Get Jinja2 Enhance Pro →](https://jinja2.xuby.cl/pro/activate)** · [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer-pro) · [Open VSX](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer-pro) · Found a bug? [Report it here](https://github.com/xubylele/jinja2-html-enhancer-pro-issues/issues).
 
-<a href="https://store.xuby.cl/checkout/buy/780565fc-2652-4f7c-99d1-56bf473782f2?embed=1&media=0" class="lemonsqueezy-button">Buy Jinja2 HTML Enhancer Pro — License Key</a><script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+<a href="https://store.xuby.cl/checkout/buy/d03a0ff6-3050-43a3-99f0-d3f9a40444ee?embed=1" class="lemonsqueezy-button">Buy Jinja2 HTML Enhancer Pro — License Key</a><script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 
-Direct checkout: <https://store.xuby.cl/checkout/buy/780565fc-2652-4f7c-99d1-56bf473782f2>
+Direct checkout: <https://store.xuby.cl/checkout/buy/d03a0ff6-3050-43a3-99f0-d3f9a40444ee>
 
 **Jinja2 Enhance** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
