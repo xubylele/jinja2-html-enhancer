@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.16.0
+
+### Minor Changes
+
+- 43535e4: New: after a month of using the free extension, a one-time message suggests upgrading to Pro with quick actions to install it from the Marketplace or learn more. The prompt is skipped automatically if Jinja2 Enhance Pro is already installed.
+
 ## 1.15.0
 
 ### Minor Changes
