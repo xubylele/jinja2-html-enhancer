@@ -7,9 +7,10 @@ import { QuickFixProvider } from './codeActions/quickFixProvider';
 import { CommandManager } from './commands/commandManager';
 import { CommentToggle } from './commands/commentToggle';
 import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
+import { FilterDocsHover } from './hover/filterDocsHover';
 import I18n, { setupI18n } from './translations';
-import { VariablePanelManager } from './ui/panels/variablePanel';
 import { TemplatePreviewPanel } from './ui/panels/templatePreviewPanel';
+import { VariablePanelManager } from './ui/panels/variablePanel';
 import { maybePromptProUpsell } from './upsell/proUpsell';
 import { FileWatcher } from './watchers/fileWatcher';
 
@@ -47,6 +48,12 @@ export function activate(context: vscode.ExtensionContext) {
 			{ scheme: 'file', language: 'html' },
 			new QuickFixProvider(),
 		)
+	);
+	context.subscriptions.push(
+		vscode.languages.registerHoverProvider(
+			[{ language: 'html' }, { language: 'jinja2' }],
+			new FilterDocsHover(),
+		),
 	);
 
 	// Public contribution API — sister extensions (Jinja2 Enhance Pro) inject
