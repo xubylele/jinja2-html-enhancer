@@ -1,13 +1,13 @@
 # 🗺️ Jinja2 Enhance — Roadmap
 
-> This document describes what the free extension does today. Feature suggestions are always welcome — [open an issue on GitHub](https://github.com/xubylele/jinja2-html-enhancer/issues).
+> This document describes what the free extension does today and what's planned next. Feature suggestions are always welcome — [open an issue on GitHub](https://github.com/xubylele/jinja2-html-enhancer/issues).
 > 🔒 **Where the code lives.** This repository ships the **free** extension and is MIT-licensed. **Pro** and **Team** features are implemented in a separate, **private** repository (`jinja2-html-enhancer-pro`) and distributed only via the paid Marketplace listing. The shared analyzer package (`jinja2-enhanced-shared`) consumed by both extensions also lives in its own private repository, distributed over git+ssh by tag.
 
 Status legend: ✅ Shipped · 🚧 In progress · ❌ Planned
 
 ---
 
-## ✅ Free Feature Status
+## ✅ Shipped — Free Today
 
 | Feature | Status |
 | --- | --- |
@@ -21,22 +21,32 @@ Status legend: ✅ Shipped · 🚧 In progress · ❌ Planned
 | **File Icons** — `.jinja2`, `.j2`, and `.jinja` files get a Jinja2 icon in the file explorer | ✅ Shipped |
 | **Localization** — English and Spanish | ✅ Shipped |
 | **Code Snippets** — 10 built-in snippets (`for`, `if`, `ife`, `block`, `extends`, `include`, `set`, `macro`, `with`, `filter`) | ✅ Shipped |
-
-> All free features above are implemented and shipping in the current Marketplace release.
+| **Template Preview (Basic)** — render Jinja2 templates with manual/static context input, highlight missing variables with styled `<span>` placeholders | ✅ Shipped |
 
 ---
 
-## ✅ Free Feature Status (Updated)
+## ❌ Planned — Free Next 6 Months
 
-| Feature | Status |
-| --- | --- |
-| **Template Preview (Basic)** — Render Jinja2 templates with manual/static context input, highlight missing variables with styled `<span>` placeholders | ✅ Shipped |
+The free extension stays **100% local** — no accounts, no backend, no telemetry. Features arrive through two paths: net-new local utilities, and selected Pro features that graduate to free after their exclusivity window.
+
+| # | Feature | Source | Target | Status |
+| --- | --- | --- | --- | --- |
+| 1 | **Filter Docs on Hover** — built-in Jinja2 filter reference (`length`, `default`, `safe`, …) shown on hover. Finite, well-documented list — fits free perfectly. | Migrated from Pro | Jun 2026 | ❌ Planned |
+| 2 | **Macro IntelliSense (single-file)** — completion + signature help for macros defined in the same file. Cross-file macro IntelliSense remains Pro. | Migrated from Pro (subset) | Jul 2026 | ❌ Planned |
+| 3 | **Template Preview v2** — multiple named context profiles saved to workspace JSON, better placeholder rendering, mock data presets. | Net-new | Jul 2026 | ❌ Planned |
+| 4 | **Jinja2-aware Formatter** — format on save with proper handling of `{% %}` / `{{ }}` inside HTML. No competing tool does this well. | Net-new | Aug 2026 | ❌ Planned |
+| 5 | **Custom User Snippets UI** — manage `{% call %}`, `{% raw %}`, and user-defined snippets through a settings panel instead of `keybindings.json`. | Net-new | Aug 2026 | ❌ Planned |
+| 6 | **Cross-File Resolution (basic)** — resolve `{% extends %}` / `{% include %}` paths and follow `cmd+click` to the file. Inherited variable resolution stays Pro. | Migrated from Pro (subset) | Sep 2026 | ❌ Planned |
+| 7 | **Variable Type Hints (local-only)** — type hints inferred from local `{% set %}` / `{% for %}` patterns. Backend-aware and AI-inferred type hints stay Pro. | Migrated from Pro (subset) | Oct 2026 | ❌ Planned |
+| 8 | **Advanced Linting (subset)** — block-scope vars, unused `{% set %}`, nesting depth. Team-wide / cloud lint rules stay Pro. | Migrated from Pro (subset) | Nov 2026 | ❌ Planned |
+| 9 | **More Themes + i18n Expansion** — community themes, plus pt-br, fr, de, zh translations. | Net-new | Rolling | ❌ Planned |
+
+### How free / Pro coexist
+
+Free keeps getting better. Pro features that don't require a server graduate to free after a **~4-month exclusivity window** so the local experience for everyone improves quickly. Pro stays valuable because it adds **server-backed** capabilities — cloud variable registries, AI inference, team documentation, audit dashboards — that simply can't ship in a local-only MIT extension.
 
 ---
 
 > 💬 **Have a feature idea?** Open an issue at [github.com/xubylele/jinja2-html-enhancer](https://github.com/xubylele/jinja2-html-enhancer/issues) — community feedback shapes what gets built next.
 >
-> ⚡ **Looking for backend intelligence, cross-file tracking, macro IntelliSense, advanced linting, type hints, filter hover docs, or full-featured Template Preview?** Those live in **Jinja2 Enhance Pro** — see the Pro Marketplace listing.
-> 💬 **Have a feature idea?** Open an issue at [github.com/xubylele/jinja2-html-enhancer](https://github.com/xubylele/jinja2-html-enhancer/issues) — community feedback shapes what gets built next.
->
-> ⚡ **Looking for backend intelligence, cross-file tracking, macro IntelliSense, advanced linting, type hints, or filter hover docs?** Those live in **Jinja2 Enhance Pro** — see the Pro Marketplace listing.
+> ⚡ **Looking for backend intelligence, cross-file variable tracking, AI-inferred types, team variable registries, audit reports, or cloud-synced docs?** Those live in **Jinja2 Enhance Pro** — see the Pro Marketplace listing.
