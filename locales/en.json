@@ -59,6 +59,18 @@
 			"example": "Example"
 		}
 	},
+	"completion": {
+		"macro": {
+			"local": "Macro defined in this file"
+		}
+	},
+	"signatureHelp": {
+		"macro": {
+			"local": "Macro defined in this file",
+			"required": "Required",
+			"optional": "Optional"
+		}
+	},
 	"filter": {
 		"abs": { "description": "Return the absolute value of the argument." },
 		"attr": { "description": "Get an attribute of an object. foo|attr(\"bar\") works like foo.bar but can be used in cases where bar is not a valid identifier." },

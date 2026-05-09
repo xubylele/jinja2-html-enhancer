@@ -60,6 +60,18 @@
 			"example": "Ejemplo"
 		}
 	},
+	"completion": {
+		"macro": {
+			"local": "Macro definida en este archivo"
+		}
+	},
+	"signatureHelp": {
+		"macro": {
+			"local": "Macro definida en este archivo",
+			"required": "Requerido",
+			"optional": "Opcional"
+		}
+	},
 	"filter": {
 		"abs": { "description": "Devuelve el valor absoluto del argumento." },
 		"attr": { "description": "Obtiene un atributo de un objeto. foo|attr(\"bar\") funciona como foo.bar pero permite usar nombres que no son identificadores válidos." },

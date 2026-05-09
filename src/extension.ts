@@ -6,6 +6,7 @@ import {
 import { QuickFixProvider } from './codeActions/quickFixProvider';
 import { CommandManager } from './commands/commandManager';
 import { CommentToggle } from './commands/commentToggle';
+import { MacroCompletionProvider, MacroSignatureHelpProvider } from './completion/macro';
 import { DiagnosticsManager } from './diagnostics/diagnosticsManager';
 import { FilterDocsHover } from './hover/filterDocsHover';
 import I18n, { setupI18n } from './translations';
@@ -53,6 +54,19 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.languages.registerHoverProvider(
 			[{ language: 'html' }, { language: 'jinja2' }],
 			new FilterDocsHover(),
+		),
+	);
+	context.subscriptions.push(
+		vscode.languages.registerCompletionItemProvider(
+			[{ language: 'html' }, { language: 'jinja2' }],
+			new MacroCompletionProvider(),
+		),
+	);
+	context.subscriptions.push(
+		vscode.languages.registerSignatureHelpProvider(
+			[{ language: 'html' }, { language: 'jinja2' }],
+			new MacroSignatureHelpProvider(),
+			'(', ',',
 		),
 	);
 

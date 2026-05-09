@@ -22,6 +22,8 @@ Status legend: ✅ Shipped · 🚧 In progress · ❌ Planned
 | **Localization** — English and Spanish | ✅ Shipped |
 | **Code Snippets** — 10 built-in snippets (`for`, `if`, `ife`, `block`, `extends`, `include`, `set`, `macro`, `with`, `filter`) | ✅ Shipped |
 | **Template Preview (Basic)** — render Jinja2 templates with manual/static context input, highlight missing variables with styled `<span>` placeholders | ✅ Shipped |
+| **Filter Docs on Hover** — hover any built-in Jinja2 filter (`length`, `default`, `safe`, …) to see its signature, description, and a usage example. Localized in English and Spanish. | ✅ Shipped |
+| **Macro IntelliSense (single-file)** — autocomplete and parameter hints for `{% macro %}` definitions in the current file, including snippet expansion of macro arguments. Cross-file macros stay Pro. | ✅ Shipped |
 
 ---
 
@@ -31,8 +33,8 @@ The free extension stays **100% local** — no accounts, no backend, no telemetr
 
 | # | Feature | Source | Target | Status |
 | --- | --- | --- | --- | --- |
-| 1 | **Filter Docs on Hover** — built-in Jinja2 filter reference (`length`, `default`, `safe`, …) shown on hover. Finite, well-documented list — fits free perfectly. | Migrated from Pro | Jun 2026 | ❌ Planned |
-| 2 | **Macro IntelliSense (single-file)** — completion + signature help for macros defined in the same file. Cross-file macro IntelliSense remains Pro. | Migrated from Pro (subset) | Jul 2026 | ❌ Planned |
+| 1 | ~~**Filter Docs on Hover**~~ — shipped May 2026 (ahead of Jun 2026 target). See "Shipped — Free Today". | Migrated from Pro | May 2026 | ✅ Shipped |
+| 2 | ~~**Macro IntelliSense (single-file)**~~ — shipped May 2026 (ahead of Jul 2026 target). See "Shipped — Free Today". | Migrated from Pro (subset) | May 2026 | ✅ Shipped |
 | 3 | **Template Preview v2** — multiple named context profiles saved to workspace JSON, better placeholder rendering, mock data presets. | Net-new | Jul 2026 | ❌ Planned |
 | 4 | **Jinja2-aware Formatter** — format on save with proper handling of `{% %}` / `{{ }}` inside HTML. No competing tool does this well. | Net-new | Aug 2026 | ❌ Planned |
 | 5 | **Custom User Snippets UI** — manage `{% call %}`, `{% raw %}`, and user-defined snippets through a settings panel instead of `keybindings.json`. | Net-new | Aug 2026 | ❌ Planned |

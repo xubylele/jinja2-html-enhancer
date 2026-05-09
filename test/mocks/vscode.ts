@@ -80,6 +80,70 @@ const CodeActionKind = {
   QuickFix: 'QuickFix',
 };
 
+const CompletionItemKind = {
+  Function: 2,
+};
+
+class CompletionItem {
+  label: string;
+  kind: number;
+  detail?: string;
+  documentation?: any;
+  insertText?: any;
+
+  constructor(label: string, kind: number) {
+    this.label = label;
+    this.kind = kind;
+  }
+}
+
+class MarkdownString {
+  value: string;
+  isTrusted = false;
+  supportHtml = false;
+
+  constructor(value = '') {
+    this.value = value;
+  }
+
+  appendMarkdown(value: string) {
+    this.value += value;
+    return this;
+  }
+}
+
+class SnippetString {
+  value: string;
+  constructor(value = '') {
+    this.value = value;
+  }
+}
+
+class ParameterInformation {
+  label: string;
+  documentation?: any;
+  constructor(label: string, documentation?: any) {
+    this.label = label;
+    this.documentation = documentation;
+  }
+}
+
+class SignatureInformation {
+  label: string;
+  documentation?: any;
+  parameters: ParameterInformation[] = [];
+  constructor(label: string, documentation?: any) {
+    this.label = label;
+    this.documentation = documentation;
+  }
+}
+
+class SignatureHelp {
+  signatures: SignatureInformation[] = [];
+  activeSignature = 0;
+  activeParameter = 0;
+}
+
 const createDiagnosticCollection = jest.fn(() => ({
   set: jest.fn(),
   clear: jest.fn(),
@@ -110,6 +174,8 @@ const workspace = {
 
 const languages = {
   createDiagnosticCollection,
+  registerCompletionItemProvider: jest.fn(() => ({ dispose: jest.fn() })),
+  registerSignatureHelpProvider: jest.fn(() => ({ dispose: jest.fn() })),
 };
 
 const env = {
@@ -135,6 +201,13 @@ export = {
   DiagnosticSeverity,
   ConfigurationTarget,
   CodeActionKind,
+  CompletionItem,
+  CompletionItemKind,
+  MarkdownString,
+  SnippetString,
+  ParameterInformation,
+  SignatureInformation,
+  SignatureHelp,
   window,
   workspace,
   languages,
