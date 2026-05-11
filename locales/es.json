@@ -60,6 +60,40 @@
 			"example": "Ejemplo"
 		}
 	},
+	"preview": {
+		"title": "Previsualización de plantilla Jinja2",
+		"profilesHeader": "Perfiles",
+		"newProfile": "Nuevo perfil",
+		"newProfilePrompt": "Nombre del perfil",
+		"saveProfile": "Guardar perfil",
+		"deleteProfile": "Eliminar",
+		"setDefault": "Marcar predeterminado",
+		"defaultBadge": "predeterminado",
+		"applyPreset": "Aplicar preset",
+		"collapseContext": "Plegar editor de contexto",
+		"expandContext": "Expandir editor de contexto",
+		"contextHeader": "Contexto (JSON)",
+		"contextPlaceholder": "{\n  \"variable\": \"valor\"\n}",
+		"invalidJson": "JSON inválido",
+		"previewHeader": "Vista renderizada",
+		"missingHeader": "Variables faltantes",
+		"missingEmpty": "Todas las variables resueltas",
+		"addMissingVar": "Agregar al perfil actual",
+		"templateKeyLabel": "Ámbito activo",
+		"wildcardScope": "Fallback del workspace (*)",
+		"presets": {
+			"user": "Usuario",
+			"list": "Lista",
+			"paginated": "Paginado",
+			"form": "Formulario"
+		},
+		"selectProfilePlaceholder": "Selecciona un perfil de contexto",
+		"manageProfilesLabel": "Administrar perfiles…",
+		"noProfilesFound": "No hay perfiles definidos para esta plantilla",
+		"profileSaved": "Perfil '{{name}}' guardado.",
+		"profileDeleted": "Perfil '{{name}}' eliminado.",
+		"noActiveTemplate": "El archivo activo no es una plantilla Jinja2."
+	},
 	"completion": {
 		"macro": {
 			"local": "Macro definida en este archivo"

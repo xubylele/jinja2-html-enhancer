@@ -59,6 +59,40 @@
 			"example": "Example"
 		}
 	},
+	"preview": {
+		"title": "Jinja2 Template Preview",
+		"profilesHeader": "Profiles",
+		"newProfile": "New profile",
+		"newProfilePrompt": "Profile name",
+		"saveProfile": "Save profile",
+		"deleteProfile": "Delete",
+		"setDefault": "Set default",
+		"defaultBadge": "default",
+		"applyPreset": "Apply preset",
+		"collapseContext": "Collapse context editor",
+		"expandContext": "Expand context editor",
+		"contextHeader": "Context (JSON)",
+		"contextPlaceholder": "{\n  \"variable\": \"value\"\n}",
+		"invalidJson": "Invalid JSON",
+		"previewHeader": "Rendered preview",
+		"missingHeader": "Missing variables",
+		"missingEmpty": "All variables resolved",
+		"addMissingVar": "Add to current profile",
+		"templateKeyLabel": "Active scope",
+		"wildcardScope": "Workspace fallback (*)",
+		"presets": {
+			"user": "User",
+			"list": "List",
+			"paginated": "Paginated",
+			"form": "Form"
+		},
+		"selectProfilePlaceholder": "Select context profile",
+		"manageProfilesLabel": "Manage profiles…",
+		"noProfilesFound": "No profiles defined for this template",
+		"profileSaved": "Saved profile '{{name}}'.",
+		"profileDeleted": "Deleted profile '{{name}}'.",
+		"noActiveTemplate": "Active file is not a Jinja2 template."
+	},
 	"completion": {
 		"macro": {
 			"local": "Macro defined in this file"

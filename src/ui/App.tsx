@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import VariablePanel from './components/VariablePanel';
+import TemplatePreviewApp, { PreviewParams } from './components/preview/TemplatePreviewApp';
 
-declare const params: {
+type VariableParams = {
+  view?: 'variables';
   translations: Record<string, string>;
   usedVariables: string[];
   setVariables: string[];
   origins?: Record<string, { label: string; uri?: string; line?: number }>;
 };
+
+declare const params: VariableParams | PreviewParams;
 
 declare global {
   interface Window {
@@ -36,6 +40,11 @@ const App: React.FC = () => {
     }
   }, [isDarkMode]);
 
+  if ((params as PreviewParams).view === 'preview') {
+    return <TemplatePreviewApp params={params as PreviewParams} />;
+  }
+
+  const vp = params as VariableParams;
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans">
       <header className="bg-gray-200 dark:bg-gray-800 shadow">
@@ -45,9 +54,9 @@ const App: React.FC = () => {
       </header>
       <main className="flex-grow w-full max-w-7xl mx-auto px-6 py-6">
         <VariablePanel
-          usedVariables={params.usedVariables}
-          setVariables={params.setVariables}
-          origins={params.origins}
+          usedVariables={vp.usedVariables}
+          setVariables={vp.setVariables}
+          origins={vp.origins}
         />
       </main>
       <footer className="bg-gray-200 dark:bg-gray-800 text-center py-4 mt-auto">

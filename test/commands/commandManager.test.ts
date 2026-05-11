@@ -56,16 +56,17 @@ describe('CommandManager', () => {
   });
 
   it('opens template preview with active editor', async () => {
+    const openFor = jest.fn();
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
       { show: jest.fn() } as any,
-      { show: jest.fn() } as any
+      { openFor, listProfilesForActive: jest.fn() } as any
     );
     vscode.window.activeTextEditor = {
       document: {
         languageId: 'html',
         getText: () => '{{ name }}',
-        uri: { fsPath: '/tmp/test.html' }
+        uri: vscode.Uri.file('/tmp/test.html'),
       }
     } as any;
 
@@ -76,6 +77,95 @@ describe('CommandManager', () => {
     await manager.openTemplatePreview();
 
     expect(vscode.window.showWarningMessage).not.toHaveBeenCalled();
+    expect(openFor).toHaveBeenCalled();
+  });
+
+  it('warns when previewWithProfile runs without an active editor', async () => {
+    const manager = new CommandManager(
+      { analyzeDocument: jest.fn() } as any,
+      { show: jest.fn() } as any,
+      { openFor: jest.fn(), listProfilesForActive: jest.fn() } as any
+    );
+
+    await manager.previewWithProfile();
+
+    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith('error.noActiveEditor');
+  });
+
+  it('warns when previewWithProfile runs on a non-template file', async () => {
+    const manager = new CommandManager(
+      { analyzeDocument: jest.fn() } as any,
+      { show: jest.fn() } as any,
+      { openFor: jest.fn(), listProfilesForActive: jest.fn() } as any
+    );
+    vscode.window.activeTextEditor = {
+      document: { languageId: 'plaintext', uri: vscode.Uri.file('/tmp/x.txt') },
+    } as any;
+
+    await manager.previewWithProfile();
+
+    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith('preview.noActiveTemplate');
+  });
+
+  it('previewWithProfile opens the selected profile via quick pick', async () => {
+    const openFor = jest.fn();
+    const listProfilesForActive = jest.fn().mockReturnValue({
+      key: '/tmp/template.html',
+      set: { default: 'demo', profiles: { demo: {}, alt: {} } },
+    });
+    const manager = new CommandManager(
+      { analyzeDocument: jest.fn() } as any,
+      { show: jest.fn() } as any,
+      { openFor, listProfilesForActive } as any
+    );
+    const document = {
+      languageId: 'html',
+      uri: vscode.Uri.file('/tmp/template.html'),
+    };
+    vscode.window.activeTextEditor = { document } as any;
+    (vscode.window.showQuickPick as jest.Mock).mockResolvedValue({ label: 'alt', name: 'alt' });
+
+    await manager.previewWithProfile();
+
+    expect(openFor).toHaveBeenCalledWith(document, 'alt');
+  });
+
+  it('previewWithProfile aborts when quick pick is dismissed', async () => {
+    const openFor = jest.fn();
+    const manager = new CommandManager(
+      { analyzeDocument: jest.fn() } as any,
+      { show: jest.fn() } as any,
+      {
+        openFor,
+        listProfilesForActive: jest.fn().mockReturnValue({
+          key: '/tmp/x.html',
+          set: { default: '', profiles: {} },
+        }),
+      } as any
+    );
+    vscode.window.activeTextEditor = {
+      document: { languageId: 'html', uri: vscode.Uri.file('/tmp/x.html') },
+    } as any;
+    (vscode.window.showQuickPick as jest.Mock).mockResolvedValue(undefined);
+
+    await manager.previewWithProfile();
+
+    expect(openFor).not.toHaveBeenCalled();
+  });
+
+  it('openTemplatePreview warns on non-template language', async () => {
+    const manager = new CommandManager(
+      { analyzeDocument: jest.fn() } as any,
+      { show: jest.fn() } as any,
+      { openFor: jest.fn(), listProfilesForActive: jest.fn() } as any
+    );
+    vscode.window.activeTextEditor = {
+      document: { languageId: 'plaintext', uri: vscode.Uri.file('/tmp/x.txt') },
+    } as any;
+
+    await manager.openTemplatePreview();
+
+    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith('preview.noActiveTemplate');
   });
 
   it('toggles boolean configuration value', async () => {

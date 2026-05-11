@@ -117,28 +117,48 @@ export class CommandManager {
   public async openTemplatePreview() {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
-      vscode.window.showWarningMessage('No active editor found');
+      vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));
       return;
     }
 
     const document = editor.document;
     if (document.languageId !== 'html' && document.languageId !== 'jinja2') {
-      vscode.window.showWarningMessage('Active file is not a Jinja2 template');
+      vscode.window.showWarningMessage(I18n.__('preview.noActiveTemplate'));
       return;
     }
 
-    const content = document.getText();
-    const config = vscode.workspace.getConfiguration('jinja2-html-enhancer');
-    const customVariables = config.get<Record<string, string[]>>('customVariables', {});
-    const filePath = document.uri.fsPath;
-    const fileVars = customVariables[filePath] || [];
+    this.templatePreviewPanel.openFor(document);
+  }
 
-    const context: Record<string, unknown> = {};
-    for (const v of fileVars) {
-      context[v] = '';
+  public async previewWithProfile() {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+      vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));
+      return;
+    }
+    const document = editor.document;
+    if (document.languageId !== 'html' && document.languageId !== 'jinja2') {
+      vscode.window.showWarningMessage(I18n.__('preview.noActiveTemplate'));
+      return;
     }
 
-    this.templatePreviewPanel.show(content, context);
+    const { set } = this.templatePreviewPanel.listProfilesForActive();
+    const profileNames = Object.keys(set.profiles);
+    const items: Array<vscode.QuickPickItem & { name?: string }> = profileNames.map(name => ({
+      label: name,
+      description: name === set.default ? `(${I18n.__('preview.defaultBadge')})` : undefined,
+      name,
+    }));
+    items.push({ label: I18n.__('preview.manageProfilesLabel'), name: undefined });
+
+    const picked = await vscode.window.showQuickPick(items, {
+      placeHolder: profileNames.length
+        ? I18n.__('preview.selectProfilePlaceholder')
+        : I18n.__('preview.noProfilesFound'),
+    });
+    if (!picked) { return; }
+
+    this.templatePreviewPanel.openFor(document, picked.name);
   }
 
   public async changeTheme() {
