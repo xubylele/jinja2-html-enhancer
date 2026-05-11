@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom/client';
-import VariablePanel from './components/VariablePanel';
-import TemplatePreviewApp, { PreviewParams } from './components/preview/TemplatePreviewApp';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom/client";
+import VariablePanel from "./components/VariablePanel";
+import TemplatePreviewApp, { PreviewParams } from "./components/preview/TemplatePreviewApp";
 
 type VariableParams = {
-  view?: 'variables';
+  view?: "variables";
   translations: Record<string, string>;
   usedVariables: string[];
   setVariables: string[];
@@ -21,52 +21,52 @@ declare global {
 
 const App: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(
-    window.matchMedia('(prefers-color-scheme: dark)').matches
+    window.matchMedia("(prefers-color-scheme: dark)").matches
   );
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = () => setIsDarkMode(mediaQuery.matches);
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   useEffect(() => {
     const htmlElement = document.documentElement;
     if (isDarkMode) {
-      htmlElement.classList.add('dark');
+      htmlElement.classList.add("dark");
     } else {
-      htmlElement.classList.remove('dark');
+      htmlElement.classList.remove("dark");
     }
   }, [isDarkMode]);
 
-  if ((params as PreviewParams).view === 'preview') {
+  if ((params as PreviewParams).view === "preview") {
     return <TemplatePreviewApp params={params as PreviewParams} />;
   }
 
   const vp = params as VariableParams;
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans">
-      <header className="bg-gray-200 dark:bg-gray-800 shadow">
-        <div className="mx-auto w-full max-w-7xl px-6 py-4 flex items-center justify-between">
+    <div className="flex min-h-screen flex-col bg-gray-100 font-sans text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+      <header className="bg-gray-200 shadow dark:bg-gray-800">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4">
           <h1 className="text-xl font-bold">Jinja2 Enhanced</h1>
         </div>
       </header>
-      <main className="flex-grow w-full max-w-7xl mx-auto px-6 py-6">
+      <main className="mx-auto w-full max-w-7xl flex-grow px-6 py-6">
         <VariablePanel
           usedVariables={vp.usedVariables}
           setVariables={vp.setVariables}
           origins={vp.origins}
         />
       </main>
-      <footer className="bg-gray-200 dark:bg-gray-800 text-center py-4 mt-auto">
+      <footer className="mt-auto bg-gray-200 py-4 text-center dark:bg-gray-800">
         <p className="text-sm">&copy; 2024 Xubylele</p>
       </footer>
     </div>
   );
 };
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(<App />);

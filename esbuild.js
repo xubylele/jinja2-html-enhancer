@@ -1,11 +1,11 @@
-const esbuild = require('esbuild');
-const fs = require('fs');
+const esbuild = require("esbuild");
+const fs = require("fs");
 
 const args = process.argv.slice(2);
-const watch = args.includes('--watch');
-const production = args.includes('--production');
+const watch = args.includes("--watch");
+const production = args.includes("--production");
 
-const outputDir = 'out';
+const outputDir = "out";
 const validateFiles = [
   `${outputDir}/extension.js`,
   `${outputDir}/App.js`,
@@ -13,31 +13,31 @@ const validateFiles = [
 ];
 
 const extensionConfig = {
-  entryPoints: ['./src/extension.ts'],
+  entryPoints: ["./src/extension.ts"],
   bundle: true,
   outfile: `${outputDir}/extension.js`,
-  external: ['vscode'],
-  format: 'cjs',
-  platform: 'node',
+  external: ["vscode"],
+  format: "cjs",
+  platform: "node",
   sourcemap: !production,
   minify: production,
   loader: {
-    '.ts': 'ts',
-    '.node': 'file',
+    ".ts": "ts",
+    ".node": "file",
   },
 };
 
 const webviewConfig = {
-  entryPoints: ['./src/ui/App.tsx'],
+  entryPoints: ["./src/ui/App.tsx"],
   bundle: true,
   outfile: `${outputDir}/App.js`,
-  format: 'esm',
-  platform: 'browser',
+  format: "esm",
+  platform: "browser",
   sourcemap: !production,
   minify: production,
   loader: {
-    '.tsx': 'tsx',
-    '.ts': 'ts',
+    ".tsx": "tsx",
+    ".ts": "ts",
   },
 };
 
@@ -60,18 +60,18 @@ async function build() {
     console.log(`Building with esbuild (production: ${production}, watch: ${watch})`);
 
     if (watch) {
-      console.log('Watching for changes...');
+      console.log("Watching for changes...");
       const extensionContext = await esbuild.context(extensionConfig);
       const webviewContext = await esbuild.context(webviewConfig);
       await Promise.all([extensionContext.watch(), webviewContext.watch()]);
     } else {
       await Promise.all([esbuild.build(extensionConfig), esbuild.build(webviewConfig)]);
-      console.log('Build completed. Validating files...');
+      console.log("Build completed. Validating files...");
       await validateBuild();
-      console.log('All required files are present.');
+      console.log("All required files are present.");
     }
   } catch (error) {
-    console.error('Build failed:', error);
+    console.error("Build failed:", error);
     process.exit(1);
   }
 }

@@ -1,9 +1,6 @@
-import * as path from 'path';
-import * as vscode from 'vscode';
-import {
-  findUsedVariables,
-  renderTemplate,
-} from '@xubylele/jinja2-enhanced-shared';
+import * as path from "path";
+import * as vscode from "vscode";
+import { findUsedVariables, renderTemplate } from "@xubylele/jinja2-enhanced-shared";
 import {
   ContextProfileSet,
   ContextProfilesMap,
@@ -12,8 +9,8 @@ import {
   getContextProfiles,
   resolveProfilesForTemplate,
   setContextProfiles,
-} from '../../config/configService';
-import i18n from '../../translations';
+} from "../../config/configService";
+import i18n from "../../translations";
 
 interface PreviewSession {
   content: string;
@@ -28,13 +25,13 @@ interface PreviewSession {
 
 interface WebviewIncomingMessage {
   command:
-    | 'save-profile'
-    | 'delete-profile'
-    | 'set-default'
-    | 'set-active'
-    | 'request-rerender'
-    | 'add-missing-var'
-    | 'preview-context';
+    | "save-profile"
+    | "delete-profile"
+    | "set-default"
+    | "set-active"
+    | "request-rerender"
+    | "add-missing-var"
+    | "preview-context";
   name?: string;
   context?: Record<string, unknown>;
 }
@@ -48,19 +45,13 @@ export class TemplatePreviewPanel {
 
   constructor(private context: vscode.ExtensionContext) {}
 
-  public openFor(
-    document: vscode.TextDocument,
-    initialProfile?: string,
-  ) {
+  public openFor(document: vscode.TextDocument, initialProfile?: string) {
     const templatePath = document.uri.fsPath;
-    const { key, set } = resolveProfilesForTemplate(
-      templatePath,
-      document.uri,
-    );
+    const { key, set } = resolveProfilesForTemplate(templatePath, document.uri);
 
-    let activeProfile = initialProfile ?? set.default ?? '';
+    let activeProfile = initialProfile ?? set.default ?? "";
     if (activeProfile && !set.profiles[activeProfile]) {
-      activeProfile = '';
+      activeProfile = "";
     }
     if (!activeProfile && Object.keys(set.profiles).length > 0) {
       activeProfile = Object.keys(set.profiles)[0];
@@ -79,10 +70,10 @@ export class TemplatePreviewPanel {
       this.panel.reveal(vscode.ViewColumn.Beside);
     } else {
       this.panel = vscode.window.createWebviewPanel(
-        'jinja2TemplatePreview',
-        i18n.__('preview.title'),
+        "jinja2TemplatePreview",
+        i18n.__("preview.title"),
         vscode.ViewColumn.Beside,
-        { enableScripts: true, retainContextWhenHidden: true },
+        { enableScripts: true, retainContextWhenHidden: true }
       );
       this.panel.onDidDispose(() => {
         this.panel = undefined;
@@ -91,25 +82,39 @@ export class TemplatePreviewPanel {
         this.saveWatcher = undefined;
         this.changeWatcher?.dispose();
         this.changeWatcher = undefined;
-        if (this.changeDebounce) { clearTimeout(this.changeDebounce); }
+        if (this.changeDebounce) {
+          clearTimeout(this.changeDebounce);
+        }
       });
       this.panel.webview.onDidReceiveMessage((msg: WebviewIncomingMessage) =>
-        this.handleMessage(msg),
+        this.handleMessage(msg)
       );
 
       this.saveWatcher = vscode.workspace.onDidSaveTextDocument((doc) => {
-        if (!this.session) { return; }
-        if (doc.uri.fsPath !== this.session.templatePath) { return; }
+        if (!this.session) {
+          return;
+        }
+        if (doc.uri.fsPath !== this.session.templatePath) {
+          return;
+        }
         this.session.content = doc.getText();
         this.postIncremental();
       });
 
       this.changeWatcher = vscode.workspace.onDidChangeTextDocument((e) => {
-        if (!this.session) { return; }
-        if (e.document.uri.fsPath !== this.session.templatePath) { return; }
-        if (this.changeDebounce) { clearTimeout(this.changeDebounce); }
+        if (!this.session) {
+          return;
+        }
+        if (e.document.uri.fsPath !== this.session.templatePath) {
+          return;
+        }
+        if (this.changeDebounce) {
+          clearTimeout(this.changeDebounce);
+        }
         this.changeDebounce = setTimeout(() => {
-          if (!this.session) { return; }
+          if (!this.session) {
+            return;
+          }
           this.session.content = e.document.getText();
           this.postIncremental();
         }, 250);
@@ -122,7 +127,7 @@ export class TemplatePreviewPanel {
   public listProfilesForActive(): { key: string; set: ContextProfileSet } {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
-      return { key: '', set: { default: '', profiles: {} } };
+      return { key: "", set: { default: "", profiles: {} } };
     }
     return resolveProfilesForTemplate(editor.document.uri.fsPath, editor.document.uri);
   }
@@ -142,10 +147,12 @@ export class TemplatePreviewPanel {
   }
 
   private computeRender() {
-    if (!this.session) { return null; }
+    if (!this.session) {
+      return null;
+    }
     const context = this.getEffectiveContext();
     const result = renderTemplate(this.session.content, context, {
-      placeholderMode: 'inline',
+      placeholderMode: "inline",
     });
     const usedVariables = findUsedVariables(this.session.content);
     return { context, result, usedVariables };
@@ -153,22 +160,24 @@ export class TemplatePreviewPanel {
 
   /** Full webview reload — used on open, save-file, profile mutations, scope changes. */
   private renderFull() {
-    if (!this.panel || !this.session) { return; }
+    if (!this.panel || !this.session) {
+      return;
+    }
     const computed = this.computeRender();
-    if (!computed) { return; }
+    if (!computed) {
+      return;
+    }
 
     const webview = this.panel.webview;
     const cssUri = webview.asWebviewUri(
-      vscode.Uri.file(
-        path.join(this.context.extensionPath, 'out', 'css', 'output.css'),
-      ),
+      vscode.Uri.file(path.join(this.context.extensionPath, "out", "css", "output.css"))
     );
     const jsUri = webview.asWebviewUri(
-      vscode.Uri.file(path.join(this.context.extensionPath, 'out', 'App.js')),
+      vscode.Uri.file(path.join(this.context.extensionPath, "out", "App.js"))
     );
 
     const params = {
-      view: 'preview' as const,
+      view: "preview" as const,
       translations: i18n.getCatalog(),
       templateKey: this.session.templateKey,
       wildcardKey: WILDCARD_TEMPLATE_KEY,
@@ -185,7 +194,7 @@ export class TemplatePreviewPanel {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${escapeHtml(i18n.__('preview.title'))}</title>
+  <title>${escapeHtml(i18n.__("preview.title"))}</title>
   <link href="${cssUri}" rel="stylesheet">
 </head>
 <body>
@@ -203,12 +212,16 @@ export class TemplatePreviewPanel {
 
   /** Incremental update — used while the user edits the JSON in the panel. Keeps React mounted. */
   private postIncremental() {
-    if (!this.panel || !this.session) { return; }
+    if (!this.panel || !this.session) {
+      return;
+    }
     const computed = this.computeRender();
-    if (!computed) { return; }
+    if (!computed) {
+      return;
+    }
 
     this.panel.webview.postMessage({
-      type: 'preview-result',
+      type: "preview-result",
       html: computed.result.html,
       missingVariables: computed.result.missingVariables,
       usedVariables: computed.usedVariables,
@@ -216,7 +229,9 @@ export class TemplatePreviewPanel {
   }
 
   private async persist(set: ContextProfileSet) {
-    if (!this.session) { return; }
+    if (!this.session) {
+      return;
+    }
     this.session.set = set;
     const editor = vscode.window.activeTextEditor;
     const all: ContextProfilesMap = getContextProfiles(this.session.uri);
@@ -225,11 +240,15 @@ export class TemplatePreviewPanel {
   }
 
   private async handleMessage(msg: WebviewIncomingMessage) {
-    if (!this.session) { return; }
+    if (!this.session) {
+      return;
+    }
 
     switch (msg.command) {
-      case 'save-profile': {
-        if (!msg.name) { return; }
+      case "save-profile": {
+        if (!msg.name) {
+          return;
+        }
         const next: ContextProfileSet = {
           default: this.session.set.default || msg.name,
           profiles: {
@@ -240,19 +259,19 @@ export class TemplatePreviewPanel {
         await this.persist(next);
         this.session.activeProfile = msg.name;
         this.session.previewContext = undefined;
-        vscode.window.showInformationMessage(
-          i18n.__('preview.profileSaved', { name: msg.name }),
-        );
+        vscode.window.showInformationMessage(i18n.__("preview.profileSaved", { name: msg.name }));
         this.renderFull();
         return;
       }
-      case 'delete-profile': {
-        if (!msg.name) { return; }
+      case "delete-profile": {
+        if (!msg.name) {
+          return;
+        }
         const remaining = { ...this.session.set.profiles };
         delete remaining[msg.name];
         const nextDefault =
           this.session.set.default === msg.name
-            ? Object.keys(remaining)[0] ?? ''
+            ? (Object.keys(remaining)[0] ?? "")
             : this.session.set.default;
         const next: ContextProfileSet = {
           default: nextDefault,
@@ -263,14 +282,14 @@ export class TemplatePreviewPanel {
           this.session.activeProfile = nextDefault;
         }
         this.session.previewContext = undefined;
-        vscode.window.showInformationMessage(
-          i18n.__('preview.profileDeleted', { name: msg.name }),
-        );
+        vscode.window.showInformationMessage(i18n.__("preview.profileDeleted", { name: msg.name }));
         this.renderFull();
         return;
       }
-      case 'set-default': {
-        if (!msg.name) { return; }
+      case "set-default": {
+        if (!msg.name) {
+          return;
+        }
         const next: ContextProfileSet = {
           ...this.session.set,
           default: msg.name,
@@ -279,23 +298,29 @@ export class TemplatePreviewPanel {
         this.renderFull();
         return;
       }
-      case 'set-active': {
-        if (!msg.name) { return; }
+      case "set-active": {
+        if (!msg.name) {
+          return;
+        }
         this.session.activeProfile = msg.name;
         this.session.previewContext = undefined;
         this.renderFull();
         return;
       }
-      case 'add-missing-var': {
-        if (!msg.name) { return; }
-        const profileName = this.session.activeProfile || 'default';
+      case "add-missing-var": {
+        if (!msg.name) {
+          return;
+        }
+        const profileName = this.session.activeProfile || "default";
         const current = this.session.set.profiles[profileName] ?? {};
-        if (msg.name in current) { return; }
+        if (msg.name in current) {
+          return;
+        }
         const next: ContextProfileSet = {
           default: this.session.set.default || profileName,
           profiles: {
             ...this.session.set.profiles,
-            [profileName]: { ...current, [msg.name]: '' },
+            [profileName]: { ...current, [msg.name]: "" },
           },
         };
         await this.persist(next);
@@ -304,12 +329,12 @@ export class TemplatePreviewPanel {
         this.renderFull();
         return;
       }
-      case 'preview-context': {
+      case "preview-context": {
         this.session.previewContext = msg.context ?? {};
         this.postIncremental();
         return;
       }
-      case 'request-rerender': {
+      case "request-rerender": {
         this.renderFull();
         return;
       }
@@ -323,16 +348,16 @@ export class TemplatePreviewPanel {
       return;
     }
     const result = renderTemplate(content, contextVars, {
-      placeholderMode: 'inline',
+      placeholderMode: "inline",
     });
     if (this.panel) {
       this.panel.reveal(vscode.ViewColumn.Beside);
     } else {
       this.panel = vscode.window.createWebviewPanel(
-        'jinja2TemplatePreview',
-        i18n.__('preview.title'),
+        "jinja2TemplatePreview",
+        i18n.__("preview.title"),
         vscode.ViewColumn.Beside,
-        { enableScripts: true, retainContextWhenHidden: true },
+        { enableScripts: true, retainContextWhenHidden: true }
       );
       this.panel.onDidDispose(() => {
         this.panel = undefined;
@@ -347,8 +372,8 @@ export class TemplatePreviewPanel {
 
 function escapeHtml(s: string): string {
   return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }

@@ -1,25 +1,23 @@
 {
-	"version": "0.2.0",
-	"configurations": [
-		{
-			"name": "Run Extension (Empty Profile)",
-			"type": "extensionHost",
-			"request": "launch",
-			"outFiles": [
-				"${workspaceFolder}/out/**/*.js"
-			],
-			"preLaunchTask": "build",
-			"runtimeExecutable": "${execPath}",
-			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--user-data-dir=${workspaceFolder}/.vscode-test-profile",
-				"--disable-extensions",
-				"--locale",
-				"en",
-				"--profile",
-				"empty"
-			],
-			"sourceMaps": true
-		}
-	]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Extension (Empty Profile)",
+      "type": "extensionHost",
+      "request": "launch",
+      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "preLaunchTask": "build",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--user-data-dir=${workspaceFolder}/.vscode-test-profile",
+        "--disable-extensions",
+        "--locale",
+        "en",
+        "--profile",
+        "empty"
+      ],
+      "sourceMaps": true
+    }
+  ]
 }

@@ -25,7 +25,12 @@ type Theme = {
 **Purpose:** Union of available theme identifiers.
 
 ```typescript
-type ThemeName = 'darkDefault' | 'lightDefault' | 'darkHighContrast' | 'lightHighContrast' | 'xubySelection';
+type ThemeName =
+  | "darkDefault"
+  | "lightDefault"
+  | "darkHighContrast"
+  | "lightHighContrast"
+  | "xubySelection";
 ```
 
 ### `Variable` (internal to `src/ui/components/VariablePanel.tsx`)
@@ -85,37 +90,37 @@ Exported names: `darkDefaultTheme`, `darkHighContrast`, `lightDefaultTheme`, `li
 
 ### `ExtensionContext.globalState`
 
-| Key | Type | Scope | Description |
-| ----- | ------ | ------- | ------------- |
-| `jinja2.firstActivation` | `number` | Global | Timestamp of first extension activation (set to `Date.now() - 8 days` on first run so review triggers after 7 real days) |
-| `jinja2.reviewRequested` | `boolean` | Global | Whether the user has already been prompted to leave a review |
+| Key                      | Type      | Scope  | Description                                                                                                              |
+| ------------------------ | --------- | ------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `jinja2.firstActivation` | `number`  | Global | Timestamp of first extension activation (set to `Date.now() - 8 days` on first run so review triggers after 7 real days) |
+| `jinja2.reviewRequested` | `boolean` | Global | Whether the user has already been prompted to leave a review                                                             |
 
 ### `ExtensionContext.subscriptions`
 
-| Subscription | Type | Description |
-| -------------- | ------ | ------------- |
-| `checkVariablesDisposable` | `Disposable` | Command: `extension.checkJinja2Variables` |
-| `openPanelDisposable` | `Disposable` | Command: `extension.openVariablePanel` |
-| `saveVariableDisposable` | `Disposable` | Command: `extension.saveVariable` |
-| `toggleVariableCheck` | `Disposable` | Command: `extension.toggleVariableCheck` |
-| `themeChangeDisposable` | `Disposable` | Command: `extension.changeTheme` |
-| `toggleCommentDisposable` | `Disposable` | Command: `extension.toggleJinja2Comment` |
-| CodeActionProvider registration | `Disposable` | QuickFixProvider for HTML |
-| `onDidSaveTextDocument` listener | `Disposable` | Analyzes HTML documents on save |
+| Subscription                     | Type         | Description                               |
+| -------------------------------- | ------------ | ----------------------------------------- |
+| `checkVariablesDisposable`       | `Disposable` | Command: `extension.checkJinja2Variables` |
+| `openPanelDisposable`            | `Disposable` | Command: `extension.openVariablePanel`    |
+| `saveVariableDisposable`         | `Disposable` | Command: `extension.saveVariable`         |
+| `toggleVariableCheck`            | `Disposable` | Command: `extension.toggleVariableCheck`  |
+| `themeChangeDisposable`          | `Disposable` | Command: `extension.changeTheme`          |
+| `toggleCommentDisposable`        | `Disposable` | Command: `extension.toggleJinja2Comment`  |
+| CodeActionProvider registration  | `Disposable` | QuickFixProvider for HTML                 |
+| `onDidSaveTextDocument` listener | `Disposable` | Analyzes HTML documents on save           |
 
 ### Module-Level Variables (`src/extension.ts`)
 
-| Variable | Type | Scope | Description |
-| ---------- | ------ | ------- | ------------- |
+| Variable             | Type                              | Scope  | Description                                        |
+| -------------------- | --------------------------------- | ------ | -------------------------------------------------- |
 | `diagnosticsManager` | `DiagnosticsManager \| undefined` | Module | Singleton — cleared and disposed on `deactivate()` |
-| `fileWatcher` | `FileWatcher \| undefined` | Module | Singleton — disposed on `deactivate()` |
+| `fileWatcher`        | `FileWatcher \| undefined`        | Module | Singleton — disposed on `deactivate()`             |
 
 ### `VariablePanelManager` Instance State
 
-| Property | Type | Description |
-| ---------- | ------ | ------------- |
-| `panel` | `vscode.WebviewPanel \| undefined` | Singleton webview — reused across `show()` calls |
-| `disposables` | `vscode.Disposable[]` | Internal disposables (fileWatcher event subscription) |
+| Property      | Type                               | Description                                           |
+| ------------- | ---------------------------------- | ----------------------------------------------------- |
+| `panel`       | `vscode.WebviewPanel \| undefined` | Singleton webview — reused across `show()` calls      |
+| `disposables` | `vscode.Disposable[]`              | Internal disposables (fileWatcher event subscription) |
 
 ---
 
@@ -123,10 +128,10 @@ Exported names: `darkDefaultTheme`, `darkHighContrast`, `lightDefaultTheme`, `li
 
 From `package.json` → `contributes.configuration`:
 
-| Setting | Type | Default | Scope | Description |
-| --------- | ------ | --------- | ------- | ------------- |
-| `jinja2-html-enhancer.customVariables` | `object` | `{}` | `resource` | Map of file paths to arrays of custom variable names (e.g., `{ "/path/to/file.html": ["myVar"] }`) |
-| `jinja2-html-enhancer.toggleVariableCheck` | `boolean` | `false` | `resource` | Enables/disables automatic variable checking on document analysis |
+| Setting                                    | Type      | Default | Scope      | Description                                                                                        |
+| ------------------------------------------ | --------- | ------- | ---------- | -------------------------------------------------------------------------------------------------- |
+| `jinja2-html-enhancer.customVariables`     | `object`  | `{}`    | `resource` | Map of file paths to arrays of custom variable names (e.g., `{ "/path/to/file.html": ["myVar"] }`) |
+| `jinja2-html-enhancer.toggleVariableCheck` | `boolean` | `false` | `resource` | Enables/disables automatic variable checking on document analysis                                  |
 
 Additionally, the extension writes to VS Code's built-in settings (not declared in its own schema):
 
@@ -136,6 +141,6 @@ Additionally, the extension writes to VS Code's built-in settings (not declared 
 
 ## Diagnostic Codes
 
-| Code | Severity | Source | Description |
-| ------ | ---------- | -------- | ------------- |
-| `JHE0001` | Warning | `DiagnosticsManager` | Variable is used (`{{ var }}`) but not set (no `{% set var = %}`, `{% for var in %}`, or custom variable entry) |
+| Code      | Severity | Source               | Description                                                                                                     |
+| --------- | -------- | -------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `JHE0001` | Warning  | `DiagnosticsManager` | Variable is used (`{{ var }}`) but not set (no `{% set var = %}`, `{% for var in %}`, or custom variable entry) |

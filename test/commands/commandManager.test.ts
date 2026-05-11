@@ -1,28 +1,28 @@
-import * as vscode from 'vscode';
-import { CommandManager } from '../../src/commands/commandManager';
+import * as vscode from "vscode";
+import { CommandManager } from "../../src/commands/commandManager";
 
-jest.mock('../../src/translations', () => ({
+jest.mock("../../src/translations", () => ({
   __esModule: true,
   default: {
     __: (key: string) => key,
   },
 }));
 
-jest.mock('../../src/theme/themeChoose', () => ({
+jest.mock("../../src/theme/themeChoose", () => ({
   chooseThemeSelector: jest.fn(),
 }));
 
-const { chooseThemeSelector } = jest.requireMock('../../src/theme/themeChoose') as {
+const { chooseThemeSelector } = jest.requireMock("../../src/theme/themeChoose") as {
   chooseThemeSelector: jest.Mock;
 };
 
-describe('CommandManager', () => {
+describe("CommandManager", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     vscode.window.activeTextEditor = undefined as any;
   });
 
-  it('warns when checking variables without an active editor', async () => {
+  it("warns when checking variables without an active editor", async () => {
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
       { show: jest.fn() } as any,
@@ -31,13 +31,13 @@ describe('CommandManager', () => {
 
     await manager.checkVariables();
 
-    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith('error.noActiveEditor');
+    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith("error.noActiveEditor");
   });
 
-  it('opens variable panel after successful analysis', async () => {
+  it("opens variable panel after successful analysis", async () => {
     const analyzeDocument = jest.fn().mockResolvedValue({
-      usedVariables: ['user'],
-      setVariables: ['user'],
+      usedVariables: ["user"],
+      setVariables: ["user"],
     });
     const show = jest.fn();
     const manager = new CommandManager(
@@ -46,16 +46,16 @@ describe('CommandManager', () => {
       { show: jest.fn() } as any
     );
     vscode.window.activeTextEditor = {
-      document: { uri: vscode.Uri.file('/tmp/template.html') },
+      document: { uri: vscode.Uri.file("/tmp/template.html") },
     } as any;
 
     await manager.openVariablePanel();
 
     expect(analyzeDocument).toHaveBeenCalled();
-    expect(show).toHaveBeenCalledWith(['user'], ['user']);
+    expect(show).toHaveBeenCalledWith(["user"], ["user"]);
   });
 
-  it('opens template preview with active editor', async () => {
+  it("opens template preview with active editor", async () => {
     const openFor = jest.fn();
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
@@ -64,14 +64,14 @@ describe('CommandManager', () => {
     );
     vscode.window.activeTextEditor = {
       document: {
-        languageId: 'html',
-        getText: () => '{{ name }}',
-        uri: vscode.Uri.file('/tmp/test.html'),
-      }
+        languageId: "html",
+        getText: () => "{{ name }}",
+        uri: vscode.Uri.file("/tmp/test.html"),
+      },
     } as any;
 
     (vscode.workspace.getConfiguration as jest.Mock).mockReturnValue({
-      get: jest.fn().mockReturnValue({})
+      get: jest.fn().mockReturnValue({}),
     });
 
     await manager.openTemplatePreview();
@@ -80,7 +80,7 @@ describe('CommandManager', () => {
     expect(openFor).toHaveBeenCalled();
   });
 
-  it('warns when previewWithProfile runs without an active editor', async () => {
+  it("warns when previewWithProfile runs without an active editor", async () => {
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
       { show: jest.fn() } as any,
@@ -89,29 +89,29 @@ describe('CommandManager', () => {
 
     await manager.previewWithProfile();
 
-    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith('error.noActiveEditor');
+    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith("error.noActiveEditor");
   });
 
-  it('warns when previewWithProfile runs on a non-template file', async () => {
+  it("warns when previewWithProfile runs on a non-template file", async () => {
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
       { show: jest.fn() } as any,
       { openFor: jest.fn(), listProfilesForActive: jest.fn() } as any
     );
     vscode.window.activeTextEditor = {
-      document: { languageId: 'plaintext', uri: vscode.Uri.file('/tmp/x.txt') },
+      document: { languageId: "plaintext", uri: vscode.Uri.file("/tmp/x.txt") },
     } as any;
 
     await manager.previewWithProfile();
 
-    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith('preview.noActiveTemplate');
+    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith("preview.noActiveTemplate");
   });
 
-  it('previewWithProfile opens the selected profile via quick pick', async () => {
+  it("previewWithProfile opens the selected profile via quick pick", async () => {
     const openFor = jest.fn();
     const listProfilesForActive = jest.fn().mockReturnValue({
-      key: '/tmp/template.html',
-      set: { default: 'demo', profiles: { demo: {}, alt: {} } },
+      key: "/tmp/template.html",
+      set: { default: "demo", profiles: { demo: {}, alt: {} } },
     });
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
@@ -119,18 +119,18 @@ describe('CommandManager', () => {
       { openFor, listProfilesForActive } as any
     );
     const document = {
-      languageId: 'html',
-      uri: vscode.Uri.file('/tmp/template.html'),
+      languageId: "html",
+      uri: vscode.Uri.file("/tmp/template.html"),
     };
     vscode.window.activeTextEditor = { document } as any;
-    (vscode.window.showQuickPick as jest.Mock).mockResolvedValue({ label: 'alt', name: 'alt' });
+    (vscode.window.showQuickPick as jest.Mock).mockResolvedValue({ label: "alt", name: "alt" });
 
     await manager.previewWithProfile();
 
-    expect(openFor).toHaveBeenCalledWith(document, 'alt');
+    expect(openFor).toHaveBeenCalledWith(document, "alt");
   });
 
-  it('previewWithProfile aborts when quick pick is dismissed', async () => {
+  it("previewWithProfile aborts when quick pick is dismissed", async () => {
     const openFor = jest.fn();
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
@@ -138,13 +138,13 @@ describe('CommandManager', () => {
       {
         openFor,
         listProfilesForActive: jest.fn().mockReturnValue({
-          key: '/tmp/x.html',
-          set: { default: '', profiles: {} },
+          key: "/tmp/x.html",
+          set: { default: "", profiles: {} },
         }),
       } as any
     );
     vscode.window.activeTextEditor = {
-      document: { languageId: 'html', uri: vscode.Uri.file('/tmp/x.html') },
+      document: { languageId: "html", uri: vscode.Uri.file("/tmp/x.html") },
     } as any;
     (vscode.window.showQuickPick as jest.Mock).mockResolvedValue(undefined);
 
@@ -153,22 +153,22 @@ describe('CommandManager', () => {
     expect(openFor).not.toHaveBeenCalled();
   });
 
-  it('openTemplatePreview warns on non-template language', async () => {
+  it("openTemplatePreview warns on non-template language", async () => {
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
       { show: jest.fn() } as any,
       { openFor: jest.fn(), listProfilesForActive: jest.fn() } as any
     );
     vscode.window.activeTextEditor = {
-      document: { languageId: 'plaintext', uri: vscode.Uri.file('/tmp/x.txt') },
+      document: { languageId: "plaintext", uri: vscode.Uri.file("/tmp/x.txt") },
     } as any;
 
     await manager.openTemplatePreview();
 
-    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith('preview.noActiveTemplate');
+    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith("preview.noActiveTemplate");
   });
 
-  it('toggles boolean configuration value', async () => {
+  it("toggles boolean configuration value", async () => {
     const update = jest.fn().mockResolvedValue(undefined);
     (vscode.workspace.getConfiguration as jest.Mock).mockReturnValue({
       get: jest.fn().mockReturnValue(false),
@@ -180,13 +180,15 @@ describe('CommandManager', () => {
       { show: jest.fn() } as any
     );
 
-    await manager.changeConfiguration('toggleVariableCheck');
+    await manager.changeConfiguration("toggleVariableCheck");
 
-    expect(update).toHaveBeenCalledWith('toggleVariableCheck', true);
-    expect(vscode.window.showInformationMessage).toHaveBeenCalledWith('configuration.configurationChanged');
+    expect(update).toHaveBeenCalledWith("toggleVariableCheck", true);
+    expect(vscode.window.showInformationMessage).toHaveBeenCalledWith(
+      "configuration.configurationChanged"
+    );
   });
 
-  it('saves variable to workspace customVariables and triggers re-check', async () => {
+  it("saves variable to workspace customVariables and triggers re-check", async () => {
     const analyzeDocument = jest.fn().mockResolvedValue({ usedVariables: [], setVariables: [] });
     const manager = new CommandManager(
       { analyzeDocument } as any,
@@ -195,13 +197,15 @@ describe('CommandManager', () => {
     );
     const update = jest.fn().mockResolvedValue(undefined);
 
-    const editorUri = vscode.Uri.file('/tmp/template.html');
+    const editorUri = vscode.Uri.file("/tmp/template.html");
     vscode.window.activeTextEditor = {
-      document: { uri: editorUri, fsPath: '/tmp/template.html' },
+      document: { uri: editorUri, fsPath: "/tmp/template.html" },
     } as any;
-    (vscode.workspace.getWorkspaceFolder as jest.Mock).mockReturnValue({ uri: vscode.Uri.file('/tmp') });
+    (vscode.workspace.getWorkspaceFolder as jest.Mock).mockReturnValue({
+      uri: vscode.Uri.file("/tmp"),
+    });
     (vscode.workspace.getConfiguration as jest.Mock).mockImplementation((section?: string) => {
-      if (section === 'jinja2-html-enhancer') {
+      if (section === "jinja2-html-enhancer") {
         return {
           get: jest.fn().mockReturnValue({}),
           update,
@@ -216,14 +220,14 @@ describe('CommandManager', () => {
     await manager.saveVariable("Variable 'customer' is missing");
 
     expect(update).toHaveBeenCalledWith(
-      'customVariables',
-      { '/tmp/template.html': ['customer'] },
+      "customVariables",
+      { "/tmp/template.html": ["customer"] },
       vscode.ConfigurationTarget.WorkspaceFolder
     );
     expect(analyzeDocument).toHaveBeenCalled();
   });
 
-  it('warns when trying to save variable without active editor', async () => {
+  it("warns when trying to save variable without active editor", async () => {
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
       { show: jest.fn() } as any,
@@ -232,10 +236,10 @@ describe('CommandManager', () => {
 
     await manager.saveVariable("Variable 'customer' is missing");
 
-    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith('error.noActiveEditor');
+    expect(vscode.window.showWarningMessage).toHaveBeenCalledWith("error.noActiveEditor");
   });
 
-  it('applies removal action in theme change flow', async () => {
+  it("applies removal action in theme change flow", async () => {
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
       { show: jest.fn() } as any,
@@ -243,12 +247,15 @@ describe('CommandManager', () => {
     );
     const update = jest.fn().mockResolvedValue(undefined);
 
-    (vscode.window.showQuickPick as jest.Mock).mockResolvedValue({ label: 'remove', value: 'remove' });
+    (vscode.window.showQuickPick as jest.Mock).mockResolvedValue({
+      label: "remove",
+      value: "remove",
+    });
     (vscode.workspace.getConfiguration as jest.Mock).mockImplementation((section?: string) => {
-      if (section === 'workbench') {
+      if (section === "workbench") {
         return {
           get: jest.fn().mockReturnValue({
-            textMateRules: [{ scope: 'jinja2.variable' }, { scope: 'other.scope' }],
+            textMateRules: [{ scope: "jinja2.variable" }, { scope: "other.scope" }],
           }),
         };
       }
@@ -261,20 +268,23 @@ describe('CommandManager', () => {
     await manager.changeTheme();
 
     expect(update).toHaveBeenCalledWith(
-      'editor.tokenColorCustomizations',
-      { textMateRules: [{ scope: 'other.scope' }] },
+      "editor.tokenColorCustomizations",
+      { textMateRules: [{ scope: "other.scope" }] },
       vscode.ConfigurationTarget.Global
     );
   });
 
-  it('delegates apply action to theme selector', async () => {
+  it("delegates apply action to theme selector", async () => {
     const manager = new CommandManager(
       { analyzeDocument: jest.fn() } as any,
       { show: jest.fn() } as any,
       { show: jest.fn() } as any
     );
 
-    (vscode.window.showQuickPick as jest.Mock).mockResolvedValue({ label: 'Apply', value: 'apply' });
+    (vscode.window.showQuickPick as jest.Mock).mockResolvedValue({
+      label: "Apply",
+      value: "apply",
+    });
 
     await manager.changeTheme();
 

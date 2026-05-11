@@ -1,162 +1,226 @@
 {
-	"variable": {
-		"variableNotSet": "⚠️ La variable '{{variable}}' está siendo usada pero no ha sido definida. Asegúrese de que esté definida.",
-		"checkingVariables": "🔍 Verificando variables Jinja2...",
-		"variablesChecked": "✅ Variables verificadas."
-	},
-	"analyzer": {
-		"analyzingDocument": "🔄 Analizando documento...",
-		"analysisComplete": "✅ Análisis de variables Jinja2 completado."
-	},
-	"error": {
-		"noActiveEditor": "❌ No se encontró un editor activo.",
-		"variableNotFound": "❌ Variable no encontrada en configuración.",
-		"variableNotSaved": "❌ Variable '{{variable}}' no guardada en configuración. {{error}}",
-		"configurationChangeFailed": "❌ La configuración {{type}} no se pudo cambiar. {{error}}",
-		"themeChangeFailed": "❌ No se pudo cambiar el tema. {{error}}",
-		"themeNotFound": "❌ error.themeNotFound"
-	},
-	"warning": {
-		"noWorkspaceFolder": "⚠️ No se encontró una carpeta de espacio de trabajo. Las variables se guardarán global",
-		"variableExists": "⚠️ Variable '{{variable}}' ya existe en {{target}}.",
-		"noToggleVariableCheck": "⚠️ La opción de verificación de variables Jinja2 no está activa en este editor."
-	},
-	"configuration": {
-		"toggleVariableCheck": "🔄 Activar/Desactivar verificación de variables Jinja2",
-		"configurationChanged": "✅ Configuración '{{type}}' cambiada."
-	},
-	"quickFix": {
-		"save": "💾 Guardar '{{variable}}' en {{target}}",
-		"globalTarget": "🌐 Configuración global",
-		"workspaceTarget": "📁 Configuración de espacio de trabajo"
-	},
-	"review": {
-		"welcomeMessage": "👋 ¡Bienvenido a Jinja2 Enhance! Revisa la configuración de la extensión para personalizar tu experiencia.",
-		"message": "✨ ¿Disfrutando Jinja2 Enhance? Una reseña rápida ayuda mucho",
-		"action": {
-			"leave": "⭐ Dejar una reseña",
-			"later": "⏰ Quizás más tarde",
-			"never": "🚫 No preguntar más"
-		}
-	},
-	"theme": {
-		"selectAction": "🎨 Seleccionar acción de color Jinja2",
-		"selectActionPlaceholder": "Seleccionar una acción",
-		"apply": "🎨 Aplicar colores Jinja2",
-		"remove": "🧹 Eliminar colores Jinja2",
-		"cancel": "❌ Cancelar",
-		"themeChanged": "🎨 Tema cambiado a '{{theme}}'.",
-		"darkDefault": "🌙 Predeterminado oscuro",
-		"lightDefault": "☀️ Predeterminado claro",
-		"darkHighContrast": "🌑 Contraste alto oscuro",
-		"lightHighContrast": "🌕 Contraste alto claro",
-		"jinja2Colors": "🎨 Colores Jinja2",
-		"xubySelection": "⭐ Selección de Xuby"
-	},
-	"hover": {
-		"filterDocs": {
-			"title": "Filtro Jinja2",
-			"signature": "Firma",
-			"example": "Ejemplo"
-		}
-	},
-	"preview": {
-		"title": "Previsualización de plantilla Jinja2",
-		"profilesHeader": "Perfiles",
-		"newProfile": "Nuevo perfil",
-		"newProfilePrompt": "Nombre del perfil",
-		"saveProfile": "Guardar perfil",
-		"deleteProfile": "Eliminar",
-		"setDefault": "Marcar predeterminado",
-		"defaultBadge": "predeterminado",
-		"applyPreset": "Aplicar preset",
-		"collapseContext": "Plegar editor de contexto",
-		"expandContext": "Expandir editor de contexto",
-		"contextHeader": "Contexto (JSON)",
-		"contextPlaceholder": "{\n  \"variable\": \"valor\"\n}",
-		"invalidJson": "JSON inválido",
-		"previewHeader": "Vista renderizada",
-		"missingHeader": "Variables faltantes",
-		"missingEmpty": "Todas las variables resueltas",
-		"addMissingVar": "Agregar al perfil actual",
-		"templateKeyLabel": "Ámbito activo",
-		"wildcardScope": "Fallback del workspace (*)",
-		"presets": {
-			"user": "Usuario",
-			"list": "Lista",
-			"paginated": "Paginado",
-			"form": "Formulario"
-		},
-		"selectProfilePlaceholder": "Selecciona un perfil de contexto",
-		"manageProfilesLabel": "Administrar perfiles…",
-		"noProfilesFound": "No hay perfiles definidos para esta plantilla",
-		"profileSaved": "Perfil '{{name}}' guardado.",
-		"profileDeleted": "Perfil '{{name}}' eliminado.",
-		"noActiveTemplate": "El archivo activo no es una plantilla Jinja2."
-	},
-	"completion": {
-		"macro": {
-			"local": "Macro definida en este archivo"
-		}
-	},
-	"signatureHelp": {
-		"macro": {
-			"local": "Macro definida en este archivo",
-			"required": "Requerido",
-			"optional": "Opcional"
-		}
-	},
-	"filter": {
-		"abs": { "description": "Devuelve el valor absoluto del argumento." },
-		"attr": { "description": "Obtiene un atributo de un objeto. foo|attr(\"bar\") funciona como foo.bar pero permite usar nombres que no son identificadores válidos." },
-		"batch": { "description": "Agrupa los elementos en lotes. Funciona como slice pero devuelve listas en lugar de tuplas. El segundo parámetro indica el tamaño del lote y el tercero rellena los elementos faltantes." },
-		"capitalize": { "description": "Capitaliza un valor: la primera letra en mayúscula y el resto en minúsculas." },
-		"center": { "description": "Centra el valor dentro de un campo del ancho indicado añadiendo espacios a ambos lados." },
-		"default": { "description": "Si el valor es undefined, devuelve default_value; en caso contrario devuelve el valor. Si boolean es True, también trata los valores falsy como undefined." },
-		"dictsort": { "description": "Ordena un diccionario por clave o por valor. Devuelve una lista de tuplas (clave, valor)." },
-		"escape": { "description": "Convierte los caracteres &, <, >, \" y ' a entidades HTML seguras. Útil para mostrar texto que puede contener caracteres HTML." },
-		"filesizeformat": { "description": "Formatea el valor como un tamaño de archivo legible (por ejemplo 13 KB, 4.1 MB, 102 bytes)." },
-		"first": { "description": "Devuelve el primer elemento de una secuencia." },
-		"float": { "description": "Convierte el valor en un número de punto flotante." },
-		"forceescape": { "description": "Fuerza el escape HTML: escapa &, <, >, \" y ' incluso si el autoescape está desactivado." },
-		"format": { "description": "Aplica el formato de cadenas de Python al valor. Útil para formateos simples." },
-		"groupby": { "description": "Agrupa una secuencia de objetos por un atributo. Devuelve una lista de tuplas (clave, lista)." },
-		"indent": { "description": "Devuelve una copia de la cadena con cada línea indentada según el ancho dado. La primera línea no se indenta si indentfirst es False." },
-		"int": { "description": "Convierte el valor en un entero. Si la conversión falla devuelve el valor por defecto." },
-		"join": { "description": "Devuelve una cadena que concatena los elementos de la secuencia, separados por d." },
-		"last": { "description": "Devuelve el último elemento de una secuencia." },
-		"length": { "description": "Devuelve el número de elementos de un contenedor." },
-		"list": { "description": "Convierte el valor en una lista." },
-		"lower": { "description": "Convierte una cadena a minúsculas." },
-		"map": { "description": "Aplica un filtro o función a cada elemento de una secuencia y devuelve una nueva secuencia con los resultados." },
-		"max": { "description": "Devuelve el elemento mayor de una secuencia." },
-		"min": { "description": "Devuelve el elemento menor de una secuencia." },
-		"pprint": { "description": "Imprime un objeto Python con formato. Útil para depuración." },
-		"random": { "description": "Devuelve un elemento aleatorio de una secuencia." },
-		"reject": { "description": "Filtra una secuencia rechazando los elementos que cumplen una prueba." },
-		"rejectattr": { "description": "Filtra una secuencia rechazando los elementos cuyo atributo cumple una prueba." },
-		"replace": { "description": "Devuelve una copia de la cadena con todas las ocurrencias de old reemplazadas por new." },
-		"reverse": { "description": "Invierte el objeto o devuelve un iterador que recorre la secuencia en orden inverso." },
-		"round": { "description": "Redondea el número a la precisión indicada. Métodos: 'common' (por defecto), 'floor', 'ceil'." },
-		"safe": { "description": "Marca el valor como seguro: en un entorno con autoescape, el valor no será escapado." },
-		"select": { "description": "Filtra una secuencia seleccionando los elementos que cumplen una prueba." },
-		"selectattr": { "description": "Filtra una secuencia seleccionando los elementos cuyo atributo cumple una prueba." },
-		"slice": { "description": "Divide una secuencia en porciones del tamaño indicado. Devuelve una lista de listas." },
-		"sort": { "description": "Ordena una secuencia. Por defecto en orden ascendente." },
-		"string": { "description": "Convierte el objeto a su representación en cadena." },
-		"striptags": { "description": "Elimina etiquetas SGML/XML y reemplaza los espacios adyacentes por uno solo." },
-		"sum": { "description": "Devuelve la suma de una secuencia de números. Si se indica attribute, suma ese atributo de cada objeto." },
-		"title": { "description": "Convierte una cadena a Title Case (cada palabra capitalizada)." },
-		"trim": { "description": "Elimina los espacios al inicio y al final." },
-		"truncate": { "description": "Devuelve una copia recortada de la cadena. La longitud se indica con el primer parámetro." },
-		"unique": { "description": "Devuelve una lista con los elementos únicos de la secuencia." },
-		"upper": { "description": "Convierte una cadena a mayúsculas." },
-		"urlencode": { "description": "Escapa los caracteres especiales para que la cadena pueda usarse en una URL." },
-		"urlize": { "description": "Convierte las URLs presentes en el texto en enlaces clicables." },
-		"wordcount": { "description": "Cuenta el número de palabras en una cadena." },
-		"wordwrap": { "description": "Devuelve una copia de la cadena con las líneas envueltas al ancho indicado." },
-		"xmlattr": { "description": "Convierte un diccionario en sintaxis de atributos XML. Las claves y los valores se escapan." },
-		"tojson": { "description": "Convierte el valor a JSON. Útil para incrustar datos en HTML o JavaScript." },
-		"items": { "description": "Devuelve una lista de pares (clave, valor) de un diccionario. Útil para iterar diccionarios en plantillas." }
-	}
+  "variable": {
+    "variableNotSet": "⚠️ La variable '{{variable}}' está siendo usada pero no ha sido definida. Asegúrese de que esté definida.",
+    "checkingVariables": "🔍 Verificando variables Jinja2...",
+    "variablesChecked": "✅ Variables verificadas."
+  },
+  "analyzer": {
+    "analyzingDocument": "🔄 Analizando documento...",
+    "analysisComplete": "✅ Análisis de variables Jinja2 completado."
+  },
+  "error": {
+    "noActiveEditor": "❌ No se encontró un editor activo.",
+    "variableNotFound": "❌ Variable no encontrada en configuración.",
+    "variableNotSaved": "❌ Variable '{{variable}}' no guardada en configuración. {{error}}",
+    "configurationChangeFailed": "❌ La configuración {{type}} no se pudo cambiar. {{error}}",
+    "themeChangeFailed": "❌ No se pudo cambiar el tema. {{error}}",
+    "themeNotFound": "❌ error.themeNotFound"
+  },
+  "warning": {
+    "noWorkspaceFolder": "⚠️ No se encontró una carpeta de espacio de trabajo. Las variables se guardarán global",
+    "variableExists": "⚠️ Variable '{{variable}}' ya existe en {{target}}.",
+    "noToggleVariableCheck": "⚠️ La opción de verificación de variables Jinja2 no está activa en este editor."
+  },
+  "configuration": {
+    "toggleVariableCheck": "🔄 Activar/Desactivar verificación de variables Jinja2",
+    "configurationChanged": "✅ Configuración '{{type}}' cambiada."
+  },
+  "quickFix": {
+    "save": "💾 Guardar '{{variable}}' en {{target}}",
+    "globalTarget": "🌐 Configuración global",
+    "workspaceTarget": "📁 Configuración de espacio de trabajo"
+  },
+  "review": {
+    "welcomeMessage": "👋 ¡Bienvenido a Jinja2 Enhance! Revisa la configuración de la extensión para personalizar tu experiencia.",
+    "message": "✨ ¿Disfrutando Jinja2 Enhance? Una reseña rápida ayuda mucho",
+    "action": {
+      "leave": "⭐ Dejar una reseña",
+      "later": "⏰ Quizás más tarde",
+      "never": "🚫 No preguntar más"
+    }
+  },
+  "theme": {
+    "selectAction": "🎨 Seleccionar acción de color Jinja2",
+    "selectActionPlaceholder": "Seleccionar una acción",
+    "apply": "🎨 Aplicar colores Jinja2",
+    "remove": "🧹 Eliminar colores Jinja2",
+    "cancel": "❌ Cancelar",
+    "themeChanged": "🎨 Tema cambiado a '{{theme}}'.",
+    "darkDefault": "🌙 Predeterminado oscuro",
+    "lightDefault": "☀️ Predeterminado claro",
+    "darkHighContrast": "🌑 Contraste alto oscuro",
+    "lightHighContrast": "🌕 Contraste alto claro",
+    "jinja2Colors": "🎨 Colores Jinja2",
+    "xubySelection": "⭐ Selección de Xuby"
+  },
+  "hover": {
+    "filterDocs": {
+      "title": "Filtro Jinja2",
+      "signature": "Firma",
+      "example": "Ejemplo"
+    }
+  },
+  "preview": {
+    "title": "Previsualización de plantilla Jinja2",
+    "profilesHeader": "Perfiles",
+    "newProfile": "Nuevo perfil",
+    "newProfilePrompt": "Nombre del perfil",
+    "saveProfile": "Guardar perfil",
+    "deleteProfile": "Eliminar",
+    "setDefault": "Marcar predeterminado",
+    "defaultBadge": "predeterminado",
+    "applyPreset": "Aplicar preset",
+    "collapseContext": "Plegar editor de contexto",
+    "expandContext": "Expandir editor de contexto",
+    "contextHeader": "Contexto (JSON)",
+    "contextPlaceholder": "{\n  \"variable\": \"valor\"\n}",
+    "invalidJson": "JSON inválido",
+    "previewHeader": "Vista renderizada",
+    "missingHeader": "Variables faltantes",
+    "missingEmpty": "Todas las variables resueltas",
+    "addMissingVar": "Agregar al perfil actual",
+    "templateKeyLabel": "Ámbito activo",
+    "wildcardScope": "Fallback del workspace (*)",
+    "presets": {
+      "user": "Usuario",
+      "list": "Lista",
+      "paginated": "Paginado",
+      "form": "Formulario"
+    },
+    "selectProfilePlaceholder": "Selecciona un perfil de contexto",
+    "manageProfilesLabel": "Administrar perfiles…",
+    "noProfilesFound": "No hay perfiles definidos para esta plantilla",
+    "profileSaved": "Perfil '{{name}}' guardado.",
+    "profileDeleted": "Perfil '{{name}}' eliminado.",
+    "noActiveTemplate": "El archivo activo no es una plantilla Jinja2."
+  },
+  "completion": {
+    "macro": {
+      "local": "Macro definida en este archivo"
+    }
+  },
+  "signatureHelp": {
+    "macro": {
+      "local": "Macro definida en este archivo",
+      "required": "Requerido",
+      "optional": "Opcional"
+    }
+  },
+  "filter": {
+    "abs": { "description": "Devuelve el valor absoluto del argumento." },
+    "attr": {
+      "description": "Obtiene un atributo de un objeto. foo|attr(\"bar\") funciona como foo.bar pero permite usar nombres que no son identificadores válidos."
+    },
+    "batch": {
+      "description": "Agrupa los elementos en lotes. Funciona como slice pero devuelve listas en lugar de tuplas. El segundo parámetro indica el tamaño del lote y el tercero rellena los elementos faltantes."
+    },
+    "capitalize": {
+      "description": "Capitaliza un valor: la primera letra en mayúscula y el resto en minúsculas."
+    },
+    "center": {
+      "description": "Centra el valor dentro de un campo del ancho indicado añadiendo espacios a ambos lados."
+    },
+    "default": {
+      "description": "Si el valor es undefined, devuelve default_value; en caso contrario devuelve el valor. Si boolean es True, también trata los valores falsy como undefined."
+    },
+    "dictsort": {
+      "description": "Ordena un diccionario por clave o por valor. Devuelve una lista de tuplas (clave, valor)."
+    },
+    "escape": {
+      "description": "Convierte los caracteres &, <, >, \" y ' a entidades HTML seguras. Útil para mostrar texto que puede contener caracteres HTML."
+    },
+    "filesizeformat": {
+      "description": "Formatea el valor como un tamaño de archivo legible (por ejemplo 13 KB, 4.1 MB, 102 bytes)."
+    },
+    "first": { "description": "Devuelve el primer elemento de una secuencia." },
+    "float": { "description": "Convierte el valor en un número de punto flotante." },
+    "forceescape": {
+      "description": "Fuerza el escape HTML: escapa &, <, >, \" y ' incluso si el autoescape está desactivado."
+    },
+    "format": {
+      "description": "Aplica el formato de cadenas de Python al valor. Útil para formateos simples."
+    },
+    "groupby": {
+      "description": "Agrupa una secuencia de objetos por un atributo. Devuelve una lista de tuplas (clave, lista)."
+    },
+    "indent": {
+      "description": "Devuelve una copia de la cadena con cada línea indentada según el ancho dado. La primera línea no se indenta si indentfirst es False."
+    },
+    "int": {
+      "description": "Convierte el valor en un entero. Si la conversión falla devuelve el valor por defecto."
+    },
+    "join": {
+      "description": "Devuelve una cadena que concatena los elementos de la secuencia, separados por d."
+    },
+    "last": { "description": "Devuelve el último elemento de una secuencia." },
+    "length": { "description": "Devuelve el número de elementos de un contenedor." },
+    "list": { "description": "Convierte el valor en una lista." },
+    "lower": { "description": "Convierte una cadena a minúsculas." },
+    "map": {
+      "description": "Aplica un filtro o función a cada elemento de una secuencia y devuelve una nueva secuencia con los resultados."
+    },
+    "max": { "description": "Devuelve el elemento mayor de una secuencia." },
+    "min": { "description": "Devuelve el elemento menor de una secuencia." },
+    "pprint": { "description": "Imprime un objeto Python con formato. Útil para depuración." },
+    "random": { "description": "Devuelve un elemento aleatorio de una secuencia." },
+    "reject": {
+      "description": "Filtra una secuencia rechazando los elementos que cumplen una prueba."
+    },
+    "rejectattr": {
+      "description": "Filtra una secuencia rechazando los elementos cuyo atributo cumple una prueba."
+    },
+    "replace": {
+      "description": "Devuelve una copia de la cadena con todas las ocurrencias de old reemplazadas por new."
+    },
+    "reverse": {
+      "description": "Invierte el objeto o devuelve un iterador que recorre la secuencia en orden inverso."
+    },
+    "round": {
+      "description": "Redondea el número a la precisión indicada. Métodos: 'common' (por defecto), 'floor', 'ceil'."
+    },
+    "safe": {
+      "description": "Marca el valor como seguro: en un entorno con autoescape, el valor no será escapado."
+    },
+    "select": {
+      "description": "Filtra una secuencia seleccionando los elementos que cumplen una prueba."
+    },
+    "selectattr": {
+      "description": "Filtra una secuencia seleccionando los elementos cuyo atributo cumple una prueba."
+    },
+    "slice": {
+      "description": "Divide una secuencia en porciones del tamaño indicado. Devuelve una lista de listas."
+    },
+    "sort": { "description": "Ordena una secuencia. Por defecto en orden ascendente." },
+    "string": { "description": "Convierte el objeto a su representación en cadena." },
+    "striptags": {
+      "description": "Elimina etiquetas SGML/XML y reemplaza los espacios adyacentes por uno solo."
+    },
+    "sum": {
+      "description": "Devuelve la suma de una secuencia de números. Si se indica attribute, suma ese atributo de cada objeto."
+    },
+    "title": { "description": "Convierte una cadena a Title Case (cada palabra capitalizada)." },
+    "trim": { "description": "Elimina los espacios al inicio y al final." },
+    "truncate": {
+      "description": "Devuelve una copia recortada de la cadena. La longitud se indica con el primer parámetro."
+    },
+    "unique": { "description": "Devuelve una lista con los elementos únicos de la secuencia." },
+    "upper": { "description": "Convierte una cadena a mayúsculas." },
+    "urlencode": {
+      "description": "Escapa los caracteres especiales para que la cadena pueda usarse en una URL."
+    },
+    "urlize": { "description": "Convierte las URLs presentes en el texto en enlaces clicables." },
+    "wordcount": { "description": "Cuenta el número de palabras en una cadena." },
+    "wordwrap": {
+      "description": "Devuelve una copia de la cadena con las líneas envueltas al ancho indicado."
+    },
+    "xmlattr": {
+      "description": "Convierte un diccionario en sintaxis de atributos XML. Las claves y los valores se escapan."
+    },
+    "tojson": {
+      "description": "Convierte el valor a JSON. Útil para incrustar datos en HTML o JavaScript."
+    },
+    "items": {
+      "description": "Devuelve una lista de pares (clave, valor) de un diccionario. Útil para iterar diccionarios en plantillas."
+    }
+  }
 }

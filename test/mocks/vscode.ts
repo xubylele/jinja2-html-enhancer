@@ -9,7 +9,7 @@ class EventEmitter<T> {
   };
 
   public fire(data: T) {
-    this.listeners.forEach(listener => listener(data));
+    this.listeners.forEach((listener) => listener(data));
   }
 
   public dispose() {
@@ -77,7 +77,7 @@ const ConfigurationTarget = {
 };
 
 const CodeActionKind = {
-  QuickFix: 'QuickFix',
+  QuickFix: "QuickFix",
 };
 
 const CompletionItemKind = {
@@ -102,7 +102,7 @@ class MarkdownString {
   isTrusted = false;
   supportHtml = false;
 
-  constructor(value = '') {
+  constructor(value = "") {
     this.value = value;
   }
 
@@ -114,7 +114,7 @@ class MarkdownString {
 
 class SnippetString {
   value: string;
-  constructor(value = '') {
+  constructor(value = "") {
     this.value = value;
   }
 }
@@ -179,7 +179,7 @@ const languages = {
 };
 
 const env = {
-  language: 'en',
+  language: "en",
   openExternal: jest.fn(),
 };
 

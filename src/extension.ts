@@ -1,15 +1,9 @@
 import * as vscode from "vscode";
-import {
-  registerOriginProvider,
-  unregisterOriginProvider,
-} from "./api/originProviderRegistry";
+import { registerOriginProvider, unregisterOriginProvider } from "./api/originProviderRegistry";
 import { QuickFixProvider } from "./codeActions/quickFixProvider";
 import { CommandManager } from "./commands/commandManager";
 import { CommentToggle } from "./commands/commentToggle";
-import {
-  MacroCompletionProvider,
-  MacroSignatureHelpProvider,
-} from "./completion/macro";
+import { MacroCompletionProvider, MacroSignatureHelpProvider } from "./completion/macro";
 import { DiagnosticsManager } from "./diagnostics/diagnosticsManager";
 import { FilterDocsHover } from "./hover/filterDocsHover";
 import I18n, { setupI18n } from "./translations";
@@ -32,42 +26,38 @@ export function activate(context: vscode.ExtensionContext) {
   const commandManager = new CommandManager(
     fileWatcher,
     variablePanelManager,
-    templatePreviewPanel,
+    templatePreviewPanel
   );
   const commentToggle = new CommentToggle();
 
   const checkVariablesDisposable = vscode.commands.registerCommand(
     "extension.checkJinja2Variables",
-    () => commandManager.checkVariables(),
+    () => commandManager.checkVariables()
   );
-  const openPanelDisposable = vscode.commands.registerCommand(
-    "extension.openVariablePanel",
-    () => commandManager.openVariablePanel(),
+  const openPanelDisposable = vscode.commands.registerCommand("extension.openVariablePanel", () =>
+    commandManager.openVariablePanel()
   );
   const saveVariableDisposable = vscode.commands.registerCommand(
     "extension.saveVariable",
-    (diagnosticMessage: string) =>
-      commandManager.saveVariable(diagnosticMessage),
+    (diagnosticMessage: string) => commandManager.saveVariable(diagnosticMessage)
   );
-  const toggleVariableCheck = vscode.commands.registerCommand(
-    "extension.toggleVariableCheck",
-    () => commandManager.changeConfiguration("toggleVariableCheck"),
+  const toggleVariableCheck = vscode.commands.registerCommand("extension.toggleVariableCheck", () =>
+    commandManager.changeConfiguration("toggleVariableCheck")
   );
-  const themeChangeDisposable = vscode.commands.registerCommand(
-    "extension.changeTheme",
-    () => commandManager.changeTheme(),
+  const themeChangeDisposable = vscode.commands.registerCommand("extension.changeTheme", () =>
+    commandManager.changeTheme()
   );
   const toggleCommentDisposable = vscode.commands.registerCommand(
     "extension.toggleJinja2Comment",
-    () => commentToggle.toggle(),
+    () => commentToggle.toggle()
   );
   const openPreviewDisposable = vscode.commands.registerCommand(
     "extension.openTemplatePreview",
-    () => commandManager.openTemplatePreview(),
+    () => commandManager.openTemplatePreview()
   );
   const previewWithProfileDisposable = vscode.commands.registerCommand(
     "extension.previewWithProfile",
-    () => commandManager.previewWithProfile(),
+    () => commandManager.previewWithProfile()
   );
 
   context.subscriptions.push(checkVariablesDisposable);
@@ -81,28 +71,28 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.languages.registerCodeActionsProvider(
       { scheme: "file", language: "html" },
-      new QuickFixProvider(),
-    ),
+      new QuickFixProvider()
+    )
   );
   context.subscriptions.push(
     vscode.languages.registerHoverProvider(
       [{ language: "html" }, { language: "jinja2" }],
-      new FilterDocsHover(),
-    ),
+      new FilterDocsHover()
+    )
   );
   context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider(
       [{ language: "html" }, { language: "jinja2" }],
-      new MacroCompletionProvider(),
-    ),
+      new MacroCompletionProvider()
+    )
   );
   context.subscriptions.push(
     vscode.languages.registerSignatureHelpProvider(
       [{ language: "html" }, { language: "jinja2" }],
       new MacroSignatureHelpProvider(),
       "(",
-      ",",
-    ),
+      ","
+    )
   );
 
   // Public contribution API — sister extensions (Jinja2 Enhance Pro) inject
@@ -110,22 +100,17 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "jinja2-html-enhancer.registerOriginProvider",
-      (reg: { id: string; provider: any }) => registerOriginProvider(reg),
+      (reg: { id: string; provider: any }) => registerOriginProvider(reg)
     ),
     vscode.commands.registerCommand(
       "jinja2-html-enhancer.unregisterOriginProvider",
-      (reg: { id: string }) => unregisterOriginProvider(reg),
-    ),
+      (reg: { id: string }) => unregisterOriginProvider(reg)
+    )
   );
 
-  const firstActivation = context.globalState.get<number>(
-    "jinja2.firstActivation",
-  );
+  const firstActivation = context.globalState.get<number>("jinja2.firstActivation");
   if (firstActivation === undefined) {
-    context.globalState.update(
-      "jinja2.firstActivation",
-      Date.now() - 8 * 24 * 60 * 60 * 1000,
-    );
+    context.globalState.update("jinja2.firstActivation", Date.now() - 8 * 24 * 60 * 60 * 1000);
     vscode.window.showInformationMessage(I18n.__("review.welcomeMessage"));
   } else if (!context.globalState.get<boolean>("jinja2.reviewRequested")) {
     const sevenDays = 7 * 24 * 60 * 60 * 1000;
@@ -137,19 +122,17 @@ export function activate(context: vscode.ExtensionContext) {
           I18n.__("review.message"),
           leaveLabel,
           I18n.__("review.action.later"),
-          neverLabel,
+          neverLabel
         )
         .then((selection) => {
           if (selection === leaveLabel) {
             vscode.env.openExternal(
               vscode.Uri.parse(
-                "https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer",
-              ),
+                "https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer"
+              )
             );
             vscode.env.openExternal(
-              vscode.Uri.parse(
-                "https://open-vsx.org/extension/xubylele/jinja2-html-enhancer",
-              ),
+              vscode.Uri.parse("https://open-vsx.org/extension/xubylele/jinja2-html-enhancer")
             );
             context.globalState.update("jinja2.reviewRequested", true);
           } else if (selection === neverLabel) {
@@ -166,12 +149,10 @@ export function activate(context: vscode.ExtensionContext) {
       if (document.languageId === "html" || document.languageId === "jinja2") {
         const result = await fileWatcher.analyzeDocument(document);
         if (result) {
-          vscode.window.showInformationMessage(
-            I18n.__("analyzer.analysisComplete"),
-          );
+          vscode.window.showInformationMessage(I18n.__("analyzer.analysisComplete"));
         }
       }
-    }),
+    })
   );
 
   context.subscriptions.push(
@@ -179,7 +160,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (document.languageId === "html" || document.languageId === "jinja2") {
         await fileWatcher.analyzeDocument(document);
       }
-    }),
+    })
   );
 }
 

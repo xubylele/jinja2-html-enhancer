@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
-import I18n from '../translations';
+import * as vscode from "vscode";
+import I18n from "../translations";
 
 export class DiagnosticsManager {
   private readonly diagnosticCollection: vscode.DiagnosticCollection;
@@ -11,19 +11,19 @@ export class DiagnosticsManager {
   public readonly onDidUpdateDiagnostics = this._onDidUpdateDiagnostics.event;
 
   constructor() {
-    this.diagnosticCollection = vscode.languages.createDiagnosticCollection('jinja2');
+    this.diagnosticCollection = vscode.languages.createDiagnosticCollection("jinja2");
   }
 
   public updateDiagnostics(
     document: vscode.TextDocument,
     usedVariables: string[],
-    setVariables: string[],
+    setVariables: string[]
   ) {
     const diagnostics: vscode.Diagnostic[] = [];
 
-    usedVariables.forEach(variable => {
+    usedVariables.forEach((variable) => {
       if (!setVariables.includes(variable)) {
-        const regex = new RegExp(`\\{\\{\\s*(${variable})\\s*\\}\\}`, 'g');
+        const regex = new RegExp(`\\{\\{\\s*(${variable})\\s*\\}\\}`, "g");
         let match;
         while ((match = regex.exec(document.getText())) !== null) {
           const startPos = document.positionAt(match.index);
@@ -32,10 +32,10 @@ export class DiagnosticsManager {
 
           const diagnostic = new vscode.Diagnostic(
             range,
-            I18n.__('variable.variableNotSet', { variable }),
+            I18n.__("variable.variableNotSet", { variable }),
             vscode.DiagnosticSeverity.Warning
           );
-          diagnostic.code = 'JHE0001';
+          diagnostic.code = "JHE0001";
           diagnostics.push(diagnostic);
         }
       }

@@ -11,14 +11,12 @@ export const WILDCARD_TEMPLATE_KEY = "*";
 
 export const getVscodeConfigTarget = (
   activeEditor?: vscode.TextEditor | null,
-  document?: vscode.TextDocument,
+  document?: vscode.TextDocument
 ) => {
   let hasWorkspaceFolder = false;
 
   if (activeEditor) {
-    hasWorkspaceFolder = !!vscode.workspace.getWorkspaceFolder(
-      activeEditor.document.uri,
-    );
+    hasWorkspaceFolder = !!vscode.workspace.getWorkspaceFolder(activeEditor.document.uri);
   } else if (document) {
     hasWorkspaceFolder = !!vscode.workspace.getWorkspaceFolder(document.uri);
   }
@@ -43,21 +41,18 @@ export const getContextProfiles = (uri?: vscode.Uri): ContextProfilesMap => {
 
 export const setContextProfiles = async (
   editor: vscode.TextEditor | undefined,
-  nextContextProfiles: ContextProfilesMap,
+  nextContextProfiles: ContextProfilesMap
 ) => {
   const configTarget = getVscodeConfigTarget(editor);
   const config = editor
-    ? vscode.workspace.getConfiguration(
-        "jinja2-html-enhancer",
-        editor.document.uri,
-      )
+    ? vscode.workspace.getConfiguration("jinja2-html-enhancer", editor.document.uri)
     : vscode.workspace.getConfiguration("jinja2-html-enhancer");
   await config.update("contextProfiles", nextContextProfiles, configTarget);
 };
 
 export const resolveProfilesForTemplate = (
   templatePath: string,
-  uri?: vscode.Uri,
+  uri?: vscode.Uri
 ): { key: string; set: ContextProfileSet } => {
   const profiles = getContextProfiles(uri);
   if (profiles[templatePath]) {
@@ -74,15 +69,12 @@ export const resolveProfilesForTemplate = (
 
 export const buildLegacyCustomVarsContext = (
   templatePath: string,
-  uri?: vscode.Uri,
+  uri?: vscode.Uri
 ): Record<string, unknown> => {
   const config = uri
     ? vscode.workspace.getConfiguration("jinja2-html-enhancer", uri)
     : vscode.workspace.getConfiguration("jinja2-html-enhancer");
-  const customVariables = config.get<Record<string, string[]>>(
-    "customVariables",
-    {},
-  );
+  const customVariables = config.get<Record<string, string[]>>("customVariables", {});
   const fileVars = customVariables[templatePath] || [];
   const context: Record<string, unknown> = {};
   for (const v of fileVars) {

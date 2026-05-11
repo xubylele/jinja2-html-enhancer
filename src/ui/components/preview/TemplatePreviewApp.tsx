@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { PREVIEW_PRESETS, PresetKey } from './presets';
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { PREVIEW_PRESETS, PresetKey } from "./presets";
 
 export interface ProfileSet {
   default: string;
@@ -7,7 +7,7 @@ export interface ProfileSet {
 }
 
 export interface PreviewParams {
-  view: 'preview';
+  view: "preview";
   translations: Record<string, any>;
   templateKey: string;
   wildcardKey: string;
@@ -23,36 +23,41 @@ interface Props {
   params: PreviewParams;
 }
 
-const PRESET_KEYS: PresetKey[] = ['user', 'list', 'paginated', 'form'];
+const PRESET_KEYS: PresetKey[] = ["user", "list", "paginated", "form"];
 
 function t(translations: Record<string, any>, key: string): string {
-  const parts = key.split('.');
+  const parts = key.split(".");
   let cur: any = translations;
   for (const p of parts) {
-    if (cur && typeof cur === 'object' && p in cur) { cur = cur[p]; }
-    else { return key; }
+    if (cur && typeof cur === "object" && p in cur) {
+      cur = cur[p];
+    } else {
+      return key;
+    }
   }
-  return typeof cur === 'string' ? cur : key;
+  return typeof cur === "string" ? cur : key;
 }
 
 function post(command: string, payload: Record<string, unknown> = {}) {
-  if (window.vscode) { window.vscode.postMessage({ command, ...payload }); }
+  if (window.vscode) {
+    window.vscode.postMessage({ command, ...payload });
+  }
 }
 
 const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
   const tr = (k: string) => t(params.translations, k);
-  const profileSet: ProfileSet = params.profileSet ?? { default: '', profiles: {} };
+  const profileSet: ProfileSet = params.profileSet ?? { default: "", profiles: {} };
 
   const [activeProfile, setActiveProfile] = useState(params.activeProfile);
   const [editorText, setEditorText] = useState(() =>
-    JSON.stringify(params.currentContext, null, 2),
+    JSON.stringify(params.currentContext, null, 2)
   );
   const [parseError, setParseError] = useState<string | null>(null);
   const [contextCollapsed, setContextCollapsed] = useState(false);
   const [liveHtml, setLiveHtml] = useState(params.html);
   const [liveMissing, setLiveMissing] = useState(params.missingVariables);
   const [liveUsed, setLiveUsed] = useState(params.usedVariables);
-  const lastParamsKey = useRef('');
+  const lastParamsKey = useRef("");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // When params arrive from the extension (new render), resync editor + active profile.
@@ -73,19 +78,23 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
       const data = e.data;
-      if (!data || data.type !== 'preview-result') { return; }
+      if (!data || data.type !== "preview-result") {
+        return;
+      }
       setLiveHtml(data.html);
       setLiveMissing(data.missingVariables ?? []);
       setLiveUsed(data.usedVariables ?? []);
     };
-    window.addEventListener('message', onMessage);
-    return () => window.removeEventListener('message', onMessage);
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
   }, []);
 
   const parsedContext = useMemo<Record<string, unknown> | null>(() => {
     try {
       const v = JSON.parse(editorText);
-      if (v && typeof v === 'object' && !Array.isArray(v)) { return v; }
+      if (v && typeof v === "object" && !Array.isArray(v)) {
+        return v;
+      }
       return null;
     } catch {
       return null;
@@ -97,91 +106,99 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
     let parsed: Record<string, unknown> | null = null;
     try {
       const v = JSON.parse(next);
-      if (v && typeof v === 'object' && !Array.isArray(v)) { parsed = v; }
+      if (v && typeof v === "object" && !Array.isArray(v)) {
+        parsed = v;
+      }
       setParseError(null);
     } catch (e) {
-      setParseError(tr('preview.invalidJson'));
+      setParseError(tr("preview.invalidJson"));
     }
-    if (debounceRef.current) { clearTimeout(debounceRef.current); }
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
     if (parsed) {
       const ctx = parsed;
       debounceRef.current = setTimeout(() => {
-        post('preview-context', { context: ctx });
+        post("preview-context", { context: ctx });
       }, 200);
     }
   };
 
   const onSave = () => {
-    if (!parsedContext) { return; }
+    if (!parsedContext) {
+      return;
+    }
     const name = activeProfile || promptName();
-    if (!name) { return; }
-    post('save-profile', { name, context: parsedContext });
+    if (!name) {
+      return;
+    }
+    post("save-profile", { name, context: parsedContext });
   };
 
   const onSaveAs = () => {
-    if (!parsedContext) { return; }
+    if (!parsedContext) {
+      return;
+    }
     const name = promptName();
-    if (!name) { return; }
-    post('save-profile', { name, context: parsedContext });
+    if (!name) {
+      return;
+    }
+    post("save-profile", { name, context: parsedContext });
   };
 
   const onDelete = (name: string) => {
-    post('delete-profile', { name });
+    post("delete-profile", { name });
   };
 
   const onSetDefault = (name: string) => {
-    post('set-default', { name });
+    post("set-default", { name });
   };
 
   const onSelectProfile = (name: string) => {
     setActiveProfile(name);
-    post('set-active', { name });
+    post("set-active", { name });
   };
 
   const onApplyPreset = (key: PresetKey) => {
     const merged = { ...(parsedContext ?? {}), ...PREVIEW_PRESETS[key] };
     setEditorText(JSON.stringify(merged, null, 2));
     setParseError(null);
-    post('preview-context', { context: merged });
+    post("preview-context", { context: merged });
   };
 
   const onAddMissing = (name: string) => {
-    post('add-missing-var', { name });
+    post("add-missing-var", { name });
   };
 
   const profileNames = Object.keys(profileSet.profiles);
   const scopeLabel =
-    params.templateKey === params.wildcardKey
-      ? tr('preview.wildcardScope')
-      : params.templateKey;
+    params.templateKey === params.wildcardKey ? tr("preview.wildcardScope") : params.templateKey;
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans">
+    <div className="flex h-screen bg-gray-50 font-sans text-gray-800 dark:bg-gray-900 dark:text-gray-200">
       {/* Sidebar */}
-      <aside className="w-56 border-r border-gray-200 dark:border-gray-800 p-3 flex flex-col gap-3 overflow-y-auto">
+      <aside className="flex w-56 flex-col gap-3 overflow-y-auto border-r border-gray-200 p-3 dark:border-gray-800">
         <header>
-          <h2 className="text-xs uppercase tracking-wide text-gray-500">
-            {tr('preview.profilesHeader')}
+          <h2 className="text-xs tracking-wide text-gray-500 uppercase">
+            {tr("preview.profilesHeader")}
           </h2>
-          <p className="text-[11px] text-gray-400 mt-1 truncate" title={params.templateKey}>
-            {tr('preview.templateKeyLabel')}: {scopeLabel}
+          <p className="mt-1 truncate text-[11px] text-gray-400" title={params.templateKey}>
+            {tr("preview.templateKeyLabel")}: {scopeLabel}
           </p>
         </header>
 
         <ul className="flex flex-col gap-1">
           {profileNames.length === 0 && (
-            <li className="text-xs text-gray-400">{tr('preview.noProfilesFound')}</li>
+            <li className="text-xs text-gray-400">{tr("preview.noProfilesFound")}</li>
           )}
-          {profileNames.map(name => {
+          {profileNames.map((name) => {
             const isActive = name === activeProfile;
             const isDefault = name === profileSet.default;
             return (
               <li
                 key={name}
-                className={`group rounded px-2 py-1.5 text-sm cursor-pointer ${
-                  isActive
-                    ? 'bg-blue-600 text-white'
-                    : 'hover:bg-gray-200 dark:hover:bg-gray-800'
+                className={`group cursor-pointer rounded px-2 py-1.5 text-sm ${
+                  isActive ? "bg-blue-600 text-white" : "hover:bg-gray-200 dark:hover:bg-gray-800"
                 }`}
                 onClick={() => onSelectProfile(name)}
               >
@@ -190,10 +207,10 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
                   {isDefault && (
                     <span
                       className={`text-[10px] uppercase ${
-                        isActive ? 'text-blue-100' : 'text-gray-500'
+                        isActive ? "text-blue-100" : "text-gray-500"
                       }`}
                     >
-                      {tr('preview.defaultBadge')}
+                      {tr("preview.defaultBadge")}
                     </span>
                   )}
                 </div>
@@ -207,7 +224,7 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
                           onSetDefault(name);
                         }}
                       >
-                        {tr('preview.setDefault')}
+                        {tr("preview.setDefault")}
                       </button>
                     )}
                     <button
@@ -217,7 +234,7 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
                         onDelete(name);
                       }}
                     >
-                      {tr('preview.deleteProfile')}
+                      {tr("preview.deleteProfile")}
                     </button>
                   </div>
                 )}
@@ -228,36 +245,38 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
 
         <button
           onClick={onSaveAs}
-          className="mt-auto rounded bg-gray-200 dark:bg-gray-800 px-2 py-1.5 text-xs hover:bg-gray-300 dark:hover:bg-gray-700"
+          className="mt-auto rounded bg-gray-200 px-2 py-1.5 text-xs hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700"
         >
-          + {tr('preview.newProfile')}
+          + {tr("preview.newProfile")}
         </button>
       </aside>
 
       {/* Main */}
-      <main className="flex-1 flex flex-col p-4 gap-3 overflow-hidden">
+      <main className="flex flex-1 flex-col gap-3 overflow-hidden p-4">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setContextCollapsed((v) => !v)}
-            title={contextCollapsed ? tr('preview.expandContext') : tr('preview.collapseContext')}
+            title={contextCollapsed ? tr("preview.expandContext") : tr("preview.collapseContext")}
             aria-expanded={!contextCollapsed}
-            className="rounded bg-gray-200 dark:bg-gray-800 px-2 py-1 text-xs hover:bg-gray-300 dark:hover:bg-gray-700"
+            className="rounded bg-gray-200 px-2 py-1 text-xs hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700"
           >
-            {contextCollapsed ? '▸' : '▾'}
+            {contextCollapsed ? "▸" : "▾"}
           </button>
-          <h2 className="text-sm font-semibold">{tr('preview.contextHeader')}</h2>
+          <h2 className="text-sm font-semibold">{tr("preview.contextHeader")}</h2>
           <div className="ml-auto flex items-center gap-2">
             <select
-              className="bg-gray-100 dark:bg-gray-800 text-xs rounded px-2 py-1 border border-gray-300 dark:border-gray-700"
+              className="rounded border border-gray-300 bg-gray-100 px-2 py-1 text-xs dark:border-gray-700 dark:bg-gray-800"
               defaultValue=""
               disabled={contextCollapsed}
               onChange={(e) => {
-                const v = e.target.value as PresetKey | '';
-                if (v) { onApplyPreset(v); }
-                e.currentTarget.value = '';
+                const v = e.target.value as PresetKey | "";
+                if (v) {
+                  onApplyPreset(v);
+                }
+                e.currentTarget.value = "";
               }}
             >
-              <option value="">{tr('preview.applyPreset')}…</option>
+              <option value="">{tr("preview.applyPreset")}…</option>
               {PRESET_KEYS.map((k) => (
                 <option key={k} value={k}>
                   {tr(`preview.presets.${k}`)}
@@ -267,62 +286,60 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
             <button
               disabled={!parsedContext || contextCollapsed}
               onClick={onSave}
-              className="rounded bg-blue-600 text-white text-xs px-3 py-1 disabled:opacity-50"
+              className="rounded bg-blue-600 px-3 py-1 text-xs text-white disabled:opacity-50"
             >
-              {tr('preview.saveProfile')}
+              {tr("preview.saveProfile")}
             </button>
           </div>
         </div>
 
         <div
-          className={`flex-1 grid gap-3 overflow-hidden ${
-            contextCollapsed ? 'grid-cols-1' : 'grid-cols-2'
+          className={`grid flex-1 gap-3 overflow-hidden ${
+            contextCollapsed ? "grid-cols-1" : "grid-cols-2"
           }`}
         >
           {!contextCollapsed && (
-          <div className="flex flex-col gap-2 overflow-hidden">
-            <textarea
-              spellCheck={false}
-              value={editorText}
-              placeholder={tr('preview.contextPlaceholder')}
-              onChange={(e) => onEditorChange(e.target.value)}
-              className="flex-1 font-mono text-xs p-3 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 resize-none"
-            />
-            {parseError && (
-              <p className="text-xs text-red-500">{parseError}</p>
-            )}
+            <div className="flex flex-col gap-2 overflow-hidden">
+              <textarea
+                spellCheck={false}
+                value={editorText}
+                placeholder={tr("preview.contextPlaceholder")}
+                onChange={(e) => onEditorChange(e.target.value)}
+                className="flex-1 resize-none rounded border border-gray-300 bg-white p-3 font-mono text-xs dark:border-gray-700 dark:bg-gray-950"
+              />
+              {parseError && <p className="text-xs text-red-500">{parseError}</p>}
 
-            <section>
-              <h3 className="text-xs uppercase tracking-wide text-gray-500 mb-1">
-                {tr('preview.missingHeader')}
-              </h3>
-              {liveMissing.length === 0 ? (
-                <p className="text-xs text-green-600">{tr('preview.missingEmpty')}</p>
-              ) : (
-                <ul className="flex flex-wrap gap-2">
-                  {liveMissing.map((name) => (
-                    <li key={name}>
-                      <button
-                        title={tr('preview.addMissingVar')}
-                        onClick={() => onAddMissing(name)}
-                        className="text-xs px-2 py-0.5 rounded bg-red-500 text-white hover:bg-red-600"
-                      >
-                        {name}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          </div>
+              <section>
+                <h3 className="mb-1 text-xs tracking-wide text-gray-500 uppercase">
+                  {tr("preview.missingHeader")}
+                </h3>
+                {liveMissing.length === 0 ? (
+                  <p className="text-xs text-green-600">{tr("preview.missingEmpty")}</p>
+                ) : (
+                  <ul className="flex flex-wrap gap-2">
+                    {liveMissing.map((name) => (
+                      <li key={name}>
+                        <button
+                          title={tr("preview.addMissingVar")}
+                          onClick={() => onAddMissing(name)}
+                          className="rounded bg-red-500 px-2 py-0.5 text-xs text-white hover:bg-red-600"
+                        >
+                          {name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            </div>
           )}
 
           <div className="flex flex-col gap-2 overflow-hidden">
-            <h3 className="text-xs uppercase tracking-wide text-gray-500">
-              {tr('preview.previewHeader')}
+            <h3 className="text-xs tracking-wide text-gray-500 uppercase">
+              {tr("preview.previewHeader")}
             </h3>
             <div
-              className="flex-1 rounded border border-blue-500 bg-white text-gray-900 overflow-auto p-4"
+              className="flex-1 overflow-auto rounded border border-blue-500 bg-white p-4 text-gray-900"
               dangerouslySetInnerHTML={{ __html: liveHtml }}
             />
           </div>
@@ -333,7 +350,7 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
 };
 
 function promptName(): string | null {
-  const name = window.prompt('Profile name');
+  const name = window.prompt("Profile name");
   return name && name.trim() ? name.trim() : null;
 }
 
