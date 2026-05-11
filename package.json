@@ -185,9 +185,10 @@
     "vscode-test": "^1.6.1"
   },
   "scripts": {
+    "format": "prettier --write .",
     "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && npm run lint && npm run build:tailwind && node esbuild.js",
-    "build": "npm format && npm run build:tailwind && node esbuild.js --production",
+    "build": "npm run format && npm run build:tailwind && node esbuild.js --production",
     "watch": "npm run build:tailwind && node esbuild.js --watch",
     "watch:esbuild": "node esbuild.js --watch",
     "package": "npm run check-types && npm run lint && npm run build:tailwind && node esbuild.js --production && npm run validate-build",
@@ -200,17 +201,17 @@
     "validate-build": "node validate-build.js",
     "changeset": "npx changeset",
     "changeset:check": "node -e \"const f=require('fs').readdirSync('.changeset').filter(n=>n.endsWith('.md')&&n!=='README.md');if(!f.length){process.stderr.write('No changeset found. Run: npm run changeset\\n');process.exit(1)}else{console.log('Changesets found:',f.join(', '))}\"",
-    "version": "npx changeset version && npm install",
-    "format": "prettier --write ."
+    "version": "npx changeset version && npm install"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.2.4",
+    "@tailwindcss/cli": "^4.3.0",
     "@xubylele/jinja2-enhanced-shared": "file:../jinja2-html-shared/xubylele-jinja2-enhanced-shared-0.4.4.tgz",
     "autoprefixer": "^10.5.0",
     "coveralls": "^3.1.1",
     "postcss": "^8.5.12",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwind": "^4.0.0",
     "tailwindcss": "^4.2.4",
     "uuid": "^14.0.0"
   }
