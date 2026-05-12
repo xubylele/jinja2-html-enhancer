@@ -33,6 +33,30 @@ class Uri {
   }
 }
 
+class CancellationTokenSource {
+  token: CancellationToken;
+  constructor() {
+    this.token = new CancellationToken();
+  }
+  cancel() {}
+  dispose() {}
+}
+
+class CancellationToken {
+  isCancellationRequested = false;
+  onCancellationRequested: any = undefined;
+}
+
+class Position {
+  line: number;
+  character: number;
+
+  constructor(line: number, character: number) {
+    this.line = line;
+    this.character = character;
+  }
+}
+
 class Range {
   start: any;
   end: any;
@@ -40,6 +64,20 @@ class Range {
   constructor(start: any, end: any) {
     this.start = start;
     this.end = end;
+  }
+}
+
+class TextEdit {
+  range: any;
+  newText: string;
+
+  constructor(range: any, newText: string) {
+    this.range = range;
+    this.newText = newText;
+  }
+
+  static replace(range: any, newText: string) {
+    return new TextEdit(range, newText);
   }
 }
 
@@ -112,6 +150,14 @@ class MarkdownString {
   }
 }
 
+class WorkspaceEdit {
+  private _entries: Map<string, TextEdit[]> = new Map();
+
+  set(uri: Uri, edits: TextEdit[]) {
+    this._entries.set(uri.fsPath, edits);
+  }
+}
+
 class SnippetString {
   value: string;
   constructor(value = "") {
@@ -155,6 +201,7 @@ const window = {
   showInformationMessage: jest.fn(),
   showErrorMessage: jest.fn(),
   showQuickPick: jest.fn(),
+  setStatusBarMessage: jest.fn(() => ({ dispose: jest.fn() })),
   activeTextEditor: undefined as any,
 };
 
@@ -170,12 +217,14 @@ const workspace = {
     dispose: jest.fn(),
   })),
   openTextDocument: jest.fn(),
+  applyEdit: jest.fn(),
 };
 
 const languages = {
   createDiagnosticCollection,
   registerCompletionItemProvider: jest.fn(() => ({ dispose: jest.fn() })),
   registerSignatureHelpProvider: jest.fn(() => ({ dispose: jest.fn() })),
+  registerDocumentFormattingEditProvider: jest.fn(() => ({ dispose: jest.fn() })),
 };
 
 const env = {
@@ -208,6 +257,11 @@ export = {
   ParameterInformation,
   SignatureInformation,
   SignatureHelp,
+  Position,
+  TextEdit,
+  WorkspaceEdit,
+  CancellationToken,
+  CancellationTokenSource,
   window,
   workspace,
   languages,

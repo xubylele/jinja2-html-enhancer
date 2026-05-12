@@ -47,6 +47,18 @@
           "description": "%extension.configuration.contextProfiles.description%",
           "default": {},
           "scope": "resource"
+        },
+        "jinja2-html-enhancer.formatting.enabled": {
+          "type": "boolean",
+          "description": "%extension.configuration.formatting.enabled.description%",
+          "default": true,
+          "scope": "resource"
+        },
+        "jinja2-html-enhancer.formatting.formatOnSave": {
+          "type": "boolean",
+          "description": "%extension.configuration.formatting.formatOnSave.description%",
+          "default": true,
+          "scope": "resource"
         }
       }
     },

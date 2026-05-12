@@ -5,6 +5,7 @@ import { CommandManager } from "./commands/commandManager";
 import { CommentToggle } from "./commands/commentToggle";
 import { MacroCompletionProvider, MacroSignatureHelpProvider } from "./completion/macro";
 import { DiagnosticsManager } from "./diagnostics/diagnosticsManager";
+import { Jinja2FormattingProvider } from "./formatting/jinja2FormattingProvider";
 import { FilterDocsHover } from "./hover/filterDocsHover";
 import I18n, { setupI18n } from "./translations";
 import { TemplatePreviewPanel } from "./ui/panels/templatePreviewPanel";
@@ -28,6 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
     variablePanelManager,
     templatePreviewPanel
   );
+  const formattingProvider = new Jinja2FormattingProvider();
   const commentToggle = new CommentToggle();
 
   const checkVariablesDisposable = vscode.commands.registerCommand(
@@ -95,7 +97,16 @@ export function activate(context: vscode.ExtensionContext) {
     )
   );
 
-  // Public contribution API — sister extensions (Jinja2 Enhance Pro) inject
+  // ── Formatting ─────────────────────────────────────────────────────
+
+  context.subscriptions.push(
+    vscode.languages.registerDocumentFormattingEditProvider(
+      [{ language: "html" }, { language: "jinja2" }],
+      formattingProvider
+    )
+  );
+
+  // ── Public contribution API — sister extensions (Jinja2 Enhance Pro) inject
   // origin metadata into the Variable Panel. See src/types/originProvider.ts.
   context.subscriptions.push(
     vscode.commands.registerCommand(
@@ -152,6 +163,34 @@ export function activate(context: vscode.ExtensionContext) {
           vscode.window.showInformationMessage(I18n.__("analyzer.analysisComplete"));
         }
       }
+    })
+  );
+
+  // ── Format on save ─────────────────────────────────────────────────
+
+  context.subscriptions.push(
+    vscode.workspace.onDidSaveTextDocument(async (document) => {
+      if (document.languageId !== "html" && document.languageId !== "jinja2") {
+        return;
+      }
+      const config = vscode.workspace.getConfiguration("jinja2-html-enhancer", document.uri);
+      if (!config.get<boolean>("formatting.enabled", true)) return;
+      if (!config.get<boolean>("formatting.formatOnSave", true)) return;
+
+      // Skip if VS Code's own formatOnSave is already handling it
+      const editorConfig = vscode.workspace.getConfiguration("editor", document.uri);
+      if (editorConfig.get<boolean>("formatOnSave")) return;
+
+      const edits = await formattingProvider.provideDocumentFormattingEdits(
+        document,
+        { tabSize: 2, insertSpaces: true },
+        new vscode.CancellationTokenSource().token
+      );
+      if (edits.length === 0) return;
+
+      const workspaceEdit = new vscode.WorkspaceEdit();
+      workspaceEdit.set(document.uri, edits);
+      await vscode.workspace.applyEdit(workspaceEdit);
     })
   );
 

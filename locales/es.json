@@ -23,7 +23,15 @@
   },
   "configuration": {
     "toggleVariableCheck": "🔄 Activar/Desactivar verificación de variables Jinja2",
-    "configurationChanged": "✅ Configuración '{{type}}' cambiada."
+    "configurationChanged": "✅ Configuración '{{type}}' cambiada.",
+    "formatting": {
+      "enabled": {
+        "description": "Activar/desactivar el formateo Jinja2. Requiere prettier y prettier-plugin-jinja-template en el proyecto."
+      },
+      "formatOnSave": {
+        "description": "Formatear plantillas Jinja2 automáticamente al guardar."
+      }
+    }
   },
   "quickFix": {
     "save": "💾 Guardar '{{variable}}' en {{target}}",
@@ -93,6 +101,16 @@
     "profileSaved": "Perfil '{{name}}' guardado.",
     "profileDeleted": "Perfil '{{name}}' eliminado.",
     "noActiveTemplate": "El archivo activo no es una plantilla Jinja2."
+  },
+  "formatting": {
+    "installing": "⏳ Instalando prettier y prettier-plugin-jinja-template…",
+    "installed": "✅ Dependencias de formateo Jinja2 instaladas.",
+    "installFailed": "❌ Instalación fallida. {{error}}",
+    "promptInstall": "El formateo Jinja2 requiere prettier-plugin-jinja-template. ¿Instalarlo ahora?",
+    "installAction": "Instalar",
+    "learnMore": "Más información",
+    "dontShowAgain": "No mostrar más",
+    "notFound": "Para habilitar el formateo manualmente:\nnpm install --save-dev prettier prettier-plugin-jinja-template"
   },
   "completion": {
     "macro": {

@@ -16,7 +16,7 @@ const extensionConfig = {
   entryPoints: ["./src/extension.ts"],
   bundle: true,
   outfile: `${outputDir}/extension.js`,
-  external: ["vscode"],
+  external: ["vscode", "prettier", "prettier-plugin-jinja-template"],
   format: "cjs",
   platform: "node",
   sourcemap: !production,
