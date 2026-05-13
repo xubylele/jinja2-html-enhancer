@@ -5,6 +5,7 @@
   "version": "1.16.0",
   "publisher": "Xubylele",
   "icon": "resources/logo.png",
+  "packageManager": "pnpm@11.0.8",
   "engines": {
     "vscode": "^1.102.0"
   },
@@ -198,22 +199,25 @@
   },
   "scripts": {
     "format": "prettier --write .",
-    "vscode:prepublish": "npm run package",
-    "compile": "npm run check-types && npm run lint && npm run build:tailwind && node esbuild.js",
-    "build": "npm run format && npm run build:tailwind && node esbuild.js --production",
-    "watch": "npm run build:tailwind && node esbuild.js --watch",
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm check-types && pnpm lint && pnpm build:tailwind && node esbuild.js",
+    "build": "pnpm format && pnpm build:tailwind && node esbuild.js --production",
+    "watch": "pnpm build:tailwind && node esbuild.js --watch",
     "watch:esbuild": "node esbuild.js --watch",
-    "package": "npm run check-types && npm run lint && npm run build:tailwind && node esbuild.js --production && npm run validate-build",
+    "package": "pnpm check-types && pnpm lint && pnpm build:tailwind && node esbuild.js --production && pnpm validate-build",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "jest --runInBand",
     "test:ci": "jest --runInBand --ci",
     "test:coverage": "jest --coverage --runInBand",
-    "build:tailwind": "npx tailwindcss -i ./src/ui/css/tailwind.css -o ./out/css/output.css --minify",
+    "build:tailwind": "tailwindcss -i ./src/ui/css/tailwind.css -o ./out/css/output.css --minify",
     "validate-build": "node validate-build.js",
-    "changeset": "npx changeset",
-    "changeset:check": "node -e \"const f=require('fs').readdirSync('.changeset').filter(n=>n.endsWith('.md')&&n!=='README.md');if(!f.length){process.stderr.write('No changeset found. Run: npm run changeset\\n');process.exit(1)}else{console.log('Changesets found:',f.join(', '))}\"",
-    "version": "npx changeset version && npm install"
+    "changeset": "changeset",
+    "changeset:check": "node -e \"const f=require('fs').readdirSync('.changeset').filter(n=>n.endsWith('.md')&&n!=='README.md');if(!f.length){process.stderr.write('No changeset found. Run: pnpm changeset\\n');process.exit(1)}else{console.log('Changesets found:',f.join(', '))}\"",
+    "version": "changeset version && pnpm install"
+  },
+  "vsce": {
+    "dependencies": false
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
