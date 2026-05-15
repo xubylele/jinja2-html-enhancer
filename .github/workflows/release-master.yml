@@ -58,9 +58,6 @@ jobs:
         run: pnpm install --frozen-lockfile
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
-      - name: Install vsce
-        run: pnpm add -g @vscode/vsce
-
       - name: Build extension
         run: pnpm build
 
@@ -68,7 +65,7 @@ jobs:
         run: pnpm lint
 
       - name: Package VSIX
-        run: vsce package --no-dependencies
+        run: pnpm dlx @vscode/vsce@3.9.1 package --no-dependencies
 
       - name: Get VSIX filename
         id: vsix
@@ -76,7 +73,7 @@ jobs:
 
       - name: Publish VS Code Stable
         if: github.ref_name == 'main'
-        run: vsce publish --no-dependencies --pat "${{ secrets.VSCE_PAT }}" --no-update-package-json --packagePath "${{ steps.vsix.outputs.file }}"
+        run: pnpm dlx @vscode/vsce@3.9.1 publish --no-dependencies --pat "${{ secrets.VSCE_PAT }}" --no-update-package-json --packagePath "${{ steps.vsix.outputs.file }}"
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
