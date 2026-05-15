@@ -14,12 +14,18 @@ Direct checkout: <https://store.xuby.cl/checkout/buy/d03a0ff6-3050-43a3-99f0-d3f
 
 ## What's New
 
-### 1.15.0
+### 1.17.0
 
 #### Minor Changes
 
-- 🎉 Template Preview is now officially released — available in the stable release (removed pre-release status)
-- ✨ Template Preview panel — see rendered HTML with variable highlighting, dark-themed UI with improved visibility for missing variables. Now available in the latest release.
+- ✨ **Filter Docs on Hover** — hover any built-in Jinja2 filter (`length`, `default`, `safe`, …) to see its signature, description, and a usage example. Docs available in English and Spanish.
+- ✨ **Jinja2-aware Formatting** — integrates with [`prettier-plugin-jinja-template`](https://www.npmjs.com/package/prettier-plugin-jinja-template) for best-in-class Jinja2 + HTML formatting. The extension auto-detects the plugin in your project; if it's missing, it offers to install it for you. Format on save is enabled by default for `.html`, `.jinja2`, `.j2`, and `.jinja` files.
+- ✨ **Macro IntelliSense (same-file)** — autocomplete and parameter hints for macros defined in the current template. Type `{{ ` to see local macros with their signatures, and trigger signature help with `(` to see parameters as you type.
+- 🚀 **Template Preview v2** — save named context profiles per template (or a workspace-wide `*` fallback), switch profiles from the sidebar, start fast with built-in mock presets (`user`, `list`, `paginated`, `form`), and watch the preview update live as you edit the JSON context or the template. Missing variables show as clickable chips you can add to the active profile with one click. Adds the `Jinja2: Preview Template with Profile` quick-pick command.
+
+#### Patch Changes
+
+- 🔒 **Supply-chain hardening** — migrated to pnpm@11.0.8 to mitigate the npm lifecycle-script attack class highlighted by the [TanStack npm supply-chain compromise](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem) (May 2026). pnpm's content-addressable store and build-scripts-blocked-by-default provide stronger defaults against this vector.
 
 ## Donations
 
@@ -65,14 +71,44 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Works with single lines and multi-line selections — all selected lines are commented or uncommented together.
   - Preserves indentation when adding or removing comment markers.
 
-- **Template Preview**:
-  - Run **`Jinja2: Open Template Preview`** to see how your template renders with available variables.
-  - Displays rendered HTML output with highlighted missing variables (red background).
-  - Shows status of variable resolution (all resolved or lists missing variables).
-  - Dark-themed preview panel with clear visual separation from the editor.
-  - **Now available in the latest release** — install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer) or [Open VSX Registry](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer).
+- **Template Preview v2**:
+  - Run **`Jinja2: Open Template Preview`** to see how your template renders, or **`Jinja2: Preview Template with Profile`** to pick a named context profile.
+  - **Named context profiles** — save multiple JSON contexts per template (or a workspace-wide `*` fallback) and switch between them from the sidebar.
+  - **Mock data presets** — start fast with built-in presets: `user`, `list`, `paginated`, `form`.
+  - **Live updates** — the rendered preview re-renders as you edit the JSON context or the template itself.
+  - **Missing-variable chips** — undefined variables appear as clickable chips you can add to the active profile in one click.
+  - **Collapsible context editor** — give the rendered preview the full panel width when you don't need to tweak the context.
 
-![Template Preview](https://i.imgur.com/v3IB2yT.png)
+![Template Preview v2 — profile picker](https://i.imgur.com/FGVAHXs.png)
+
+![Template Preview v2 — profile picker (alt)](https://i.imgur.com/TKyYMrb.png)
+
+![Template Preview v2 — missing variable chips](https://i.imgur.com/Gmrd4hk.png)
+
+- **Filter Docs on Hover**:
+  - Hover any built-in Jinja2 filter (`length`, `default`, `safe`, `lower`, `title`, `join`, …) to see its signature, description, and a usage example.
+  - Documentation is available in **English and Spanish**, matching your VS Code display language.
+  - Works in `.html`, `.jinja2`, `.j2`, and `.jinja` files.
+
+![Filter Docs on Hover](https://i.imgur.com/qTK234z.png)
+
+- **Jinja2-aware Formatting**:
+  - Delegates formatting to [`prettier-plugin-jinja-template`](https://www.npmjs.com/package/prettier-plugin-jinja-template) — best-in-class Jinja2 + HTML formatting with zero custom-parser maintenance.
+  - **Auto-detects** the plugin in your project; if it's missing, the extension **offers to install it** automatically.
+  - **Format on save** enabled by default via `jinja2-html-enhancer.formatting.formatOnSave` (master toggle: `jinja2-html-enhancer.formatting.enabled`).
+  - Works for `.html`, `.jinja2`, `.j2`, and `.jinja` files. Also runs from VS Code's manual format command.
+
+![Jinja2-aware Formatting](https://i.imgur.com/t7DG93Z.gif)
+
+- **Macro IntelliSense (same-file)**:
+  - Autocomplete and parameter hints for macros defined in the **current template**.
+  - Type `{{ ` to see local macros with their signatures.
+  - Trigger signature help with `(` to see parameters as you type — including the active parameter.
+  - For cross-file macros (`{% import %}` namespaces and inherited macros), see [**Jinja2 Enhance Pro**](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer-pro).
+
+![Macro IntelliSense (same-file)](https://i.imgur.com/RVG3KbC.png)
+
+![Macro IntelliSense (same-file) — signature help](https://i.imgur.com/NsctKBl.png)
 
 - **Theme Support**:
   - Choose from multiple themes for Jinja2 syntax highlighting.

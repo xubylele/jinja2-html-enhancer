@@ -2,19 +2,21 @@ import {
   VariableOrigin,
   VariableOriginProvider,
   VariableOriginRegistration,
-} from '../types/originProvider';
+} from "../types/originProvider";
 
 const providers = new Map<string, VariableOriginProvider>();
 
 export function registerOriginProvider(reg: VariableOriginRegistration): void {
-  if (!reg || typeof reg.id !== 'string' || typeof reg.provider !== 'function') {
+  if (!reg || typeof reg.id !== "string" || typeof reg.provider !== "function") {
     return;
   }
   providers.set(reg.id, reg.provider);
 }
 
 export function unregisterOriginProvider(reg: { id: string }): void {
-  if (!reg || typeof reg.id !== 'string') { return; }
+  if (!reg || typeof reg.id !== "string") {
+    return;
+  }
   providers.delete(reg.id);
 }
 
@@ -32,16 +34,18 @@ export function hasOriginProviders(): boolean {
  */
 export async function collectOrigins(
   uri: string,
-  names: string[],
+  names: string[]
 ): Promise<Record<string, VariableOrigin>> {
-  if (providers.size === 0 || names.length === 0) { return {}; }
+  if (providers.size === 0 || names.length === 0) {
+    return {};
+  }
   const merged: Record<string, VariableOrigin> = {};
   for (const provider of providers.values()) {
     try {
       const result = await provider({ uri, names });
-      if (result && typeof result === 'object') {
+      if (result && typeof result === "object") {
         for (const [name, origin] of Object.entries(result)) {
-          if (origin && typeof origin.label === 'string') {
+          if (origin && typeof origin.label === "string") {
             merged[name] = origin;
           }
         }

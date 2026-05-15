@@ -9,7 +9,7 @@ class EventEmitter<T> {
   };
 
   public fire(data: T) {
-    this.listeners.forEach(listener => listener(data));
+    this.listeners.forEach((listener) => listener(data));
   }
 
   public dispose() {
@@ -33,6 +33,30 @@ class Uri {
   }
 }
 
+class CancellationTokenSource {
+  token: CancellationToken;
+  constructor() {
+    this.token = new CancellationToken();
+  }
+  cancel() {}
+  dispose() {}
+}
+
+class CancellationToken {
+  isCancellationRequested = false;
+  onCancellationRequested: any = undefined;
+}
+
+class Position {
+  line: number;
+  character: number;
+
+  constructor(line: number, character: number) {
+    this.line = line;
+    this.character = character;
+  }
+}
+
 class Range {
   start: any;
   end: any;
@@ -40,6 +64,20 @@ class Range {
   constructor(start: any, end: any) {
     this.start = start;
     this.end = end;
+  }
+}
+
+class TextEdit {
+  range: any;
+  newText: string;
+
+  constructor(range: any, newText: string) {
+    this.range = range;
+    this.newText = newText;
+  }
+
+  static replace(range: any, newText: string) {
+    return new TextEdit(range, newText);
   }
 }
 
@@ -77,8 +115,80 @@ const ConfigurationTarget = {
 };
 
 const CodeActionKind = {
-  QuickFix: 'QuickFix',
+  QuickFix: "QuickFix",
 };
+
+const CompletionItemKind = {
+  Function: 2,
+};
+
+class CompletionItem {
+  label: string;
+  kind: number;
+  detail?: string;
+  documentation?: any;
+  insertText?: any;
+
+  constructor(label: string, kind: number) {
+    this.label = label;
+    this.kind = kind;
+  }
+}
+
+class MarkdownString {
+  value: string;
+  isTrusted = false;
+  supportHtml = false;
+
+  constructor(value = "") {
+    this.value = value;
+  }
+
+  appendMarkdown(value: string) {
+    this.value += value;
+    return this;
+  }
+}
+
+class WorkspaceEdit {
+  private _entries: Map<string, TextEdit[]> = new Map();
+
+  set(uri: Uri, edits: TextEdit[]) {
+    this._entries.set(uri.fsPath, edits);
+  }
+}
+
+class SnippetString {
+  value: string;
+  constructor(value = "") {
+    this.value = value;
+  }
+}
+
+class ParameterInformation {
+  label: string;
+  documentation?: any;
+  constructor(label: string, documentation?: any) {
+    this.label = label;
+    this.documentation = documentation;
+  }
+}
+
+class SignatureInformation {
+  label: string;
+  documentation?: any;
+  parameters: ParameterInformation[] = [];
+  constructor(label: string, documentation?: any) {
+    this.label = label;
+    this.documentation = documentation;
+  }
+}
+
+class SignatureHelp {
+  signatures: SignatureInformation[] = [];
+  activeSignature = 0;
+  activeParameter = 0;
+}
 
 const createDiagnosticCollection = jest.fn(() => ({
   set: jest.fn(),
@@ -91,6 +201,7 @@ const window = {
   showInformationMessage: jest.fn(),
   showErrorMessage: jest.fn(),
   showQuickPick: jest.fn(),
+  setStatusBarMessage: jest.fn(() => ({ dispose: jest.fn() })),
   activeTextEditor: undefined as any,
 };
 
@@ -106,14 +217,18 @@ const workspace = {
     dispose: jest.fn(),
   })),
   openTextDocument: jest.fn(),
+  applyEdit: jest.fn(),
 };
 
 const languages = {
   createDiagnosticCollection,
+  registerCompletionItemProvider: jest.fn(() => ({ dispose: jest.fn() })),
+  registerSignatureHelpProvider: jest.fn(() => ({ dispose: jest.fn() })),
+  registerDocumentFormattingEditProvider: jest.fn(() => ({ dispose: jest.fn() })),
 };
 
 const env = {
-  language: 'en',
+  language: "en",
   openExternal: jest.fn(),
 };
 
@@ -135,6 +250,18 @@ export = {
   DiagnosticSeverity,
   ConfigurationTarget,
   CodeActionKind,
+  CompletionItem,
+  CompletionItemKind,
+  MarkdownString,
+  SnippetString,
+  ParameterInformation,
+  SignatureInformation,
+  SignatureHelp,
+  Position,
+  TextEdit,
+  WorkspaceEdit,
+  CancellationToken,
+  CancellationTokenSource,
   window,
   workspace,
   languages,
