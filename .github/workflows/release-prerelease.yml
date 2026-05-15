@@ -45,27 +45,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 22
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
-      - name: Install vsce
-        run: npm install -g @vscode/vsce
-
       - name: Build extension
-        run: npm run build
+        run: pnpm build
 
       - name: Lint
-        run: npm run lint
+        run: pnpm lint
 
       - name: Package VSIX
-        run: npx vsce package --pre-release
+        run: pnpm dlx @vscode/vsce@3.9.1 package --no-dependencies --pre-release
 
       - name: Get VSIX filename
         id: vsix
@@ -73,7 +73,7 @@ jobs:
 
       - name: Publish VS Code Pre-release
         if: github.ref_name == 'pre-release'
-        run: npx vsce publish --pre-release --pat "${{ secrets.VSCE_PAT }}" --no-update-package-json --packagePath "${{ steps.vsix.outputs.file }}"
+        run: pnpm dlx @vscode/vsce@3.9.1 publish --no-dependencies --pre-release --pat "${{ secrets.VSCE_PAT }}" --no-update-package-json --packagePath "${{ steps.vsix.outputs.file }}"
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4

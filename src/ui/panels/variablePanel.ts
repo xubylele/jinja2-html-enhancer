@@ -1,9 +1,9 @@
-import * as path from 'path';
-import * as vscode from 'vscode';
-import { collectOrigins } from '../../api/originProviderRegistry';
-import i18n from '../../translations';
-import { VariableOrigin } from '../../types/originProvider';
-import { FileWatcher } from '../../watchers/fileWatcher';
+import * as path from "path";
+import * as vscode from "vscode";
+import { collectOrigins } from "../../api/originProviderRegistry";
+import i18n from "../../translations";
+import { VariableOrigin } from "../../types/originProvider";
+import { FileWatcher } from "../../watchers/fileWatcher";
 
 export class VariablePanelManager {
   private panel: vscode.WebviewPanel | undefined;
@@ -27,8 +27,8 @@ export class VariablePanelManager {
       this.panel.reveal(vscode.ViewColumn.Beside);
     } else {
       this.panel = vscode.window.createWebviewPanel(
-        'jinja2Variables',
-        'Jinja2 Variables',
+        "jinja2Variables",
+        "Jinja2 Variables",
         vscode.ViewColumn.Beside,
         {
           enableScripts: true,
@@ -45,20 +45,18 @@ export class VariablePanelManager {
   }
 
   private async updateContent(usedVariables: string[], setVariables: string[]) {
-    if (!this.panel) { return; }
+    if (!this.panel) {
+      return;
+    }
 
     const translations = i18n.getCatalog();
     const webview = this.panel.webview;
 
     const cssUri = webview.asWebviewUri(
-      vscode.Uri.file(
-        path.join(this.context.extensionPath, 'out', 'css', 'output.css')
-      )
+      vscode.Uri.file(path.join(this.context.extensionPath, "out", "css", "output.css"))
     );
     const jsUri = webview.asWebviewUri(
-      vscode.Uri.file(
-        path.join(this.context.extensionPath, 'out', 'App.js')
-      )
+      vscode.Uri.file(path.join(this.context.extensionPath, "out", "App.js"))
     );
 
     const activeUri = vscode.window.activeTextEditor?.document.uri.toString();
@@ -99,7 +97,7 @@ export class VariablePanelManager {
   }
 
   private dispose() {
-    this.disposables.forEach(d => d.dispose());
+    this.disposables.forEach((d) => d.dispose());
     if (this.panel) {
       this.panel.dispose();
     }

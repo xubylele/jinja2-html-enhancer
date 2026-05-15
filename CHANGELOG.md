@@ -1,5 +1,34 @@
 # Change Log
 
+## 1.17.1
+
+### Patch Changes
+
+- Fixed: missing English/Spanish translations for the new `jinja2-html-enhancer.formatting.enabled` and `jinja2-html-enhancer.formatting.formatOnSave` settings — `vsce package` was failing the release build because the `%extension.configuration.formatting.*.description%` NLS placeholders had no entries in `package.nls.json` / `package.nls.es.json`.
+
+## 1.17.0
+
+### Minor Changes
+
+- 626658b: New: hover docs for built-in Jinja2 filters. Hover any pipe filter (`length`, `default`, `safe`, …) and see its signature, description, and a usage example. Available in English and Spanish.
+- 6e1dd68: New: Jinja2-aware formatting via `prettier-plugin-jinja-template` integration. The extension auto-detects the plugin in your project and delegates formatting to it — best-in-class Jinja2+HTML formatting with zero custom parser maintenance. If the plugin isn't found, the extension offers to install it automatically.
+  - Works for `.html`, `.jinja2`, `.j2`, and `.jinja` files
+  - Format on save via `jinja2-html-enhancer.formatting.formatOnSave` (enabled by default, but skips if VS Code's global `editor.formatOnSave` is already active)
+  - Master toggle: `jinja2-html-enhancer.formatting.enabled`
+  - Manual formatting via VS Code's format command (`Shift+Alt+F` / `Shift+Option+F`)
+
+- 175bb5a: New: autocomplete and parameter hints for macros defined in the same file. Type `{{ ` to see local macros with their signatures, and trigger signature help with `(` to see parameters as you type.
+- b63fe95: New: Template Preview v2. Save multiple named context profiles per template (or a workspace-wide `*` fallback) in your settings, switch between them from a sidebar, and start fast with built-in mock data presets (`user`, `list`, `paginated`, `form`). The rendered preview now updates live as you edit the JSON context or the template itself, missing variables show as clickable chips that you can add to the active profile with one click, and the context editor can be collapsed to give the rendered preview the full panel width. Adds the `Jinja2: Preview Template with Profile` quick-pick command.
+
+### Patch Changes
+
+- 076ba1c: Fixed: creating context profiles in the template preview panel.
+  - The "+ New Profile" button now opens an inline name input (VS Code webviews block `window.prompt`, which is why the button looked dead).
+  - Profile saves now resolve their config-target from the template's own URI instead of `activeTextEditor` — clicking inside the webview steals focus from the editor, so the previous code was writing to a target the URI-scoped reader couldn't see, and any failure was swallowed silently. Errors now surface as a VS Code error toast.
+
+- 219ce43: Migrated from npm to pnpm@11.0.8 for improved supply-chain security. The [TanStack npm supply-chain compromise](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem) (May 2026) demonstrated how npm's dependency-resolution model allows malicious lifecycle scripts during install to harvest credentials and self-propagate. pnpm's content-addressable store and build-scripts-blocked-by-default (`ERR_PNPM_IGNORED_BUILDS`) mitigate this attack class. A side-effect: pnpm is not natively supported by `@vscode/vsce`, so packaging/publishing now uses `--no-dependencies` (both extensions already bundle with esbuild, so no `node_modules` are needed in the `.vsix`). CI workflows updated: `actions/setup-node` caching switched to `cache: pnpm`, and `pnpm/action-setup@v5` added before it.
+- 97b7448: Update roadmap
+
 ## 1.16.0
 
 ### Minor Changes

@@ -5,8 +5,13 @@
   "changeTheme.title": "Cambiar tema de Jinja2",
   "toggleJinja2Comment.title": "Alternar comentario Jinja2",
   "toggleVariableCheck.title": "Activar/Desactivar verificación de variables de jinja2",
+  "openTemplatePreview.title": "Jinja2: Previsualizar plantilla",
+  "previewWithProfile.title": "Jinja2: Previsualizar plantilla con perfil",
   "extension.configuration.title": "Jinja2 Enhance",
   "extension.configuration.customVariables.description": "Configuración de variables personalizadas para Jinja2",
   "extension.configuration.toggleVariableCheck.description": "Activar/Desactivar verificación de variables de jinja2",
-  "extension.configuration.tokenColorCustomizations.description": "Personalizar colores de token de Jinja2"
+  "extension.configuration.tokenColorCustomizations.description": "Personalizar colores de token de Jinja2",
+  "extension.configuration.contextProfiles.description": "Definir perfiles de contexto para variables de Jinja2",
+  "extension.configuration.formatting.enabled.description": "Activar el formateo de Jinja2 mediante prettier-plugin-jinja-template",
+  "extension.configuration.formatting.formatOnSave.description": "Formatear archivos Jinja2 / HTML al guardar. Se desactiva automáticamente si ya tenés activado editor.formatOnSave en VS Code."
 }

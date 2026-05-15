@@ -1,29 +1,17 @@
 {
-	"compilerOptions": {
-		"module": "Node16",
-		"target": "ES2022",
-		"jsx": "react",
-		"lib": [
-			"ES2022",
-			"dom"
-		],
-		"sourceMap": true,
-		"rootDir": ".",
-		"strict": true,
-		"typeRoots": [
-			"./node_modules/@types"
-		],
-		"types": ["node", "vscode"],
-		"skipLibCheck": true,
-		"outDir": "out"
-	},
-	"include": [
-		"src/**/*"
-	],
-	"exclude": [
-		"node_modules",
-		"out",
-		"test",
-		"**/*.test.ts"
-	]
+  "compilerOptions": {
+    "module": "Node16",
+    "target": "ES2022",
+    "jsx": "react",
+    "lib": ["ES2022", "dom"],
+    "sourceMap": true,
+    "rootDir": ".",
+    "strict": true,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node", "vscode"],
+    "skipLibCheck": true,
+    "outDir": "out"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "out", "test", "**/*.test.ts"]
 }

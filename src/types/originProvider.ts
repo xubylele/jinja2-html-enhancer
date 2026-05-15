@@ -33,10 +33,8 @@ export interface VariableOriginRequest {
 }
 
 export type VariableOriginProvider = (
-  request: VariableOriginRequest,
-) =>
-  | Promise<Record<string, VariableOrigin>>
-  | Record<string, VariableOrigin>;
+  request: VariableOriginRequest
+) => Promise<Record<string, VariableOrigin>> | Record<string, VariableOrigin>;
 
 export interface VariableOriginRegistration {
   /** Stable ID for the provider — required for unregistration. */

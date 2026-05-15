@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface VariableOrigin {
   label: string;
@@ -12,18 +12,18 @@ interface VariablePanelProps {
   origins?: Record<string, VariableOrigin>;
 }
 
-type Status = 'defined' | 'inherited' | 'undefined';
+type Status = "defined" | "inherited" | "undefined";
 
 const STATUS_LABEL: Record<Status, string> = {
-  defined: 'Defined',
-  inherited: 'Inherited',
-  undefined: 'Undefined',
+  defined: "Defined",
+  inherited: "Inherited",
+  undefined: "Undefined",
 };
 
 const STATUS_COLOR: Record<Status, string> = {
-  defined: 'text-green-500',
-  inherited: 'text-blue-500',
-  undefined: 'text-red-500',
+  defined: "text-green-500",
+  inherited: "text-blue-500",
+  undefined: "text-red-500",
 };
 
 const VariablePanel: React.FC<VariablePanelProps> = ({
@@ -35,11 +35,11 @@ const VariablePanel: React.FC<VariablePanelProps> = ({
     const origin = origins[name];
     let status: Status;
     if (setVariables.includes(name)) {
-      status = 'defined';
+      status = "defined";
     } else if (origin) {
-      status = 'inherited';
+      status = "inherited";
     } else {
-      status = 'undefined';
+      status = "undefined";
     }
     return { name, status, origin };
   });
@@ -48,8 +48,8 @@ const VariablePanel: React.FC<VariablePanelProps> = ({
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Jinja2 Variables</h1>
-      <table className="table-fixed w-full">
+      <h1 className="mb-4 text-xl font-bold">Jinja2 Variables</h1>
+      <table className="w-full table-fixed">
         <thead>
           <tr>
             <th className="px-4 py-2">Variable</th>
@@ -66,7 +66,7 @@ const VariablePanel: React.FC<VariablePanelProps> = ({
               </td>
               {showOriginColumn && (
                 <td className="border px-4 py-2 text-gray-600 dark:text-gray-300">
-                  {v.origin?.label ?? '—'}
+                  {v.origin?.label ?? "—"}
                 </td>
               )}
             </tr>

@@ -7,10 +7,10 @@
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
-| `activate` | function | Registers commands, CodeActionProvider, onDidSaveTextDocument listener, and review prompt logic |
-| `deactivate` | function | Clears diagnostics and disposes file watcher |
+| Name         | Type     | Description                                                                                     |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------- |
+| `activate`   | function | Registers commands, CodeActionProvider, onDidSaveTextDocument listener, and review prompt logic |
+| `deactivate` | function | Clears diagnostics and disposes file watcher                                                    |
 
 ### Dependencies
 
@@ -35,8 +35,8 @@
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
+| Name             | Type  | Description                                                                                                                         |
+| ---------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `CommandManager` | class | Wraps fileWatcher + variablePanelManager; exposes checkVariables, openVariablePanel, changeConfiguration, saveVariable, changeTheme |
 
 ### Dependencies
@@ -54,8 +54,8 @@
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
+| Name            | Type  | Description                                                                |
+| --------------- | ----- | -------------------------------------------------------------------------- |
 | `CommentToggle` | class | `toggle()` — wraps/unwraps lines with `{# ... #}` based on selection state |
 
 ### Dependencies
@@ -73,8 +73,8 @@
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
+| Name                 | Type  | Description                                                              |
+| -------------------- | ----- | ------------------------------------------------------------------------ |
 | `DiagnosticsManager` | class | Creates/updates/clears diagnostics; fires `onDidUpdateDiagnostics` event |
 
 ### Dependencies
@@ -97,10 +97,10 @@
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
-| `extractVariables` | function | Extracts `{{ var }}` as used and `{% set var = %}` / `{% for var in %}` as set variables |
-| `analyzeNestedStructures` | function | Tracks `for`/`if`/`set` block nesting and returns loop/defined variable names |
+| Name                      | Type     | Description                                                                              |
+| ------------------------- | -------- | ---------------------------------------------------------------------------------------- |
+| `extractVariables`        | function | Extracts `{{ var }}` as used and `{% set var = %}` / `{% for var in %}` as set variables |
+| `analyzeNestedStructures` | function | Tracks `for`/`if`/`set` block nesting and returns loop/defined variable names            |
 
 ### Dependencies
 
@@ -117,8 +117,8 @@
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
+| Name               | Type                                           | Description                                                                                    |
+| ------------------ | ---------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | `QuickFixProvider` | class (implements `vscode.CodeActionProvider`) | Filters diagnostics by code JHE0001; creates CodeAction that triggers `extension.saveVariable` |
 
 ### Dependencies
@@ -136,8 +136,8 @@
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
+| Name                  | Type     | Description                                                                                               |
+| --------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
 | `chooseThemeSelector` | function | Shows QuickPick of 5 themes; merges selected theme's textMateRules into `editor.tokenColorCustomizations` |
 
 ### Dependencies
@@ -166,8 +166,8 @@ Re-exports: `darkDefaultTheme`, `darkHighContrast`, `lightDefaultTheme`, `lightH
 
 ### Exports (per file)
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
+| Name     | Type         | Description                                                                 |
+| -------- | ------------ | --------------------------------------------------------------------------- |
 | `*Theme` | const object | `{ textMateRules: Array<{ scope, settings: { foreground, fontStyle? } }> }` |
 
 ### Dependencies
@@ -183,10 +183,10 @@ Re-exports: `darkDefaultTheme`, `darkHighContrast`, `lightDefaultTheme`, `lightH
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
-| `setupI18n` | function | Configures i18n with locales `en`, `es`; sets locale to `vscode.env.language` |
-| `I18n` (default) | i18n module | Used as `I18n.__(key, interpolations)` and `I18n.getCatalog()` |
+| Name             | Type        | Description                                                                   |
+| ---------------- | ----------- | ----------------------------------------------------------------------------- |
+| `setupI18n`      | function    | Configures i18n with locales `en`, `es`; sets locale to `vscode.env.language` |
+| `I18n` (default) | i18n module | Used as `I18n.__(key, interpolations)` and `I18n.getCatalog()`                |
 
 ### Dependencies
 
@@ -203,8 +203,8 @@ Re-exports: `darkDefaultTheme`, `darkHighContrast`, `lightDefaultTheme`, `lightH
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
+| Name          | Type  | Description                                                                                                                                  |
+| ------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `FileWatcher` | class | Creates FileSystemWatcher; `analyzeDocument()` extracts variables, merges customVariables, updates diagnostics; fires `onDidAnalyzeDocument` |
 
 ### Dependencies
@@ -228,11 +228,11 @@ Re-exports: `darkDefaultTheme`, `darkHighContrast`, `lightDefaultTheme`, `lightH
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
-| `extractVariableName` | function | Extracts variable name from a diagnostic message string via regex `'([^']+)'` |
-| `getVscodeConfigTarget` | function | Returns `ConfigurationTarget.WorkspaceFolder` or `ConfigurationTarget.Global` based on editor path |
-| `getConfiguration` | function (async) | Reads a config value from `jinja2-html-enhancer` configuration |
+| Name                    | Type             | Description                                                                                        |
+| ----------------------- | ---------------- | -------------------------------------------------------------------------------------------------- |
+| `extractVariableName`   | function         | Extracts variable name from a diagnostic message string via regex `'([^']+)'`                      |
+| `getVscodeConfigTarget` | function         | Returns `ConfigurationTarget.WorkspaceFolder` or `ConfigurationTarget.Global` based on editor path |
+| `getConfiguration`      | function (async) | Reads a config value from `jinja2-html-enhancer` configuration                                     |
 
 ### Dependencies
 
@@ -249,8 +249,8 @@ Re-exports: `darkDefaultTheme`, `darkHighContrast`, `lightDefaultTheme`, `lightH
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
+| Name                   | Type  | Description                                                                                                    |
+| ---------------------- | ----- | -------------------------------------------------------------------------------------------------------------- |
 | `VariablePanelManager` | class | `show()` — creates/reveals webview; `updateContent()` — renders HTML with React bundle + Tailwind CSS + params |
 
 ### Dependencies
@@ -289,8 +289,8 @@ None — self-executing via `ReactDOM.createRoot`.
 
 ### Exports
 
-| Name | Type | Description |
-| ------ | ------ | ------------- |
+| Name            | Type     | Description                                                                            |
+| --------------- | -------- | -------------------------------------------------------------------------------------- |
 | `VariablePanel` | React.FC | Accepts `usedVariables` and `setVariables` arrays; renders table with green/red status |
 
 ### Dependencies
