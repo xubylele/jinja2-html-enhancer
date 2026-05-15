@@ -33,12 +33,6 @@ jobs:
         run: pnpm install --frozen-lockfile
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
-      - name: Install vsce
-        run: pnpm add -g @vscode/vsce
-
-      - name: Install ovsx
-        run: pnpm add -g ovsx
-
       - name: Build extension
         run: pnpm build
 
@@ -46,7 +40,7 @@ jobs:
         run: pnpm lint
 
       - name: Package VSIX
-        run: vsce package --no-dependencies
+        run: pnpm dlx @vscode/vsce@3.9.1 package --no-dependencies
 
       - name: Get VSIX filename
         id: vsix
@@ -54,7 +48,7 @@ jobs:
 
       - name: Publish Open VSX
         if: github.ref_name == 'main'
-        run: ovsx publish "${{ steps.vsix.outputs.file }}" -p "${{ secrets.OVSX_PAT }}"
+        run: pnpm dlx ovsx@0.10.12 publish "${{ steps.vsix.outputs.file }}" -p "${{ secrets.OVSX_PAT }}"
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4

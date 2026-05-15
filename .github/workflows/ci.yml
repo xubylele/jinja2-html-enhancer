@@ -65,8 +65,6 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
-      - name: Install vsce
-        run: pnpm add -g @vscode/vsce
 
       - name: Package extension
         run: pnpm package
