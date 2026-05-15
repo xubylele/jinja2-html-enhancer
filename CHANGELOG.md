@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.17.1
+
+### Patch Changes
+
+- Fixed: missing English/Spanish translations for the new `jinja2-html-enhancer.formatting.enabled` and `jinja2-html-enhancer.formatting.formatOnSave` settings — `vsce package` was failing the release build because the `%extension.configuration.formatting.*.description%` NLS placeholders had no entries in `package.nls.json` / `package.nls.es.json`.
+
 ## 1.17.0
 
 ### Minor Changes
