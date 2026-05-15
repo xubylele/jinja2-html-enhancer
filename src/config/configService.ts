@@ -50,18 +50,40 @@ export const setContextProfiles = async (
   await config.update("contextProfiles", nextContextProfiles, configTarget);
 };
 
+const normalizeSet = (raw: unknown): ContextProfileSet => {
+  if (!raw || typeof raw !== "object") {
+    return { default: "", profiles: {} };
+  }
+  // Deep-clone via JSON to strip any proxies/getters that VS Code's config
+  // layer may put on the returned value. Anything that fails to clone (cycles,
+  // throwing getters, non-serializable values) is treated as missing.
+  let cloned: Partial<ContextProfileSet> | null;
+  try {
+    cloned = JSON.parse(JSON.stringify(raw));
+  } catch {
+    cloned = null;
+  }
+  if (!cloned || typeof cloned !== "object") {
+    return { default: "", profiles: {} };
+  }
+  return {
+    default: typeof cloned.default === "string" ? cloned.default : "",
+    profiles: cloned.profiles && typeof cloned.profiles === "object" ? cloned.profiles : {},
+  };
+};
+
 export const resolveProfilesForTemplate = (
   templatePath: string,
   uri?: vscode.Uri
 ): { key: string; set: ContextProfileSet } => {
   const profiles = getContextProfiles(uri);
   if (profiles[templatePath]) {
-    return { key: templatePath, set: profiles[templatePath] };
+    return { key: templatePath, set: normalizeSet(profiles[templatePath]) };
   }
   if (profiles[WILDCARD_TEMPLATE_KEY]) {
     return {
       key: WILDCARD_TEMPLATE_KEY,
-      set: profiles[WILDCARD_TEMPLATE_KEY],
+      set: normalizeSet(profiles[WILDCARD_TEMPLATE_KEY]),
     };
   }
   return { key: templatePath, set: { default: "", profiles: {} } };

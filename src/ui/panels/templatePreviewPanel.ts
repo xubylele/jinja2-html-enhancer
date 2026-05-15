@@ -8,7 +8,6 @@ import {
   buildLegacyCustomVarsContext,
   getContextProfiles,
   resolveProfilesForTemplate,
-  setContextProfiles,
 } from "../../config/configService";
 import i18n from "../../translations";
 
@@ -200,7 +199,11 @@ export class TemplatePreviewPanel {
 <body>
   <div id="root">Loading...</div>
   <script>
-    if (!window.vscode) { window.vscode = acquireVsCodeApi(); }
+    try {
+      if (!window.vscode) { window.vscode = acquireVsCodeApi(); }
+    } catch (e) {
+      console.error("[jinja2-preview] acquireVsCodeApi failed:", e);
+    }
   </script>
   <script>
     const params = ${JSON.stringify(params)};
@@ -233,13 +236,20 @@ export class TemplatePreviewPanel {
       return;
     }
     this.session.set = set;
-    const editor = vscode.window.activeTextEditor;
     const all: ContextProfilesMap = getContextProfiles(this.session.uri);
     all[this.session.templateKey] = set;
-    await setContextProfiles(editor, all);
+    const config = vscode.workspace.getConfiguration("jinja2-html-enhancer");
+    try {
+      await config.update("contextProfiles", all, vscode.ConfigurationTarget.Global);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      vscode.window.showErrorMessage(`Failed to save profile: ${message}`);
+      throw err;
+    }
   }
 
   private async handleMessage(msg: WebviewIncomingMessage) {
+    console.log("[jinja2-preview] message received:", msg.command, { name: msg.name });
     if (!this.session) {
       return;
     }
@@ -249,14 +259,26 @@ export class TemplatePreviewPanel {
         if (!msg.name) {
           return;
         }
+        const currentSet: ContextProfileSet = this.session.set ?? { default: "", profiles: {} };
         const next: ContextProfileSet = {
-          default: this.session.set.default || msg.name,
+          default: currentSet.default || msg.name,
           profiles: {
-            ...this.session.set.profiles,
+            ...(currentSet.profiles ?? {}),
             [msg.name]: msg.context ?? {},
           },
         };
-        await this.persist(next);
+        try {
+          await this.persist(next);
+        } catch {
+          return;
+        }
+        const readback = getContextProfiles(this.session.uri);
+        if (!readback[this.session.templateKey]?.profiles?.[msg.name]) {
+          vscode.window.showErrorMessage(
+            `Profile '${msg.name}' did not persist. Check user settings.`
+          );
+          return;
+        }
         this.session.activeProfile = msg.name;
         this.session.previewContext = undefined;
         vscode.window.showInformationMessage(i18n.__("preview.profileSaved", { name: msg.name }));

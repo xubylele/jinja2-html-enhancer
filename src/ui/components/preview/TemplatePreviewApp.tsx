@@ -41,12 +41,26 @@ function t(translations: Record<string, any>, key: string): string {
 function post(command: string, payload: Record<string, unknown> = {}) {
   if (window.vscode) {
     window.vscode.postMessage({ command, ...payload });
+    return;
   }
+  console.error("[jinja2-preview] window.vscode is undefined — cannot send", command);
+  const banner = document.createElement("div");
+  banner.style.cssText =
+    "position:fixed;top:0;left:0;right:0;background:#b91c1c;color:white;padding:8px;font:12px monospace;z-index:9999";
+  banner.textContent = `[jinja2-preview] window.vscode missing — cannot send '${command}'. Reload the webview.`;
+  document.body.appendChild(banner);
 }
 
 const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
   const tr = (k: string) => t(params.translations, k);
-  const profileSet: ProfileSet = params.profileSet ?? { default: "", profiles: {} };
+  const rawProfileSet = params.profileSet as Partial<ProfileSet> | undefined | null;
+  const profileSet: ProfileSet = {
+    default: typeof rawProfileSet?.default === "string" ? rawProfileSet.default : "",
+    profiles:
+      rawProfileSet?.profiles && typeof rawProfileSet.profiles === "object"
+        ? rawProfileSet.profiles
+        : {},
+  };
 
   const [activeProfile, setActiveProfile] = useState(params.activeProfile);
   const [editorText, setEditorText] = useState(() =>
@@ -54,6 +68,7 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
   );
   const [parseError, setParseError] = useState<string | null>(null);
   const [contextCollapsed, setContextCollapsed] = useState(false);
+  const [newProfileName, setNewProfileName] = useState<string | null>(null);
   const [liveHtml, setLiveHtml] = useState(params.html);
   const [liveMissing, setLiveMissing] = useState(params.missingVariables);
   const [liveUsed, setLiveUsed] = useState(params.usedVariables);
@@ -128,22 +143,31 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
     if (!parsedContext) {
       return;
     }
-    const name = activeProfile || promptName();
-    if (!name) {
+    if (activeProfile) {
+      post("save-profile", { name: activeProfile, context: parsedContext });
       return;
     }
-    post("save-profile", { name, context: parsedContext });
+    setNewProfileName("");
   };
 
   const onSaveAs = () => {
     if (!parsedContext) {
       return;
     }
-    const name = promptName();
-    if (!name) {
+    setNewProfileName("");
+  };
+
+  const confirmNewProfile = () => {
+    const name = (newProfileName ?? "").trim();
+    if (!name || !parsedContext) {
       return;
     }
     post("save-profile", { name, context: parsedContext });
+    setNewProfileName(null);
+  };
+
+  const cancelNewProfile = () => {
+    setNewProfileName(null);
   };
 
   const onDelete = (name: string) => {
@@ -243,12 +267,51 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
           })}
         </ul>
 
-        <button
-          onClick={onSaveAs}
-          className="mt-auto rounded bg-gray-200 px-2 py-1.5 text-xs hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700"
-        >
-          + {tr("preview.newProfile")}
-        </button>
+        {newProfileName === null ? (
+          <button
+            onClick={onSaveAs}
+            disabled={!parsedContext}
+            className="mt-auto rounded bg-gray-200 px-2 py-1.5 text-xs hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+          >
+            + {tr("preview.newProfile")}
+          </button>
+        ) : (
+          <div className="mt-auto flex flex-col gap-1.5">
+            <input
+              autoFocus
+              type="text"
+              value={newProfileName}
+              placeholder={tr("preview.newProfilePrompt")}
+              onChange={(e) => setNewProfileName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  confirmNewProfile();
+                } else if (e.key === "Escape") {
+                  e.preventDefault();
+                  cancelNewProfile();
+                }
+              }}
+              className="rounded border border-gray-300 bg-white px-2 py-1 text-xs dark:border-gray-700 dark:bg-gray-950"
+            />
+            <div className="flex gap-1.5">
+              <button
+                onClick={confirmNewProfile}
+                disabled={!newProfileName.trim()}
+                className="flex-1 rounded bg-blue-600 px-2 py-1 text-xs text-white hover:bg-blue-700 disabled:opacity-50"
+              >
+                {tr("preview.saveProfile")}
+              </button>
+              <button
+                onClick={cancelNewProfile}
+                aria-label="Cancel"
+                className="rounded bg-gray-200 px-2 py-1 text-xs hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        )}
       </aside>
 
       {/* Main */}
@@ -348,10 +411,5 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
     </div>
   );
 };
-
-function promptName(): string | null {
-  const name = window.prompt("Profile name");
-  return name && name.trim() ? name.trim() : null;
-}
 
 export default TemplatePreviewApp;
