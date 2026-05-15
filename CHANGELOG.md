@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.17.2
+
+### Patch Changes
+
+- Security: removed two unused dependencies, `tailwind@4.0.0` and `coveralls@3.1.1`. Neither was imported anywhere in the source. Between them they were dragging in an old Express/Lodash/Moment/JWT/WS/Request transitive tree responsible for ~37 GitHub Dependabot alerts (1 critical, 14 high, 15 medium, 6 low) — all of which disappear once these two are gone. The real Tailwind CSS packages (`tailwindcss` v4 + `@tailwindcss/cli`) stay.
+
 ## 1.17.1
 
 ### Patch Changes
