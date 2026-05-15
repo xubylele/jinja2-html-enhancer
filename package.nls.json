@@ -11,5 +11,7 @@
   "extension.configuration.customVariables.description": "Custom variables configuration for Jinja2",
   "extension.configuration.toggleVariableCheck.description": "Toggle check jinja2 variable check",
   "extension.configuration.tokenColorCustomizations.description": "Customize Jinja2 token colors",
-  "extension.configuration.contextProfiles.description": "Define context profiles for Jinja2 variables"
+  "extension.configuration.contextProfiles.description": "Define context profiles for Jinja2 variables",
+  "extension.configuration.formatting.enabled.description": "Enable Jinja2-aware formatting via prettier-plugin-jinja-template",
+  "extension.configuration.formatting.formatOnSave.description": "Format Jinja2 / HTML files on save. Defers to VS Code's editor.formatOnSave when that is already enabled."
 }
