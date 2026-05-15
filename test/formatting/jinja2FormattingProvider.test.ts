@@ -120,6 +120,7 @@ describe("Jinja2FormattingProvider", () => {
   });
 
   it("returns empty edits when prettier throws", async () => {
+    const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
     PrettierResolver.resolve.mockResolvedValue({
       prettier: {
         format: jest.fn().mockRejectedValue(new Error("parse error")),
@@ -134,6 +135,11 @@ describe("Jinja2FormattingProvider", () => {
     );
 
     expect(edits).toEqual([]);
+    expect(errorSpy).toHaveBeenCalledWith(
+      "[Jinja2 Enhance] Formatting failed:",
+      expect.any(Error)
+    );
+    errorSpy.mockRestore();
   });
 
   it("calls prettier.format with jinja-template parser and plugin path", async () => {
