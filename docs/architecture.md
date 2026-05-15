@@ -12,14 +12,14 @@
 
 ## Layer Map
 
-| Layer | Files | Responsibility |
-| ------- | ------- | ---------------- |
-| Activation | `src/extension.ts` | Wires up commands, providers, listeners, review prompt |
-| Commands | `src/commands/commandManager.ts`, `src/commands/commentToggle.ts` | Thin handlers delegating to FileWatcher / VariablePanelManager |
-| Providers | `src/codeActions/quickFixProvider.ts`, `src/ui/panels/variablePanel.ts` | CodeActionProvider for quick fixes; WebviewPanel for variable display |
-| Services | `src/diagnostics/diagnosticsManager.ts`, `src/watchers/fileWatcher.ts`, `src/theme/themeChoose.ts`, `src/translations.ts` | Diagnostics creation, file watching/analysis, theme application, i18n |
-| Models | `src/themes/*.ts`, `src/themes/index.ts` | Static theme color definitions (textMateRules objects) |
-| Utils | `src/utils/variables.ts`, `src/diagnostics/variableAnalyzer.ts` | Pure helpers: regex extraction, config target resolution |
+| Layer      | Files                                                                                                                     | Responsibility                                                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Activation | `src/extension.ts`                                                                                                        | Wires up commands, providers, listeners, review prompt                |
+| Commands   | `src/commands/commandManager.ts`, `src/commands/commentToggle.ts`                                                         | Thin handlers delegating to FileWatcher / VariablePanelManager        |
+| Providers  | `src/codeActions/quickFixProvider.ts`, `src/ui/panels/variablePanel.ts`                                                   | CodeActionProvider for quick fixes; WebviewPanel for variable display |
+| Services   | `src/diagnostics/diagnosticsManager.ts`, `src/watchers/fileWatcher.ts`, `src/theme/themeChoose.ts`, `src/translations.ts` | Diagnostics creation, file watching/analysis, theme application, i18n |
+| Models     | `src/themes/*.ts`, `src/themes/index.ts`                                                                                  | Static theme color definitions (textMateRules objects)                |
+| Utils      | `src/utils/variables.ts`, `src/diagnostics/variableAnalyzer.ts`                                                           | Pure helpers: regex extraction, config target resolution              |
 
 ## Data Flow
 
@@ -63,20 +63,20 @@ User triggers "Change Theme"
 
 ## VS Code API Surface
 
-| Namespace | Usage |
-| ----------- | ------- |
-| `vscode.commands` | `registerCommand` for all 6 commands |
-| `vscode.window` | `showInformationMessage`, `showWarningMessage`, `showErrorMessage`, `showQuickPick`, `activeTextEditor`, `createWebviewPanel`, `env.openExternal` |
-| `vscode.workspace` | `getConfiguration`, `onDidSaveTextDocument`, `createFileSystemWatcher`, `getWorkspaceFolder`, `openTextDocument` |
-| `vscode.languages` | `createDiagnosticCollection`, `registerCodeActionsProvider` |
-| `vscode.Diagnostic` | Create warnings with code JHE0001 |
-| `vscode.Range` / `vscode.Position` | Map variable positions in document |
-| `vscode.CodeAction` / `vscode.CodeActionKind` | Quick fix code actions |
-| `vscode.ConfigurationTarget` | Global / WorkspaceFolder config scope |
-| `vscode.EventEmitter` | Event propagation (diagnostics update, document analysis) |
-| `vscode.env.language` | Detect user locale for i18n |
-| `vscode.Uri` | File paths, webview URIs, external URLs |
-| `vscode.TextEditorEdit` | Text replacements for comment toggle |
+| Namespace                                     | Usage                                                                                                                                             |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `vscode.commands`                             | `registerCommand` for all 6 commands                                                                                                              |
+| `vscode.window`                               | `showInformationMessage`, `showWarningMessage`, `showErrorMessage`, `showQuickPick`, `activeTextEditor`, `createWebviewPanel`, `env.openExternal` |
+| `vscode.workspace`                            | `getConfiguration`, `onDidSaveTextDocument`, `createFileSystemWatcher`, `getWorkspaceFolder`, `openTextDocument`                                  |
+| `vscode.languages`                            | `createDiagnosticCollection`, `registerCodeActionsProvider`                                                                                       |
+| `vscode.Diagnostic`                           | Create warnings with code JHE0001                                                                                                                 |
+| `vscode.Range` / `vscode.Position`            | Map variable positions in document                                                                                                                |
+| `vscode.CodeAction` / `vscode.CodeActionKind` | Quick fix code actions                                                                                                                            |
+| `vscode.ConfigurationTarget`                  | Global / WorkspaceFolder config scope                                                                                                             |
+| `vscode.EventEmitter`                         | Event propagation (diagnostics update, document analysis)                                                                                         |
+| `vscode.env.language`                         | Detect user locale for i18n                                                                                                                       |
+| `vscode.Uri`                                  | File paths, webview URIs, external URLs                                                                                                           |
+| `vscode.TextEditorEdit`                       | Text replacements for comment toggle                                                                                                              |
 
 ## Known Layer Violations / Tech Debt
 

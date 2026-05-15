@@ -1,17 +1,17 @@
-import * as vscode from 'vscode';
-import I18n from '../translations';
+import * as vscode from "vscode";
+import I18n from "../translations";
 
 export class CommentToggle {
   public toggle(): void {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
-      vscode.window.showWarningMessage(I18n.__('error.noActiveEditor'));
+      vscode.window.showWarningMessage(I18n.__("error.noActiveEditor"));
       return;
     }
 
     const document = editor.document;
 
-    editor.edit(editBuilder => {
+    editor.edit((editBuilder) => {
       for (const selection of editor.selections) {
         if (selection.isEmpty) {
           const line = document.lineAt(selection.active.line);
@@ -47,10 +47,14 @@ export class CommentToggle {
 
   private isLineCommented(text: string): boolean {
     const trimmed = text.trim();
-    return trimmed.startsWith('{#') && trimmed.endsWith('#}');
+    return trimmed.startsWith("{#") && trimmed.endsWith("#}");
   }
 
-  private areAllLinesCommented(document: vscode.TextDocument, startLine: number, endLine: number): boolean {
+  private areAllLinesCommented(
+    document: vscode.TextDocument,
+    startLine: number,
+    endLine: number
+  ): boolean {
     for (let i = startLine; i <= endLine; i++) {
       const line = document.lineAt(i);
       if (!line.isEmptyOrWhitespace && !this.isLineCommented(line.text)) {
