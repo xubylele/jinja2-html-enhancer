@@ -5,6 +5,9 @@ import { CommandManager } from "./commands/commandManager";
 import { CommentToggle } from "./commands/commentToggle";
 import { MacroCompletionProvider, MacroSignatureHelpProvider } from "./completion/macro";
 import { DiagnosticsManager } from "./diagnostics/diagnosticsManager";
+import { TemplatePathDiagnostics } from "./diagnostics/templatePathDiagnostics";
+import { TemplateDefinitionProvider } from "./definition/templateDefinitionProvider";
+import { TemplateRootsProvider } from "./resolver/templateRoots";
 import { Jinja2FormattingProvider } from "./formatting/jinja2FormattingProvider";
 import { FilterDocsHover } from "./hover/filterDocsHover";
 import I18n, { setupI18n } from "./translations";
@@ -106,6 +109,43 @@ export function activate(context: vscode.ExtensionContext) {
     )
   );
 
+  // ── Cross-file template path navigation + diagnostics ──────────────
+  // Path-only: jump to {% extends %} / {% include %} / {% import %} targets
+  // and flag unresolvable paths (JHE1101) and circular extends (JHE1102).
+  // Inherited-variable resolution stays in Jinja2 Enhance Pro.
+
+  const templateRoots = new TemplateRootsProvider();
+  const templatePathDiagnostics = new TemplatePathDiagnostics(templateRoots);
+  context.subscriptions.push(templateRoots, templatePathDiagnostics);
+
+  context.subscriptions.push(
+    vscode.languages.registerDefinitionProvider(
+      [{ language: "html" }, { language: "jinja2" }],
+      new TemplateDefinitionProvider(templateRoots)
+    )
+  );
+
+  const validateOpenTemplates = () => {
+    for (const doc of vscode.workspace.textDocuments) {
+      if (doc.languageId === "html" || doc.languageId === "jinja2") {
+        void templatePathDiagnostics.analyzeDocument(doc);
+      }
+    }
+  };
+
+  // A change anywhere in the template tree can flip another file's resolution
+  // (a deleted parent, a renamed include), so re-validate every open template.
+  const templateWatcher = vscode.workspace.createFileSystemWatcher("**/*.{html,jinja2,j2,jinja}");
+  templateWatcher.onDidCreate(() => validateOpenTemplates());
+  templateWatcher.onDidDelete(() => validateOpenTemplates());
+  templateWatcher.onDidChange(() => validateOpenTemplates());
+  context.subscriptions.push(
+    templateWatcher,
+    templateRoots.onDidChange(() => validateOpenTemplates())
+  );
+
+  validateOpenTemplates();
+
   // ── Public contribution API — sister extensions (Jinja2 Enhance Pro) inject
   // origin metadata into the Variable Panel. See src/types/originProvider.ts.
   context.subscriptions.push(
@@ -158,6 +198,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.workspace.onDidSaveTextDocument(async (document) => {
       if (document.languageId === "html" || document.languageId === "jinja2") {
+        void templatePathDiagnostics.analyzeDocument(document);
         const result = await fileWatcher.analyzeDocument(document);
         if (result) {
           vscode.window.showInformationMessage(I18n.__("analyzer.analysisComplete"));
@@ -197,6 +238,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.workspace.onDidOpenTextDocument(async (document) => {
       if (document.languageId === "html" || document.languageId === "jinja2") {
+        void templatePathDiagnostics.analyzeDocument(document);
         await fileWatcher.analyzeDocument(document);
       }
     })

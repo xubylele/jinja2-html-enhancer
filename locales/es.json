@@ -1,4 +1,8 @@
 {
+  "templatePath": {
+    "unresolved": "No se puede resolver la plantilla '{{path}}'. Configurá 'jinja2-html-enhancer.templateRoots' si vive fuera de los directorios 'templates/' autodetectados.",
+    "circular": "Se detectó una cadena {% extends %} circular desde esta plantilla."
+  },
   "variable": {
     "variableNotSet": "⚠️ La variable '{{variable}}' está siendo usada pero no ha sido definida. Asegúrese de que esté definida.",
     "checkingVariables": "🔍 Verificando variables Jinja2...",

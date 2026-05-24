@@ -1,4 +1,8 @@
 {
+  "templatePath": {
+    "unresolved": "Cannot resolve template '{{path}}'. Configure 'jinja2-html-enhancer.templateRoots' if it lives outside the auto-discovered 'templates/' directories.",
+    "circular": "Circular {% extends %} chain detected from this template."
+  },
   "variable": {
     "variableNotSet": "⚠️ Variable '{{variable}}' is used but has not been set. Make sure it's defined.",
     "checkingVariables": "🔍 Checking Jinja2 variables...",

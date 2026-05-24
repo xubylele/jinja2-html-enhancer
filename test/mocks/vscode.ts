@@ -105,8 +105,20 @@ class CodeAction {
   }
 }
 
+class Location {
+  uri: any;
+  range: any;
+  constructor(uri: any, rangeOrPosition: any) {
+    this.uri = uri;
+    this.range = rangeOrPosition;
+  }
+}
+
 const DiagnosticSeverity = {
+  Error: 0,
   Warning: 1,
+  Information: 2,
+  Hint: 3,
 };
 
 const ConfigurationTarget = {
@@ -214,8 +226,18 @@ const workspace = {
   createFileSystemWatcher: jest.fn(() => ({
     onDidChange: jest.fn(),
     onDidCreate: jest.fn(),
+    onDidDelete: jest.fn(),
     dispose: jest.fn(),
   })),
+  onDidChangeConfiguration: jest.fn(() => ({ dispose: jest.fn() })),
+  onDidChangeWorkspaceFolders: jest.fn(() => ({ dispose: jest.fn() })),
+  workspaceFolders: undefined as any,
+  textDocuments: [] as any[],
+  findFiles: jest.fn(async () => [] as any[]),
+  fs: {
+    stat: jest.fn(),
+    readFile: jest.fn(),
+  },
   openTextDocument: jest.fn(),
   applyEdit: jest.fn(),
 };
@@ -225,6 +247,7 @@ const languages = {
   registerCompletionItemProvider: jest.fn(() => ({ dispose: jest.fn() })),
   registerSignatureHelpProvider: jest.fn(() => ({ dispose: jest.fn() })),
   registerDocumentFormattingEditProvider: jest.fn(() => ({ dispose: jest.fn() })),
+  registerDefinitionProvider: jest.fn(() => ({ dispose: jest.fn() })),
 };
 
 const env = {
@@ -258,6 +281,7 @@ export = {
   SignatureInformation,
   SignatureHelp,
   Position,
+  Location,
   TextEdit,
   WorkspaceEdit,
   CancellationToken,
