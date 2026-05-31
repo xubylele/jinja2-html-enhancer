@@ -1,8 +1,5 @@
 import * as vscode from "vscode";
-import {
-  getInheritedScope,
-  resolveToNode,
-} from "../../src/resolver/inheritedScope";
+import { getInheritedScope, resolveToNode } from "../../src/resolver/inheritedScope";
 import { TemplateGraphIndex } from "../../src/resolver/templateGraphIndex";
 import { TemplateRootsProvider } from "../../src/resolver/templateRoots";
 
@@ -57,7 +54,9 @@ describe("getInheritedScope", () => {
     index = new TemplateGraphIndex();
     roots = new TemplateRootsProvider();
     (vscode.workspace as any).workspaceFolders = [{ uri: { fsPath: "/proj" } }];
-    (vscode.workspace.getConfiguration as jest.Mock).mockReturnValue({ get: () => ["/proj/templates"] });
+    (vscode.workspace.getConfiguration as jest.Mock).mockReturnValue({
+      get: () => ["/proj/templates"],
+    });
     findFilesMock.mockResolvedValue([]);
   });
 
@@ -85,8 +84,12 @@ describe("getInheritedScope", () => {
     const baseUri = makeUri("/proj/templates/base.html");
     const childUri = makeUri("/proj/templates/child.html");
     readFileMock
-      .mockResolvedValueOnce(enc("{% set site_name = 'My Site' %}\n{% block content %}{% endblock %}"))
-      .mockResolvedValueOnce(enc('{% extends "base.html" %}{% block content %}{{ site_name }}{% endblock %}'));
+      .mockResolvedValueOnce(
+        enc("{% set site_name = 'My Site' %}\n{% block content %}{% endblock %}")
+      )
+      .mockResolvedValueOnce(
+        enc('{% extends "base.html" %}{% block content %}{{ site_name }}{% endblock %}')
+      );
     await index.update(baseUri);
     await index.update(childUri);
     const result = await getInheritedScope(childUri, { index, roots });

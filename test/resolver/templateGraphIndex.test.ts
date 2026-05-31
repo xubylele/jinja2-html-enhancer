@@ -54,9 +54,7 @@ describe("TemplateGraphIndex", () => {
 
   it("update extracts set variable declarations", async () => {
     const uri = makeUri("/proj/templates/page.html");
-    readFileMock.mockResolvedValue(
-      encodeContent("{% set greeting = 'Hello' %}\n{{ greeting }}")
-    );
+    readFileMock.mockResolvedValue(encodeContent("{% set greeting = 'Hello' %}\n{{ greeting }}"));
     await index.update(uri);
     const node = index.getNode(uri);
     expect(node!.localVars.has("greeting")).toBe(true);
@@ -122,10 +120,7 @@ describe("TemplateGraphIndex", () => {
     findFilesMock.mockResolvedValue([uri1, uri2]);
     readFileMock.mockResolvedValue(encodeContent("{{ x }}"));
     await index.build();
-    expect(findFilesMock).toHaveBeenCalledWith(
-      "**/*.{html,jinja2,j2,jinja}",
-      "**/node_modules/**"
-    );
+    expect(findFilesMock).toHaveBeenCalledWith("**/*.{html,jinja2,j2,jinja}", "**/node_modules/**");
     expect(index.size()).toBe(2);
   });
 

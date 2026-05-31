@@ -64,10 +64,7 @@ describe("InheritedVariableActions", () => {
 
   it("returns goto + suppress actions when variable is found in inherited scope", async () => {
     const originUri = vscode.Uri.file("/proj/templates/base.html");
-    const originRange = new vscode.Range(
-      new vscode.Position(2, 4),
-      new vscode.Position(2, 8)
-    );
+    const originRange = new vscode.Range(new vscode.Position(2, 4), new vscode.Position(2, 8));
     getInheritedScopeMock.mockResolvedValue([
       { name: "user", kind: "set", originUri, originRange, viaPath: "base.html" },
     ]);

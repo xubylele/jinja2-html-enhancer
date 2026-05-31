@@ -1,8 +1,5 @@
 import * as vscode from "vscode";
-import {
-  GOTO_COMMAND,
-  gotoDefinitionCommand,
-} from "../../src/commands/gotoDefinitionCommand";
+import { GOTO_COMMAND, gotoDefinitionCommand } from "../../src/commands/gotoDefinitionCommand";
 
 const showTextDocument = jest.fn();
 beforeEach(() => {
@@ -22,10 +19,7 @@ describe("gotoDefinitionCommand", () => {
     registerCommandMock.mockReturnValue({ dispose: jest.fn() });
 
     const disposable = gotoDefinitionCommand();
-    expect(registerCommandMock).toHaveBeenCalledWith(
-      GOTO_COMMAND,
-      expect.any(Function)
-    );
+    expect(registerCommandMock).toHaveBeenCalledWith(GOTO_COMMAND, expect.any(Function));
     expect(disposable).toBeDefined();
   });
 
