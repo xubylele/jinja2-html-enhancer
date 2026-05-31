@@ -130,12 +130,15 @@
   },
   "completion": {
     "macro": {
-      "local": "Macro definida en este archivo"
+      "local": "Macro definida en este archivo",
+      "inherited": "Macro heredada de `{{path}}`",
+      "imported": "Macro importada de `{{path}}`"
     }
   },
   "signatureHelp": {
     "macro": {
       "local": "Macro definida en este archivo",
+      "crossFile": "Macro de `{{path}}`",
       "required": "Requerido",
       "optional": "Opcional"
     }

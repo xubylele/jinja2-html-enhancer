@@ -28,6 +28,7 @@ Status legend: ✅ Shipped · ⚡ Implemented (pending release) · 🚧 In progr
 | **Jinja2-aware Formatting** — format `.html`, `.jinja2`, `.j2`, `.jinja` files on save or on demand via `prettier-plugin-jinja-template`. Auto-detects workspace dependencies, interactive install prompt with cooldown, full i18n.                                                                                                                          | ⚡ Implemented |
 | **Cross-File Path Resolution** — `cmd+click` / F12 on a template path inside `{% extends %}` / `{% include %}` / `{% import %}` / `{% from %}` jumps to the referenced file. Flags unresolvable paths (`JHE1101`) and circular `{% extends %}` chains (`JHE1102`). New `jinja2-html-enhancer.templateRoots` setting.                                         | ⚡ Implemented |
 | **Inherited Variable Hover & Quick-Fix** — hover over any variable inherited from a parent template via `{% extends %}` to see its origin file and line. Includes imported macros and namespaces from `{% import %}` / `{% from … import … %}`. Quick-fix on `JHE0001` offers "Go to inherited definition" when the variable can be traced back to a parent. | ⚡ Implemented |
+| **Cross-File Macro IntelliSense** — autocomplete and signature help for macros inherited via `{% extends %}`, imported via `{% import "file.html" as ns %}`, or imported via `{% from "file.html" import macro %}`. Namespace dot-completions (`ns.`) and parameter hints included.                                                                               | ⚡ Implemented |
 
 ---
 

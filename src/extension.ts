@@ -90,21 +90,6 @@ export function activate(context: vscode.ExtensionContext) {
       new FilterDocsHover()
     )
   );
-  context.subscriptions.push(
-    vscode.languages.registerCompletionItemProvider(
-      [{ language: "html" }, { language: "jinja2" }],
-      new MacroCompletionProvider()
-    )
-  );
-  context.subscriptions.push(
-    vscode.languages.registerSignatureHelpProvider(
-      [{ language: "html" }, { language: "jinja2" }],
-      new MacroSignatureHelpProvider(),
-      "(",
-      ","
-    )
-  );
-
   // ── Formatting ─────────────────────────────────────────────────────
 
   context.subscriptions.push(
@@ -115,6 +100,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   // ── Cross-file template path navigation + diagnostics ──────────────
+  // templateRoots is declared early so macro providers can use it.
 
   const templateRoots = new TemplateRootsProvider();
   const templatePathDiagnostics = new TemplatePathDiagnostics(templateRoots);
@@ -166,6 +152,22 @@ export function activate(context: vscode.ExtensionContext) {
       selector,
       new InheritedVariableActions(templateGraph, templateRoots),
       { providedCodeActionKinds: InheritedVariableActions.providedCodeActionKinds }
+    )
+  );
+
+  // ── Macro completion (local + cross-file) ──────────────────────────
+
+  context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider(
+      selector,
+      new MacroCompletionProvider(templateGraph, templateRoots),
+      "."
+    ),
+    vscode.languages.registerSignatureHelpProvider(
+      selector,
+      new MacroSignatureHelpProvider(templateGraph, templateRoots),
+      "(",
+      ","
     )
   );
 

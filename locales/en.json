@@ -129,12 +129,15 @@
   },
   "completion": {
     "macro": {
-      "local": "Macro defined in this file"
+      "local": "Macro defined in this file",
+      "inherited": "Inherited macro from `{{path}}`",
+      "imported": "Imported macro from `{{path}}`"
     }
   },
   "signatureHelp": {
     "macro": {
       "local": "Macro defined in this file",
+      "crossFile": "Macro from `{{path}}`",
       "required": "Required",
       "optional": "Optional"
     }
