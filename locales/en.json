@@ -69,6 +69,18 @@
       "title": "Jinja2 Filter",
       "signature": "Signature",
       "example": "Example"
+    },
+    "inherited": {
+      "set": "Inherited variable",
+      "macro": "Macro",
+      "importedMacro": "Imported macro",
+      "importedNamespace": "Imported namespace"
+    }
+  },
+  "codeAction": {
+    "inherited": {
+      "goto": "Go to inherited definition of '{{name}}'",
+      "suppress": "Suppress: add '{{name}}' to customVariables"
     }
   },
   "preview": {

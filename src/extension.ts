@@ -1,15 +1,20 @@
 import * as vscode from "vscode";
 import { registerOriginProvider, unregisterOriginProvider } from "./api/originProviderRegistry";
+import { InheritedVariableActions } from "./codeActions/inheritedVariableActions";
 import { QuickFixProvider } from "./codeActions/quickFixProvider";
 import { CommandManager } from "./commands/commandManager";
 import { CommentToggle } from "./commands/commentToggle";
+import { gotoDefinitionCommand } from "./commands/gotoDefinitionCommand";
 import { MacroCompletionProvider, MacroSignatureHelpProvider } from "./completion/macro";
+import { TemplateDefinitionProvider } from "./definition/templateDefinitionProvider";
 import { DiagnosticsManager } from "./diagnostics/diagnosticsManager";
 import { TemplatePathDiagnostics } from "./diagnostics/templatePathDiagnostics";
-import { TemplateDefinitionProvider } from "./definition/templateDefinitionProvider";
-import { TemplateRootsProvider } from "./resolver/templateRoots";
 import { Jinja2FormattingProvider } from "./formatting/jinja2FormattingProvider";
 import { FilterDocsHover } from "./hover/filterDocsHover";
+import { InheritedVariableHover } from "./hover/inheritedVariableHover";
+import { getInheritedScope, type InheritedSymbol } from "./resolver/inheritedScope";
+import { TemplateGraphIndex } from "./resolver/templateGraphIndex";
+import { TemplateRootsProvider } from "./resolver/templateRoots";
 import I18n, { setupI18n } from "./translations";
 import { TemplatePreviewPanel } from "./ui/panels/templatePreviewPanel";
 import { VariablePanelManager } from "./ui/panels/variablePanel";
@@ -110,9 +115,6 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   // ── Cross-file template path navigation + diagnostics ──────────────
-  // Path-only: jump to {% extends %} / {% include %} / {% import %} targets
-  // and flag unresolvable paths (JHE1101) and circular extends (JHE1102).
-  // Inherited-variable resolution stays in Jinja2 Enhance Pro.
 
   const templateRoots = new TemplateRootsProvider();
   const templatePathDiagnostics = new TemplatePathDiagnostics(templateRoots);
@@ -133,8 +135,6 @@ export function activate(context: vscode.ExtensionContext) {
     }
   };
 
-  // A change anywhere in the template tree can flip another file's resolution
-  // (a deleted parent, a renamed include), so re-validate every open template.
   const templateWatcher = vscode.workspace.createFileSystemWatcher("**/*.{html,jinja2,j2,jinja}");
   templateWatcher.onDidCreate(() => validateOpenTemplates());
   templateWatcher.onDidDelete(() => validateOpenTemplates());
@@ -145,6 +145,72 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   validateOpenTemplates();
+
+  // ── Cross-file inherited variable resolution ────────────────────────
+  // Builds the full template graph (extends/include/import) and exposes
+  // hover + quick-fix for variables inherited from parent templates.
+
+  const templateGraph = new TemplateGraphIndex();
+  void templateGraph.build();
+  context.subscriptions.push(templateGraph);
+
+  const selector: vscode.DocumentSelector = [{ language: "html" }, { language: "jinja2" }];
+
+  context.subscriptions.push(
+    gotoDefinitionCommand(),
+    vscode.languages.registerHoverProvider(
+      selector,
+      new InheritedVariableHover(templateGraph, templateRoots)
+    ),
+    vscode.languages.registerCodeActionsProvider(
+      selector,
+      new InheritedVariableActions(templateGraph, templateRoots),
+      { providedCodeActionKinds: InheritedVariableActions.providedCodeActionKinds }
+    )
+  );
+
+  // Register inherited-variable origin provider directly (internal — no command round-trip).
+  registerOriginProvider({
+    id: "jinja2-free.inherited",
+    provider: async (req: { uri: string; names: string[] }) => {
+      const out: Record<string, { label: string; uri?: string; line?: number }> = {};
+      let templateUri: vscode.Uri;
+      try {
+        templateUri = vscode.Uri.parse(req.uri);
+      } catch {
+        return out;
+      }
+      const inherited = await getInheritedScope(templateUri, {
+        index: templateGraph,
+        roots: templateRoots,
+      });
+      const requested = new Set(req.names);
+      for (const sym of inherited) {
+        if (!requested.has(sym.name) || out[sym.name]) {
+          continue;
+        }
+        const via = sym.viaPath ? ` (via ${sym.viaPath})` : "";
+        const labelPrefix = ((): string => {
+          switch ((sym as InheritedSymbol).kind) {
+            case "set":
+              return "Inherited";
+            case "macro":
+              return "Macro";
+            case "imported-macro":
+              return "Imported macro";
+            case "imported-namespace":
+              return "Imported namespace";
+          }
+        })();
+        out[sym.name] = {
+          label: `${labelPrefix} from ${prettyOriginPath(sym.originUri)}${via}`,
+          uri: sym.originUri.toString(),
+          line: sym.originRange.start.line,
+        };
+      }
+      return out;
+    },
+  });
 
   // ── Public contribution API — sister extensions (Jinja2 Enhance Pro) inject
   // origin metadata into the Variable Panel. See src/types/originProvider.ts.
@@ -253,4 +319,12 @@ export function deactivate() {
   if (fileWatcher) {
     fileWatcher.dispose();
   }
+}
+
+function prettyOriginPath(uri: vscode.Uri): string {
+  const folder = vscode.workspace.getWorkspaceFolder(uri);
+  if (folder) {
+    return uri.fsPath.slice(folder.uri.fsPath.length + 1);
+  }
+  return uri.fsPath;
 }

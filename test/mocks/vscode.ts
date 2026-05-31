@@ -24,6 +24,10 @@ class Uri {
     this.fsPath = fsPath;
   }
 
+  toString() {
+    return this.fsPath;
+  }
+
   static file(path: string) {
     return new Uri(path);
   }
@@ -91,6 +95,16 @@ class Diagnostic {
     this.range = range;
     this.message = message;
     this.severity = severity;
+  }
+}
+
+class Hover {
+  contents: any[];
+  range?: any;
+
+  constructor(contents: any, range?: any) {
+    this.contents = Array.isArray(contents) ? contents : [contents];
+    this.range = range;
   }
 }
 
@@ -269,6 +283,7 @@ export = {
   Uri,
   Range,
   Diagnostic,
+  Hover,
   CodeAction,
   DiagnosticSeverity,
   ConfigurationTarget,

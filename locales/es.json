@@ -70,6 +70,18 @@
       "title": "Filtro Jinja2",
       "signature": "Firma",
       "example": "Ejemplo"
+    },
+    "inherited": {
+      "set": "Variable heredada",
+      "macro": "Macro",
+      "importedMacro": "Macro importada",
+      "importedNamespace": "Namespace importado"
+    }
+  },
+  "codeAction": {
+    "inherited": {
+      "goto": "Ir a la definición heredada de '{{name}}'",
+      "suppress": "Suprimir: agregar '{{name}}' a customVariables"
     }
   },
   "preview": {
