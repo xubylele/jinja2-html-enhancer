@@ -88,6 +88,9 @@
       "title": "Variable de backend",
       "declaredOne": "Declarada en 1 ubicación:",
       "declaredMany": "Declarada en {{count}} ubicaciones:"
+    },
+    "typeHint": {
+      "fields": "Campos:"
     }
   },
   "codeAction": {

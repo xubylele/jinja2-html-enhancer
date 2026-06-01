@@ -87,6 +87,9 @@
       "title": "Backend variable",
       "declaredOne": "Declared in 1 location:",
       "declaredMany": "Declared in {{count}} locations:"
+    },
+    "typeHint": {
+      "fields": "Fields:"
     }
   },
   "codeAction": {

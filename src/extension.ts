@@ -15,6 +15,7 @@ import { Jinja2FormattingProvider } from "./formatting/jinja2FormattingProvider"
 import { BackendVariableHover } from "./hover/backendVariableHover";
 import { FilterDocsHover } from "./hover/filterDocsHover";
 import { InheritedVariableHover } from "./hover/inheritedVariableHover";
+import { TypeHintHover } from "./hover/typeHintHover";
 import { BackendIndex } from "./intelligence/backendIndex";
 import { getInheritedScope, type InheritedSymbol } from "./resolver/inheritedScope";
 import { BackendDefinitionProvider } from "./resolver/backendDefinitionProvider";
@@ -205,6 +206,16 @@ export function activate(context: vscode.ExtensionContext) {
 
   const backendPanel = new BackendVariablePanel(backendIndex);
   context.subscriptions.push(backendPanel);
+
+  // ── Variable Type Hints ─────────────────────────────────────────────
+  // Infers types from backend annotations, inherited scope, and template usage.
+
+  context.subscriptions.push(
+    vscode.languages.registerHoverProvider(
+      selector,
+      new TypeHintHover(backendIndex, templateGraph, templateRoots)
+    )
+  );
 
   context.subscriptions.push(
     vscode.commands.registerCommand("jinja2-html-enhancer.openBackendVariablePanel", () =>
