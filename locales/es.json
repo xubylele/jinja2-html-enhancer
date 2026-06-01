@@ -76,12 +76,21 @@
       "macro": "Macro",
       "importedMacro": "Macro importada",
       "importedNamespace": "Namespace importado"
+    },
+    "backend": {
+      "title": "Variable de backend",
+      "declaredOne": "Declarada en 1 ubicación:",
+      "declaredMany": "Declarada en {{count}} ubicaciones:"
     }
   },
   "codeAction": {
     "inherited": {
       "goto": "Ir a la definición heredada de '{{name}}'",
       "suppress": "Suprimir: agregar '{{name}}' a customVariables"
+    },
+    "backend": {
+      "goto": "Ir a la definición de backend de '{{name}}'",
+      "gotoAt": "Ir a la definición de backend de '{{name}}' ({{path}})"
     }
   },
   "preview": {

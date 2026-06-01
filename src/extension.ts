@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { registerOriginProvider, unregisterOriginProvider } from "./api/originProviderRegistry";
+import { BackendVariableActions } from "./codeActions/backendVariableActions";
 import { InheritedVariableActions } from "./codeActions/inheritedVariableActions";
 import { QuickFixProvider } from "./codeActions/quickFixProvider";
 import { CommandManager } from "./commands/commandManager";
@@ -10,12 +11,16 @@ import { TemplateDefinitionProvider } from "./definition/templateDefinitionProvi
 import { DiagnosticsManager } from "./diagnostics/diagnosticsManager";
 import { TemplatePathDiagnostics } from "./diagnostics/templatePathDiagnostics";
 import { Jinja2FormattingProvider } from "./formatting/jinja2FormattingProvider";
+import { BackendVariableHover } from "./hover/backendVariableHover";
 import { FilterDocsHover } from "./hover/filterDocsHover";
 import { InheritedVariableHover } from "./hover/inheritedVariableHover";
+import { BackendIndex } from "./intelligence/backendIndex";
 import { getInheritedScope, type InheritedSymbol } from "./resolver/inheritedScope";
+import { BackendDefinitionProvider } from "./resolver/backendDefinitionProvider";
 import { TemplateGraphIndex } from "./resolver/templateGraphIndex";
 import { TemplateRootsProvider } from "./resolver/templateRoots";
 import I18n, { setupI18n } from "./translations";
+import { BackendVariablePanel } from "./ui/panels/backendVariablePanel";
 import { TemplatePreviewPanel } from "./ui/panels/templatePreviewPanel";
 import { VariablePanelManager } from "./ui/panels/variablePanel";
 import { maybePromptProUpsell } from "./upsell/proUpsell";
@@ -171,6 +176,35 @@ export function activate(context: vscode.ExtensionContext) {
     )
   );
 
+  // ── Backend Intelligence ────────────────────────────────────────────
+  // Scans Python/JS/TS backend files for render calls and indexes variables.
+
+  const backendIndex = new BackendIndex();
+  void backendIndex.build();
+  context.subscriptions.push(backendIndex);
+
+  context.subscriptions.push(
+    vscode.languages.registerDefinitionProvider(
+      selector,
+      new BackendDefinitionProvider(backendIndex)
+    ),
+    vscode.languages.registerHoverProvider(selector, new BackendVariableHover(backendIndex)),
+    vscode.languages.registerCodeActionsProvider(
+      selector,
+      new BackendVariableActions(backendIndex),
+      { providedCodeActionKinds: BackendVariableActions.providedCodeActionKinds }
+    )
+  );
+
+  const backendPanel = new BackendVariablePanel(backendIndex);
+  context.subscriptions.push(backendPanel);
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("jinja2-html-enhancer.openBackendVariablePanel", () =>
+      backendPanel.show()
+    )
+  );
+
   // Register inherited-variable origin provider directly (internal — no command round-trip).
   registerOriginProvider({
     id: "jinja2-free.inherited",
@@ -210,6 +244,20 @@ export function activate(context: vscode.ExtensionContext) {
           line: sym.originRange.start.line,
         };
       }
+
+      // backend variables
+      const backendVars = backendIndex.getSummaryFor(templateUri);
+      for (const summary of backendVars) {
+        if (!requested.has(summary.name) || out[summary.name]) continue;
+        const first = summary.locations[0];
+        if (!first) continue;
+        out[summary.name] = {
+          label: `Backend (${prettyOriginPath(first.uri)})`,
+          uri: first.uri.toString(),
+          line: first.range.start.line,
+        };
+      }
+
       return out;
     },
   });

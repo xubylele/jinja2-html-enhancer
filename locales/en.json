@@ -75,12 +75,21 @@
       "macro": "Macro",
       "importedMacro": "Imported macro",
       "importedNamespace": "Imported namespace"
+    },
+    "backend": {
+      "title": "Backend variable",
+      "declaredOne": "Declared in 1 location:",
+      "declaredMany": "Declared in {{count}} locations:"
     }
   },
   "codeAction": {
     "inherited": {
       "goto": "Go to inherited definition of '{{name}}'",
       "suppress": "Suppress: add '{{name}}' to customVariables"
+    },
+    "backend": {
+      "goto": "Go to backend definition of '{{name}}'",
+      "gotoAt": "Go to backend definition of '{{name}}' ({{path}})"
     }
   },
   "preview": {

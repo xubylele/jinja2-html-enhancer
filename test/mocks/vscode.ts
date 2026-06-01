@@ -19,9 +19,11 @@ class EventEmitter<T> {
 
 class Uri {
   fsPath: string;
+  path: string;
 
   constructor(fsPath: string) {
     this.fsPath = fsPath;
+    this.path = fsPath;
   }
 
   toString() {
@@ -135,6 +137,9 @@ const DiagnosticSeverity = {
   Hint: 3,
 };
 
+const TextEditorRevealType = { InCenter: 2 };
+const ViewColumn = { One: 1, Beside: 2 };
+
 const ConfigurationTarget = {
   Global: 1,
   WorkspaceFolder: 2,
@@ -229,6 +234,14 @@ const window = {
   showQuickPick: jest.fn(),
   setStatusBarMessage: jest.fn(() => ({ dispose: jest.fn() })),
   activeTextEditor: undefined as any,
+  showTextDocument: jest.fn(),
+  createWebviewPanel: jest.fn(() => ({
+    reveal: jest.fn(),
+    onDidDispose: jest.fn(),
+    webview: { html: "", onDidReceiveMessage: jest.fn(), postMessage: jest.fn() },
+    dispose: jest.fn(),
+  })),
+  onDidChangeActiveTextEditor: jest.fn(() => ({ dispose: jest.fn() })),
 };
 
 const workspace = {
@@ -286,6 +299,8 @@ export = {
   Hover,
   CodeAction,
   DiagnosticSeverity,
+  TextEditorRevealType,
+  ViewColumn,
   ConfigurationTarget,
   CodeActionKind,
   CompletionItem,
