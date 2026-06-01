@@ -3,6 +3,13 @@
     "unresolved": "No se puede resolver la plantilla '{{path}}'. Configurá 'jinja2-html-enhancer.templateRoots' si vive fuera de los directorios 'templates/' autodetectados.",
     "circular": "Se detectó una cadena {% extends %} circular desde esta plantilla."
   },
+  "lint": {
+    "unusedSet": "La variable '{{name}}' está definida pero nunca se usa.",
+    "blockScopeVar": "La variable '{{name}}' está definida dentro del bloque '{{block}}' pero se usa fuera de su scope.",
+    "nestingDepth": "La profundidad de anidamiento ({{depth}}) supera el umbral ({{threshold}}). Considerá refactorizar.",
+    "macroArity": "La macro '{{name}}' espera {{expected}} argumentos, pero recibió {{given}}.",
+    "unusedBlock": "El bloque '{{name}}' nunca es sobreescrito por plantillas hijas."
+  },
   "variable": {
     "variableNotSet": "⚠️ La variable '{{variable}}' está siendo usada pero no ha sido definida. Asegúrese de que esté definida.",
     "checkingVariables": "🔍 Verificando variables Jinja2...",

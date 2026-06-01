@@ -9,6 +9,7 @@ import { gotoDefinitionCommand } from "./commands/gotoDefinitionCommand";
 import { MacroCompletionProvider, MacroSignatureHelpProvider } from "./completion/macro";
 import { TemplateDefinitionProvider } from "./definition/templateDefinitionProvider";
 import { DiagnosticsManager } from "./diagnostics/diagnosticsManager";
+import { LintEngine } from "./diagnostics/lintEngine";
 import { TemplatePathDiagnostics } from "./diagnostics/templatePathDiagnostics";
 import { Jinja2FormattingProvider } from "./formatting/jinja2FormattingProvider";
 import { BackendVariableHover } from "./hover/backendVariableHover";
@@ -159,6 +160,12 @@ export function activate(context: vscode.ExtensionContext) {
       { providedCodeActionKinds: InheritedVariableActions.providedCodeActionKinds }
     )
   );
+
+  // ── Advanced Linting (JHE12xx) ─────────────────────────────────────
+
+  const lintEngine = new LintEngine(templateGraph, templateRoots);
+  void lintEngine.refreshAll();
+  context.subscriptions.push(lintEngine);
 
   // ── Macro completion (local + cross-file) ──────────────────────────
 
