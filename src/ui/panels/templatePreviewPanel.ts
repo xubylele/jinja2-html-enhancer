@@ -9,6 +9,7 @@ import {
   getContextProfiles,
   resolveProfilesForTemplate,
 } from "../../config/configService";
+import { PreviewEngine } from "../../preview/previewEngine";
 import i18n from "../../translations";
 
 interface PreviewSession {
@@ -20,6 +21,8 @@ interface PreviewSession {
   activeProfile: string;
   /** When set, replaces the persisted profile context during render — for live JSON editor preview. */
   previewContext?: Record<string, unknown>;
+  /** Backend-detected variables pre-populated as defaults (overridden by profile context). */
+  backendContext?: Record<string, unknown>;
 }
 
 interface WebviewIncomingMessage {
@@ -42,7 +45,15 @@ export class TemplatePreviewPanel {
   private changeWatcher: vscode.Disposable | undefined;
   private changeDebounce: NodeJS.Timeout | undefined;
 
-  constructor(private context: vscode.ExtensionContext) {}
+  constructor(
+    private context: vscode.ExtensionContext,
+    private previewEngine?: PreviewEngine,
+  ) {}
+
+  /** Wire up backend-aware context building after the BackendIndex is available. */
+  public setPreviewEngine(engine: PreviewEngine): void {
+    this.previewEngine = engine;
+  }
 
   public openFor(document: vscode.TextDocument, initialProfile?: string) {
     const templatePath = document.uri.fsPath;
@@ -120,7 +131,23 @@ export class TemplatePreviewPanel {
       });
     }
 
+    void this.loadBackendContext(document.uri);
     void this.renderFull();
+  }
+
+  private async loadBackendContext(uri: vscode.Uri): Promise<void> {
+    if (!this.previewEngine || !this.session) {
+      return;
+    }
+    try {
+      const backendContext = await this.previewEngine.buildContext(uri);
+      if (this.session) {
+        this.session.backendContext = backendContext;
+        void this.renderFull();
+      }
+    } catch {
+      // ignore backend context errors — preview still works without it
+    }
   }
 
   public listProfilesForActive(): { key: string; set: ContextProfileSet } {
@@ -135,14 +162,16 @@ export class TemplatePreviewPanel {
     if (!this.session) {
       return {};
     }
+    // backendContext provides defaults; profile/live context takes precedence.
+    const base: Record<string, unknown> = { ...(this.session.backendContext ?? {}) };
     if (this.session.previewContext) {
-      return { ...this.session.previewContext };
+      return { ...base, ...this.session.previewContext };
     }
     const { set, activeProfile, templatePath, uri } = this.session;
     if (activeProfile && set.profiles[activeProfile]) {
-      return { ...set.profiles[activeProfile] };
+      return { ...base, ...set.profiles[activeProfile] };
     }
-    return buildLegacyCustomVarsContext(templatePath, uri);
+    return { ...base, ...buildLegacyCustomVarsContext(templatePath, uri) };
   }
 
   private computeRender() {

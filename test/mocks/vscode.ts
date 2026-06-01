@@ -17,6 +17,15 @@ class EventEmitter<T> {
   }
 }
 
+class RelativePattern {
+  base: string;
+  pattern: string;
+  constructor(base: any, pattern: string) {
+    this.base = typeof base === "string" ? base : base?.uri?.fsPath ?? base?.fsPath ?? "";
+    this.pattern = pattern;
+  }
+}
+
 class Uri {
   fsPath: string;
   path: string;
@@ -294,6 +303,7 @@ const commands = {
 export = {
   EventEmitter,
   Uri,
+  RelativePattern,
   Range,
   Diagnostic,
   Hover,

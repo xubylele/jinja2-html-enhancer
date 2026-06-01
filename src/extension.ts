@@ -17,6 +17,7 @@ import { FilterDocsHover } from "./hover/filterDocsHover";
 import { InheritedVariableHover } from "./hover/inheritedVariableHover";
 import { TypeHintHover } from "./hover/typeHintHover";
 import { BackendIndex } from "./intelligence/backendIndex";
+import { PreviewEngine } from "./preview/previewEngine";
 import { getInheritedScope, type InheritedSymbol } from "./resolver/inheritedScope";
 import { BackendDefinitionProvider } from "./resolver/backendDefinitionProvider";
 import { TemplateGraphIndex } from "./resolver/templateGraphIndex";
@@ -208,13 +209,20 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(backendPanel);
 
   // ── Variable Type Hints ─────────────────────────────────────────────
-  // Infers types from backend annotations, inherited scope, and template usage.
 
   context.subscriptions.push(
     vscode.languages.registerHoverProvider(
       selector,
       new TypeHintHover(backendIndex, templateGraph, templateRoots)
     )
+  );
+
+  // ── Template Preview — backend-aware context injection ───────────────
+  // Wire backend vars into the existing v2 preview panel so variables are
+  // pre-populated from render calls in Python/JS/TS files.
+
+  templatePreviewPanel.setPreviewEngine(
+    new PreviewEngine(backendIndex, templateGraph, templateRoots)
   );
 
   context.subscriptions.push(
