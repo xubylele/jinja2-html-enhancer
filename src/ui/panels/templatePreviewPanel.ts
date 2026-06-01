@@ -47,7 +47,7 @@ export class TemplatePreviewPanel {
 
   constructor(
     private context: vscode.ExtensionContext,
-    private previewEngine?: PreviewEngine,
+    private previewEngine?: PreviewEngine
   ) {}
 
   /** Wire up backend-aware context building after the BackendIndex is available. */

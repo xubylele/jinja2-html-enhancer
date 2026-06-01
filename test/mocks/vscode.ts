@@ -21,7 +21,7 @@ class RelativePattern {
   base: string;
   pattern: string;
   constructor(base: any, pattern: string) {
-    this.base = typeof base === "string" ? base : base?.uri?.fsPath ?? base?.fsPath ?? "";
+    this.base = typeof base === "string" ? base : (base?.uri?.fsPath ?? base?.fsPath ?? "");
     this.pattern = pattern;
   }
 }

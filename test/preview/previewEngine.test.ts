@@ -5,8 +5,12 @@ const readFileMock = vscode.workspace.fs.readFile as jest.Mock;
 const findFilesMock = vscode.workspace.findFiles as jest.Mock;
 const getWorkspaceFolderMock = vscode.workspace.getWorkspaceFolder as jest.Mock;
 
-function makeUri(path: string) { return vscode.Uri.file(path); }
-function enc(s: string): Uint8Array { return Buffer.from(s, "utf8") as unknown as Uint8Array; }
+function makeUri(path: string) {
+  return vscode.Uri.file(path);
+}
+function enc(s: string): Uint8Array {
+  return Buffer.from(s, "utf8") as unknown as Uint8Array;
+}
 
 function fakeBackendIndex(summaries: { name: string }[] = []) {
   return { getSummaryFor: jest.fn().mockReturnValue(summaries) } as any;
@@ -63,7 +67,11 @@ describe("PreviewEngine.buildContext", () => {
       enc("def view():\n    return render_template('hello.html', name=user, count=n)")
     );
 
-    const engine = new PreviewEngine(fakeBackendIndex([]), fakeGraph(), fakeRoots(["/proj/templates"]));
+    const engine = new PreviewEngine(
+      fakeBackendIndex([]),
+      fakeGraph(),
+      fakeRoots(["/proj/templates"])
+    );
     const ctx = await engine.buildContext(templateUri);
     // Scanned from backend file
     expect("name" in ctx || "count" in ctx).toBe(true);
