@@ -26,7 +26,7 @@ import I18n, { setupI18n } from "./translations";
 import { BackendVariablePanel } from "./ui/panels/backendVariablePanel";
 import { TemplatePreviewPanel } from "./ui/panels/templatePreviewPanel";
 import { VariablePanelManager } from "./ui/panels/variablePanel";
-import { maybePromptProUpsell } from "./upsell/proUpsell";
+
 import { FileWatcher } from "./watchers/fileWatcher";
 
 let diagnosticsManager: DiagnosticsManager;
@@ -288,8 +288,8 @@ export function activate(context: vscode.ExtensionContext) {
     },
   });
 
-  // ── Public contribution API — sister extensions (Jinja2 Enhance Pro) inject
-  // origin metadata into the Variable Panel. See src/types/originProvider.ts.
+  // ── Public contribution API — extensions can inject origin metadata
+  // into the Variable Panel via these commands. See src/types/originProvider.ts.
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "jinja2-html-enhancer.registerOriginProvider",
@@ -334,8 +334,6 @@ export function activate(context: vscode.ExtensionContext) {
         });
     }
   }
-
-  void maybePromptProUpsell(context);
 
   context.subscriptions.push(
     vscode.workspace.onDidSaveTextDocument(async (document) => {

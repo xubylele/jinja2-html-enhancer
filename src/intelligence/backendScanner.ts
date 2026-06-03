@@ -1,5 +1,4 @@
 // Pure backend-call scanner. No vscode, no I/O — operates on strings only.
-// Now lives in the free extension (migrated from jinja2-html-enhancer-pro).
 
 export type BackendLang = "py" | "js";
 
