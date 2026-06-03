@@ -20,8 +20,7 @@ interface PathOccurrence {
  * Owns the local template-path diagnostics: `JHE1101` (a referenced template
  * cannot be resolved) and `JHE1102` (the `{% extends %}` chain loops).
  *
- * Resolution is on-demand per document — no persistent template graph. The
- * cross-file *variable* graph (inherited scope) lives in Jinja2 Enhance Pro.
+ * Resolution is on-demand per document — no persistent template graph.
  */
 export class TemplatePathDiagnostics implements vscode.Disposable {
   private readonly collection: vscode.DiagnosticCollection;

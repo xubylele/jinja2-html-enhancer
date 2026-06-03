@@ -20,6 +20,10 @@ export class PreviewEngine {
     private readonly templateRoots: TemplateRootsProvider
   ) {}
 
+  async getRoots(): Promise<string[]> {
+    return this.templateRoots.get();
+  }
+
   async buildContext(templateUri: vscode.Uri): Promise<Record<string, unknown>> {
     const context: Record<string, unknown> = {};
 

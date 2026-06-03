@@ -6,8 +6,7 @@ import { resolveTemplatePath } from "@xubylele/jinja2-enhanced-shared";
  * (`{% extends %}` / `{% include %}` / `{% import %}` / `{% from %}`).
  *
  * Pure path navigation: delegates candidate generation to the shared
- * `resolveTemplatePath` and probes the filesystem. No variable scope — that
- * stays in Jinja2 Enhance Pro.
+ * `resolveTemplatePath` and probes the filesystem.
  */
 export async function resolveToFilePath(
   rawPath: string,

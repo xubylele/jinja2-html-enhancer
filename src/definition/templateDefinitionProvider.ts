@@ -7,8 +7,6 @@ import { resolveToFilePath } from "../resolver/templateResolution";
  * F12 / Ctrl-click on the path string inside `{% extends %}`,
  * `{% include %}`, `{% import %}`, or `{% from %}` jumps to the resolved
  * template file (line 0).
- *
- * Path navigation only — inherited-variable resolution stays in Jinja2 Enhance Pro.
  */
 export class TemplateDefinitionProvider implements vscode.DefinitionProvider {
   constructor(private readonly roots: TemplateRootsProvider) {}

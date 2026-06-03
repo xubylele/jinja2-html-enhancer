@@ -23,6 +23,8 @@ interface PreviewSession {
   previewContext?: Record<string, unknown>;
   /** Backend-detected variables pre-populated as defaults (overridden by profile context). */
   backendContext?: Record<string, unknown>;
+  /** Template root directories used to resolve extends/include. */
+  templateRoots?: string[];
 }
 
 interface WebviewIncomingMessage {
@@ -132,7 +134,21 @@ export class TemplatePreviewPanel {
     }
 
     void this.loadBackendContext(document.uri);
+    void this.loadTemplateRoots();
     void this.renderFull();
+  }
+
+  private async loadTemplateRoots(): Promise<void> {
+    if (!this.previewEngine || !this.session) return;
+    try {
+      const roots = await this.previewEngine.getRoots();
+      if (this.session) {
+        this.session.templateRoots = roots;
+        void this.renderFull();
+      }
+    } catch {
+      // preview degrades gracefully without roots
+    }
   }
 
   private async loadBackendContext(uri: vscode.Uri): Promise<void> {
@@ -181,6 +197,7 @@ export class TemplatePreviewPanel {
     const context = this.getEffectiveContext();
     const result = renderTemplate(this.session.content, context, {
       placeholderMode: "inline",
+      templateRoots: this.session.templateRoots,
     });
     const usedVariables = findUsedVariables(this.session.content);
     return { context, result, usedVariables };
