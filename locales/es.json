@@ -1,4 +1,15 @@
 {
+  "templatePath": {
+    "unresolved": "No se puede resolver la plantilla '{{path}}'. Configurá 'jinja2-html-enhancer.templateRoots' si vive fuera de los directorios 'templates/' autodetectados.",
+    "circular": "Se detectó una cadena {% extends %} circular desde esta plantilla."
+  },
+  "lint": {
+    "unusedSet": "La variable '{{name}}' está definida pero nunca se usa.",
+    "blockScopeVar": "La variable '{{name}}' está definida dentro del bloque '{{block}}' pero se usa fuera de su scope.",
+    "nestingDepth": "La profundidad de anidamiento ({{depth}}) supera el umbral ({{threshold}}). Considerá refactorizar.",
+    "macroArity": "La macro '{{name}}' espera {{expected}} argumentos, pero recibió {{given}}.",
+    "unusedBlock": "El bloque '{{name}}' nunca es sobreescrito por plantillas hijas."
+  },
   "variable": {
     "variableNotSet": "⚠️ La variable '{{variable}}' está siendo usada pero no ha sido definida. Asegúrese de que esté definida.",
     "checkingVariables": "🔍 Verificando variables Jinja2...",
@@ -66,6 +77,30 @@
       "title": "Filtro Jinja2",
       "signature": "Firma",
       "example": "Ejemplo"
+    },
+    "inherited": {
+      "set": "Variable heredada",
+      "macro": "Macro",
+      "importedMacro": "Macro importada",
+      "importedNamespace": "Namespace importado"
+    },
+    "backend": {
+      "title": "Variable de backend",
+      "declaredOne": "Declarada en 1 ubicación:",
+      "declaredMany": "Declarada en {{count}} ubicaciones:"
+    },
+    "typeHint": {
+      "fields": "Campos:"
+    }
+  },
+  "codeAction": {
+    "inherited": {
+      "goto": "Ir a la definición heredada de '{{name}}'",
+      "suppress": "Suprimir: agregar '{{name}}' a customVariables"
+    },
+    "backend": {
+      "goto": "Ir a la definición de backend de '{{name}}'",
+      "gotoAt": "Ir a la definición de backend de '{{name}}' ({{path}})"
     }
   },
   "preview": {
@@ -114,12 +149,15 @@
   },
   "completion": {
     "macro": {
-      "local": "Macro definida en este archivo"
+      "local": "Macro definida en este archivo",
+      "inherited": "Macro heredada de `{{path}}`",
+      "imported": "Macro importada de `{{path}}`"
     }
   },
   "signatureHelp": {
     "macro": {
       "local": "Macro definida en este archivo",
+      "crossFile": "Macro de `{{path}}`",
       "required": "Requerido",
       "optional": "Opcional"
     }

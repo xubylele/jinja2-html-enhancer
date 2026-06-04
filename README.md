@@ -1,18 +1,30 @@
 # Jinja2 Enhance
 
-🌐 **Website:** [jinja2.xuby.cl](https://jinja2.xuby.cl/) — features, screenshots, and Pro roadmap.
+🌐 **Website:** [jinja2.xuby.cl](https://jinja2.xuby.cl/) — features and screenshots.
 
 📦 **Install:** [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer) · [Open VSX](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer) (VSCodium / Cursor / OpenVSCode)
-
-> 🚧 **Pro is in pre-release.** Backend-aware variables, cross-file go-to-definition, macro IntelliSense, and advanced linting for Flask, Django, FastAPI, and Express are all shipping now from the `pre-release` branch. **[Get Jinja2 Enhance Pro →](https://jinja2.xuby.cl/pro/activate)** · [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer-pro) · [Open VSX](https://open-vsx.org/extension/xubylele/jinja2-html-enhancer-pro) · Found a bug? [Report it here](https://github.com/xubylele/jinja2-html-enhancer-pro-issues/issues).
-
-<a href="https://store.xuby.cl/checkout/buy/d03a0ff6-3050-43a3-99f0-d3f9a40444ee?embed=1" class="lemonsqueezy-button">Buy Jinja2 HTML Enhancer Pro — License Key</a><script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
-
-Direct checkout: <https://store.xuby.cl/checkout/buy/d03a0ff6-3050-43a3-99f0-d3f9a40444ee>
 
 **Jinja2 Enhance** is a Visual Studio Code extension that adds syntax highlighting support for the Jinja2 templating language inside `.html` files and provides variable checking functionality. It extends the native HTML highlighting with additional rules for Jinja2, allowing seamless editing of templates that mix both HTML and Jinja2.
 
 ## What's New
+
+### 1.18.0
+
+#### Minor Changes
+
+- ✨ **Backend Variable Intelligence** — hover any template variable to see which backend file and line declares it (Flask, Django, FastAPI, Express, Nunjucks). Cmd+Click jumps to the source. A new *Jinja2: Backend Variables* panel lists all declarations for the active template.
+- ✨ **Template Path Navigation & Diagnostics** — Cmd+Click / F12 on any path inside `{% extends %}`, `{% include %}`, `{% import %}`, or `{% from %}` jumps to the referenced file. Unresolvable paths and circular `{% extends %}` chains are flagged inline. New `jinja2-html-enhancer.templateRoots` setting for custom resolution roots.
+- ✨ **Cross-file Macro Autocomplete & Signature Help** — macros inherited via `{% extends %}` and imported via `{% import %}` / `{% from … import … %}` appear in completions. Namespace completions (e.g. `forms.`) and parameter hints work too.
+- ✨ **Inherited Variable Hover & Quick-fix** — hover an inherited variable to see its origin file and line. A *Go to inherited definition* quick-fix appears on `JHE0001` diagnostics when the variable traces back to a parent template.
+- ✨ **Variable Type Hints on Hover** — inferred types from Python/TypeScript annotations, template usage patterns (member access → object), and inherited scope. Object types list their known fields inline.
+- ✨ **Advanced Linting Rules** — five new diagnostics: unused `{% set %}` variables (JHE1200), block-scoped variables used outside their block (JHE1201), excessive nesting depth (JHE1202, configurable via `jinja2-html-enhancer.nestingDepthThreshold`), incorrect macro argument counts (JHE1203), and block definitions never overridden by child templates (JHE1204).
+- ✨ **CSS-aware Template Preview** — the preview panel auto-detects and applies CSS from Flask `url_for('static', ...)`, hardcoded `/static/` paths, CDN links, and inline `<style>` blocks across the full `{% extends %}` ancestor chain.
+- ✨ **Backend Context Injection in Preview** — variables declared in your backend files are pre-populated as preview context defaults. Profile-defined values still take priority.
+
+#### Patch Changes
+
+- 🐛 **Template Preview renders `{% extends %}` / `{% include %}`** — the preview panel now resolves parent templates and partials instead of showing raw Jinja2 tags.
+- 🗑️ **Removed Pro upsell** — Jinja2 Enhance Pro has been discontinued; all features are in the free extension.
 
 ### 1.17.0
 
@@ -78,12 +90,21 @@ If you find this extension helpful, consider supporting the developer by buying 
   - **Live updates** — the rendered preview re-renders as you edit the JSON context or the template itself.
   - **Missing-variable chips** — undefined variables appear as clickable chips you can add to the active profile in one click.
   - **Collapsible context editor** — give the rendered preview the full panel width when you don't need to tweak the context.
+  - **CSS-aware preview** — the preview automatically detects and applies your project's CSS so the output looks like the real thing:
+    - Flask `url_for('static', filename='...')` and hardcoded `/static/` paths are resolved from your workspace
+    - CDN stylesheets (Bootstrap, Tailwind CDN, Bulma, …) are loaded directly from the `<link>` tags
+    - Inline `<style>` blocks are extracted from the template and all its `{% extends %}` ancestors
+    - When no CSS is found, a structural fallback stylesheet highlights semantic elements (`<header>`, `<section>`, `<nav>`, `<aside>`, `<article>`, `<footer>`) so the layout is readable at a glance
 
 ![Template Preview v2 — profile picker](https://i.imgur.com/FGVAHXs.png)
 
 ![Template Preview v2 — profile picker (alt)](https://i.imgur.com/TKyYMrb.png)
 
 ![Template Preview v2 — missing variable chips](https://i.imgur.com/Gmrd4hk.png)
+
+![Template Preview — fallback structural CSS](https://i.imgur.com/ITT6ETn.png)
+
+![Template Preview — Bootstrap CDN detected](https://i.imgur.com/EZPP6nN.png)
 
 - **Filter Docs on Hover**:
   - Hover any built-in Jinja2 filter (`length`, `default`, `safe`, `lower`, `title`, `join`, …) to see its signature, description, and a usage example.
@@ -104,7 +125,7 @@ If you find this extension helpful, consider supporting the developer by buying 
   - Autocomplete and parameter hints for macros defined in the **current template**.
   - Type `{{ ` to see local macros with their signatures.
   - Trigger signature help with `(` to see parameters as you type — including the active parameter.
-  - For cross-file macros (`{% import %}` namespaces and inherited macros), see [**Jinja2 Enhance Pro**](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer-pro).
+  - Also supports cross-file macros (`{% import %}` namespaces and inherited macros via `{% extends %}`).
 
 ![Macro IntelliSense (same-file)](https://i.imgur.com/RVG3KbC.png)
 
@@ -186,23 +207,17 @@ Alternatively, you can install the extension from the [Visual Studio Code Market
 
 You can customize the colors used for Jinja2 syntax highlighting by modifying your VSCode theme settings. For example, to change the color of keywords and filters, you can add the following to your settings:
 
-## Pro features
-
-The following are part of [**Jinja2 Enhance Pro**](https://marketplace.visualstudio.com/items?itemName=Xubylele.jinja2-html-enhancer-pro) — they are **not** included in this free extension, but the free extension ships the syntax + diagnostic foundation Pro builds on:
+## Backend-aware features
 
 - **Backend Variables panel.** A dedicated webview that lists every variable the backend (Flask `render_template`, Django `render`, FastAPI `TemplateResponse`, Express / Nunjucks `.render()`, …) passes to the active template, with a one-click **Go to definition** button per location.
 - **Go to backend definition.** `cmd+click` (or `F12`) on a variable inside `{{ … }}` / `{% … %}` jumps to the line in your `.py` / `.js` / `.ts` source where it's declared.
 - **Hover with backend info.** Hovering a variable in a template shows the backend file:line where it's set, as a clickable link.
 - **Quick-fix / lightbulb action.** `cmd+.` on a variable offers "Go to backend definition of '<var>'" — one entry per declaration site.
-- **Template Preview** (coming soon) — Render templates with backend variables directly in VS Code to catch missing variables before render time.
-
-See the Pro extension's README for screenshots and full details.
+- **Template Preview** — Render templates with backend variables directly in VS Code to catch missing variables before render time.
 
 ## Roadmap
 
-Curious about what's coming next? Check out the [**Roadmap**](ROADMAP.md) for the full list of planned features — including upcoming free improvements, and what's on the horizon for Pro and Team tiers.
-
-> ℹ️ **Note about Pro & shared code.** This repository (the free extension) remains MIT and open source. The Pro / Team feature set, and the underlying `jinja2-enhanced-shared` analyzer package that both extensions consume, are developed in **separate, private repositories** and are not part of this codebase. Pro is distributed only via the paid Marketplace listing.
+Curious about what's coming next? Check out the [**Roadmap**](ROADMAP.md) for the full list of planned features.
 
 ## Contributing
 
