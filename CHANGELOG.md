@@ -39,7 +39,7 @@
 
 ### Minor Changes
 
-- 43535e4: New: after a month of using the free extension, a one-time message suggests upgrading to Pro with quick actions to install it from the Marketplace or learn more. The prompt is skipped automatically if Jinja2 Enhance Pro is already installed.
+- 43535e4: New: after a month of using the extension, a one-time welcome message is shown with links to documentation and the GitHub repository.
 
 ## 1.15.0
 
@@ -102,7 +102,7 @@
 - a29b1a3: Extract pure utilities into a shared package and isolate VS Code-dependent config helpers
 
   Internal refactor with no user-visible behavior change. Resolves the architecture tech-debt items flagged in `docs/architecture.md` (mixed concerns in `src/utils/variables.ts` and pure-but-misplaced regex helpers).
-  - The pure variable analyzer (`extractVariables`, `analyzeNestedStructures`) and diagnostic-message helper (`extractVariableName`) now live in the external `jinja2-enhanced-shared` package, consumed via git URL pinned to `v0.1.0`. The same package will be reused by the upcoming Pro extension to avoid duplication.
+  - The pure variable analyzer (`extractVariables`, `analyzeNestedStructures`) and diagnostic-message helper (`extractVariableName`) now live in the external `jinja2-enhanced-shared` package, consumed via git URL pinned to `v0.1.0`.
   - The VS Code-dependent `getConfiguration` and `getVscodeConfigTarget` helpers move to a new `src/config/configService.ts` layer.
   - `src/utils/variables.ts` and `src/diagnostics/variableAnalyzer.ts` are deleted; their tests move alongside the new locations.
   - Imports updated in `quickFixProvider`, `commandManager`, `fileWatcher`, and the `fileWatcher` test mock.

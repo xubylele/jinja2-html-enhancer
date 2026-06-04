@@ -17,11 +17,26 @@ class EventEmitter<T> {
   }
 }
 
+class RelativePattern {
+  base: string;
+  pattern: string;
+  constructor(base: any, pattern: string) {
+    this.base = typeof base === "string" ? base : (base?.uri?.fsPath ?? base?.fsPath ?? "");
+    this.pattern = pattern;
+  }
+}
+
 class Uri {
   fsPath: string;
+  path: string;
 
   constructor(fsPath: string) {
     this.fsPath = fsPath;
+    this.path = fsPath;
+  }
+
+  toString() {
+    return this.fsPath;
   }
 
   static file(path: string) {
@@ -94,6 +109,16 @@ class Diagnostic {
   }
 }
 
+class Hover {
+  contents: any[];
+  range?: any;
+
+  constructor(contents: any, range?: any) {
+    this.contents = Array.isArray(contents) ? contents : [contents];
+    this.range = range;
+  }
+}
+
 class CodeAction {
   title: string;
   kind: string;
@@ -105,9 +130,24 @@ class CodeAction {
   }
 }
 
+class Location {
+  uri: any;
+  range: any;
+  constructor(uri: any, rangeOrPosition: any) {
+    this.uri = uri;
+    this.range = rangeOrPosition;
+  }
+}
+
 const DiagnosticSeverity = {
+  Error: 0,
   Warning: 1,
+  Information: 2,
+  Hint: 3,
 };
+
+const TextEditorRevealType = { InCenter: 2 };
+const ViewColumn = { One: 1, Beside: 2 };
 
 const ConfigurationTarget = {
   Global: 1,
@@ -192,6 +232,7 @@ class SignatureHelp {
 
 const createDiagnosticCollection = jest.fn(() => ({
   set: jest.fn(),
+  delete: jest.fn(),
   clear: jest.fn(),
   dispose: jest.fn(),
 }));
@@ -203,6 +244,14 @@ const window = {
   showQuickPick: jest.fn(),
   setStatusBarMessage: jest.fn(() => ({ dispose: jest.fn() })),
   activeTextEditor: undefined as any,
+  showTextDocument: jest.fn(),
+  createWebviewPanel: jest.fn(() => ({
+    reveal: jest.fn(),
+    onDidDispose: jest.fn(),
+    webview: { html: "", onDidReceiveMessage: jest.fn(), postMessage: jest.fn() },
+    dispose: jest.fn(),
+  })),
+  onDidChangeActiveTextEditor: jest.fn(() => ({ dispose: jest.fn() })),
 };
 
 const workspace = {
@@ -214,8 +263,18 @@ const workspace = {
   createFileSystemWatcher: jest.fn(() => ({
     onDidChange: jest.fn(),
     onDidCreate: jest.fn(),
+    onDidDelete: jest.fn(),
     dispose: jest.fn(),
   })),
+  onDidChangeConfiguration: jest.fn(() => ({ dispose: jest.fn() })),
+  onDidChangeWorkspaceFolders: jest.fn(() => ({ dispose: jest.fn() })),
+  workspaceFolders: undefined as any,
+  textDocuments: [] as any[],
+  findFiles: jest.fn(async () => [] as any[]),
+  fs: {
+    stat: jest.fn(),
+    readFile: jest.fn(),
+  },
   openTextDocument: jest.fn(),
   applyEdit: jest.fn(),
 };
@@ -225,6 +284,7 @@ const languages = {
   registerCompletionItemProvider: jest.fn(() => ({ dispose: jest.fn() })),
   registerSignatureHelpProvider: jest.fn(() => ({ dispose: jest.fn() })),
   registerDocumentFormattingEditProvider: jest.fn(() => ({ dispose: jest.fn() })),
+  registerDefinitionProvider: jest.fn(() => ({ dispose: jest.fn() })),
 };
 
 const env = {
@@ -244,10 +304,14 @@ const commands = {
 export = {
   EventEmitter,
   Uri,
+  RelativePattern,
   Range,
   Diagnostic,
+  Hover,
   CodeAction,
   DiagnosticSeverity,
+  TextEditorRevealType,
+  ViewColumn,
   ConfigurationTarget,
   CodeActionKind,
   CompletionItem,
@@ -258,6 +322,7 @@ export = {
   SignatureInformation,
   SignatureHelp,
   Position,
+  Location,
   TextEdit,
   WorkspaceEdit,
   CancellationToken,

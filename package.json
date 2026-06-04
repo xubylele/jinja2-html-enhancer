@@ -60,6 +60,15 @@
           "description": "%extension.configuration.formatting.formatOnSave.description%",
           "default": true,
           "scope": "resource"
+        },
+        "jinja2-html-enhancer.templateRoots": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "%extension.configuration.templateRoots.description%",
+          "default": [],
+          "scope": "resource"
         }
       }
     },
@@ -221,7 +230,7 @@
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
-    "@xubylele/jinja2-enhanced-shared": "^0.5.1",
+    "@xubylele/jinja2-enhanced-shared": "0.5.2",
     "autoprefixer": "^10.5.0",
     "postcss": "^8.5.12",
     "react": "^19.2.6",
