@@ -17,6 +17,7 @@ export interface PreviewParams {
   html: string;
   missingVariables: string[];
   usedVariables: string[];
+  injectedCss?: string;
 }
 
 interface Props {
@@ -72,6 +73,7 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
   const [liveHtml, setLiveHtml] = useState(params.html);
   const [liveMissing, setLiveMissing] = useState(params.missingVariables);
   const [liveUsed, setLiveUsed] = useState(params.usedVariables);
+  const [liveInjectedCss, setLiveInjectedCss] = useState(params.injectedCss ?? "");
   const lastParamsKey = useRef("");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -87,6 +89,7 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
     setLiveHtml(params.html);
     setLiveMissing(params.missingVariables);
     setLiveUsed(params.usedVariables);
+    setLiveInjectedCss(params.injectedCss ?? "");
   }, [params]);
 
   // Listen for incremental render updates pushed by the extension.
@@ -99,6 +102,7 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
       setLiveHtml(data.html);
       setLiveMissing(data.missingVariables ?? []);
       setLiveUsed(data.usedVariables ?? []);
+      if (data.injectedCss !== undefined) setLiveInjectedCss(data.injectedCss);
     };
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
@@ -403,7 +407,7 @@ const TemplatePreviewApp: React.FC<Props> = ({ params }) => {
             </h3>
             <div
               className="flex-1 overflow-auto rounded border border-blue-500 bg-white p-4 text-gray-900"
-              dangerouslySetInnerHTML={{ __html: liveHtml }}
+              dangerouslySetInnerHTML={{ __html: liveInjectedCss + liveHtml }}
             />
           </div>
         </div>

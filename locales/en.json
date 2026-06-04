@@ -1,4 +1,15 @@
 {
+  "templatePath": {
+    "unresolved": "Cannot resolve template '{{path}}'. Configure 'jinja2-html-enhancer.templateRoots' if it lives outside the auto-discovered 'templates/' directories.",
+    "circular": "Circular {% extends %} chain detected from this template."
+  },
+  "lint": {
+    "unusedSet": "Variable '{{name}}' is set but never used.",
+    "blockScopeVar": "Variable '{{name}}' is set inside block '{{block}}' but used outside its scope.",
+    "nestingDepth": "Template nesting depth ({{depth}}) exceeds threshold ({{threshold}}). Consider refactoring.",
+    "macroArity": "Macro '{{name}}' expects {{expected}} arguments, but got {{given}}.",
+    "unusedBlock": "Block '{{name}}' is never overridden by child templates."
+  },
   "variable": {
     "variableNotSet": "⚠️ Variable '{{variable}}' is used but has not been set. Make sure it's defined.",
     "checkingVariables": "🔍 Checking Jinja2 variables...",
@@ -65,6 +76,30 @@
       "title": "Jinja2 Filter",
       "signature": "Signature",
       "example": "Example"
+    },
+    "inherited": {
+      "set": "Inherited variable",
+      "macro": "Macro",
+      "importedMacro": "Imported macro",
+      "importedNamespace": "Imported namespace"
+    },
+    "backend": {
+      "title": "Backend variable",
+      "declaredOne": "Declared in 1 location:",
+      "declaredMany": "Declared in {{count}} locations:"
+    },
+    "typeHint": {
+      "fields": "Fields:"
+    }
+  },
+  "codeAction": {
+    "inherited": {
+      "goto": "Go to inherited definition of '{{name}}'",
+      "suppress": "Suppress: add '{{name}}' to customVariables"
+    },
+    "backend": {
+      "goto": "Go to backend definition of '{{name}}'",
+      "gotoAt": "Go to backend definition of '{{name}}' ({{path}})"
     }
   },
   "preview": {
@@ -113,12 +148,15 @@
   },
   "completion": {
     "macro": {
-      "local": "Macro defined in this file"
+      "local": "Macro defined in this file",
+      "inherited": "Inherited macro from `{{path}}`",
+      "imported": "Imported macro from `{{path}}`"
     }
   },
   "signatureHelp": {
     "macro": {
       "local": "Macro defined in this file",
+      "crossFile": "Macro from `{{path}}`",
       "required": "Required",
       "optional": "Optional"
     }

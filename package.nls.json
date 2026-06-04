@@ -13,5 +13,6 @@
   "extension.configuration.tokenColorCustomizations.description": "Customize Jinja2 token colors",
   "extension.configuration.contextProfiles.description": "Define context profiles for Jinja2 variables",
   "extension.configuration.formatting.enabled.description": "Enable Jinja2-aware formatting via prettier-plugin-jinja-template",
-  "extension.configuration.formatting.formatOnSave.description": "Format Jinja2 / HTML files on save. Defers to VS Code's editor.formatOnSave when that is already enabled."
+  "extension.configuration.formatting.formatOnSave.description": "Format Jinja2 / HTML files on save. Defers to VS Code's editor.formatOnSave when that is already enabled.",
+  "extension.configuration.templateRoots.description": "Directories to resolve {% extends %} / {% include %} / {% import %} paths against. Relative entries resolve from each workspace folder. Directories named 'templates' are auto-discovered even when this is empty."
 }

@@ -135,10 +135,7 @@ describe("Jinja2FormattingProvider", () => {
     );
 
     expect(edits).toEqual([]);
-    expect(errorSpy).toHaveBeenCalledWith(
-      "[Jinja2 Enhance] Formatting failed:",
-      expect.any(Error)
-    );
+    expect(errorSpy).toHaveBeenCalledWith("[Jinja2 Enhance] Formatting failed:", expect.any(Error));
     errorSpy.mockRestore();
   });
 

@@ -1,5 +1,23 @@
 # Change Log
 
+## 1.18.0
+
+### Minor Changes
+
+- 5b18428: New: advanced linting rules. Flags unused `{% set %}` variables (JHE1200), variables set inside a block but used outside its scope (JHE1201), excessive template nesting depth (JHE1202), incorrect macro argument counts (JHE1203), and block definitions never overridden by child templates (JHE1204). Nesting threshold configurable via `jinja2-html-enhancer.nestingDepthThreshold`.
+- 29b4e79: New: backend variable intelligence for Flask, Django, FastAPI, Express, and Nunjucks. Hover over any template variable to see which backend file and line declares it. Jump to definition with Cmd+Click. Quick-fix actions navigate directly to backend definitions. New "Jinja2: Backend Variables" panel shows all backend-declared variables for the active template.
+- d0ed6aa: New: cross-file macro autocomplete and signature help. Macros inherited via `{% extends %}` and imported via `{% import %}` or `{% from … import … %}` now appear in autocomplete with snippet insertion. Namespace completions work too — type `forms.` to see all macros from `{% import "macros.html" as forms %}`. Signature help (parameter hints) resolves both inherited and namespaced macros.
+- 4b6f138: New: cmd+click / F12 on a template path inside `{% extends %}`, `{% include %}`, `{% import %}`, or `{% from %}` now jumps to the referenced file. Unresolvable template paths and circular `{% extends %}` chains are flagged inline. A new `jinja2-html-enhancer.templateRoots` setting lets you point resolution at directories outside the auto-discovered `templates/` folders.
+- 51f5d92: New: hover and quick-fix for variables inherited via `{% extends %}`. Hover over any variable inherited from a parent template to see its origin file and line. A "Go to inherited definition" quick-fix appears on `JHE0001` diagnostics when the variable can be traced back to a parent. Imported macros and namespaces from `{% import %}` and `{% from … import … %}` are also resolved.
+- 3978ccd: New: template preview now automatically injects backend-detected variables as context defaults. When your Flask, Django, FastAPI, Express, or Nunjucks backend files reference a template, the variables they pass are pre-populated in the preview context — no manual setup needed. Profile-defined values still override these defaults.
+- a3a556c: New: CSS-aware template preview — the preview panel now auto-detects and applies CSS from your project. Flask static files (`url_for('static', ...)`), hardcoded `/static/` paths, CDN stylesheets (Bootstrap, Tailwind CDN, etc.), and inline `<style>` blocks are detected across the template and all its `{% extends %}` ancestors and applied in the preview. When no CSS is found, a structural fallback stylesheet makes semantic elements (`<header>`, `<section>`, `<nav>`, `<aside>`, `<article>`, `<footer>`) visually distinct.
+- 616d4c5: New: variable type hints on hover. Hover over any template variable to see its inferred type — backend-declared types from Python (str, int, bool, list, dict) or TypeScript annotations, types inferred from template usage patterns (member access like `user.name` infers object), and inherited variables from parent templates. Object types list their known fields inline.
+
+### Patch Changes
+
+- e3ad011: Template preview now renders templates that use `{% extends %}` and `{% include %}`. Previously, the preview showed raw Jinja2 tags instead of the rendered output.
+- a0448c3: Removed: Pro upsell prompt. Jinja2 Enhance Pro has been discontinued — all features are now in this free extension.
+
 ## 1.17.2
 
 ### Patch Changes
@@ -39,7 +57,7 @@
 
 ### Minor Changes
 
-- 43535e4: New: after a month of using the free extension, a one-time message suggests upgrading to Pro with quick actions to install it from the Marketplace or learn more. The prompt is skipped automatically if Jinja2 Enhance Pro is already installed.
+- 43535e4: New: after a month of using the extension, a one-time welcome message is shown with links to documentation and the GitHub repository.
 
 ## 1.15.0
 
@@ -102,7 +120,7 @@
 - a29b1a3: Extract pure utilities into a shared package and isolate VS Code-dependent config helpers
 
   Internal refactor with no user-visible behavior change. Resolves the architecture tech-debt items flagged in `docs/architecture.md` (mixed concerns in `src/utils/variables.ts` and pure-but-misplaced regex helpers).
-  - The pure variable analyzer (`extractVariables`, `analyzeNestedStructures`) and diagnostic-message helper (`extractVariableName`) now live in the external `jinja2-enhanced-shared` package, consumed via git URL pinned to `v0.1.0`. The same package will be reused by the upcoming Pro extension to avoid duplication.
+  - The pure variable analyzer (`extractVariables`, `analyzeNestedStructures`) and diagnostic-message helper (`extractVariableName`) now live in the external `jinja2-enhanced-shared` package, consumed via git URL pinned to `v0.1.0`.
   - The VS Code-dependent `getConfiguration` and `getVscodeConfigTarget` helpers move to a new `src/config/configService.ts` layer.
   - `src/utils/variables.ts` and `src/diagnostics/variableAnalyzer.ts` are deleted; their tests move alongside the new locations.
   - Imports updated in `quickFixProvider`, `commandManager`, `fileWatcher`, and the `fileWatcher` test mock.
