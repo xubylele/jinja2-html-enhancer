@@ -8,6 +8,24 @@
 
 ## What's New
 
+### 1.18.0
+
+#### Minor Changes
+
+- ✨ **Backend Variable Intelligence** — hover any template variable to see which backend file and line declares it (Flask, Django, FastAPI, Express, Nunjucks). Cmd+Click jumps to the source. A new *Jinja2: Backend Variables* panel lists all declarations for the active template.
+- ✨ **Template Path Navigation & Diagnostics** — Cmd+Click / F12 on any path inside `{% extends %}`, `{% include %}`, `{% import %}`, or `{% from %}` jumps to the referenced file. Unresolvable paths and circular `{% extends %}` chains are flagged inline. New `jinja2-html-enhancer.templateRoots` setting for custom resolution roots.
+- ✨ **Cross-file Macro Autocomplete & Signature Help** — macros inherited via `{% extends %}` and imported via `{% import %}` / `{% from … import … %}` appear in completions. Namespace completions (e.g. `forms.`) and parameter hints work too.
+- ✨ **Inherited Variable Hover & Quick-fix** — hover an inherited variable to see its origin file and line. A *Go to inherited definition* quick-fix appears on `JHE0001` diagnostics when the variable traces back to a parent template.
+- ✨ **Variable Type Hints on Hover** — inferred types from Python/TypeScript annotations, template usage patterns (member access → object), and inherited scope. Object types list their known fields inline.
+- ✨ **Advanced Linting Rules** — five new diagnostics: unused `{% set %}` variables (JHE1200), block-scoped variables used outside their block (JHE1201), excessive nesting depth (JHE1202, configurable via `jinja2-html-enhancer.nestingDepthThreshold`), incorrect macro argument counts (JHE1203), and block definitions never overridden by child templates (JHE1204).
+- ✨ **CSS-aware Template Preview** — the preview panel auto-detects and applies CSS from Flask `url_for('static', ...)`, hardcoded `/static/` paths, CDN links, and inline `<style>` blocks across the full `{% extends %}` ancestor chain.
+- ✨ **Backend Context Injection in Preview** — variables declared in your backend files are pre-populated as preview context defaults. Profile-defined values still take priority.
+
+#### Patch Changes
+
+- 🐛 **Template Preview renders `{% extends %}` / `{% include %}`** — the preview panel now resolves parent templates and partials instead of showing raw Jinja2 tags.
+- 🗑️ **Removed Pro upsell** — Jinja2 Enhance Pro has been discontinued; all features are in the free extension.
+
 ### 1.17.0
 
 #### Minor Changes
