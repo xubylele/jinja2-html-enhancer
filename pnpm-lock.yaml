@@ -12,8 +12,8 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0
       '@xubylele/jinja2-enhanced-shared':
-        specifier: file:/Users/xuby/devs/apps/jinja2/jinja2-html-shared/xubylele-jinja2-enhanced-shared-0.5.1.tgz
-        version: file:../jinja2-html-shared/xubylele-jinja2-enhanced-shared-0.5.1.tgz(chokidar@3.6.0)
+        specifier: 0.5.2
+        version: 0.5.2(chokidar@3.6.0)
       autoprefixer:
         specifier: ^10.5.0
         version: 10.5.0(postcss@8.5.14)
@@ -1785,9 +1785,8 @@ packages:
     resolution: {integrity: sha512-8ukpxv4wYe0iWMRQU18jhzJOHkeGKbnw7xWRX3Zw1WJA4cEKbHcmmLPdPrPtL6rhDcrlCZN+xKRpv09n4gRHYg==}
     engines: {node: '>=16'}
 
-  '@xubylele/jinja2-enhanced-shared@file:../jinja2-html-shared/xubylele-jinja2-enhanced-shared-0.5.1.tgz':
-    resolution: {integrity: sha512-nNnXq+TCmq3uamaMzYNm5MsvfnKDPZeLs0Fi7V6wRDgETtg8KaGDpqb+ATvi5yKgOQjetYT2zW8W0T2Qnr9kEg==, tarball: file:../jinja2-html-shared/xubylele-jinja2-enhanced-shared-0.5.1.tgz}
-    version: 0.5.1
+  '@xubylele/jinja2-enhanced-shared@0.5.2':
+    resolution: {integrity: sha512-9akdRgqTybjuYUPyN6wAQmicJaM6eFR3XloonZ/9zNjssOv36GARE4d9zvMULdRx4kHIUna5vO+UlDofKVUqWQ==}
 
   a-sync-waterfall@1.0.1:
     resolution: {integrity: sha512-RYTOHHdWipFUliRFMCS4X2Yn2X8M87V/OpSqWzKKOGhzqyUxzyVmhHDH9sAvG+ZuQf/TAOFsLCpMw09I1ufUnA==}
@@ -6224,7 +6223,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@xubylele/jinja2-enhanced-shared@file:../jinja2-html-shared/xubylele-jinja2-enhanced-shared-0.5.1.tgz(chokidar@3.6.0)':
+  '@xubylele/jinja2-enhanced-shared@0.5.2(chokidar@3.6.0)':
     dependencies:
       nunjucks: 3.2.4(chokidar@3.6.0)
     transitivePeerDependencies:

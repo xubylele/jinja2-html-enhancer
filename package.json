@@ -230,7 +230,7 @@
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
-    "@xubylele/jinja2-enhanced-shared": "file:/Users/xuby/devs/apps/jinja2/jinja2-html-shared/xubylele-jinja2-enhanced-shared-0.5.1.tgz",
+    "@xubylele/jinja2-enhanced-shared": "0.5.2",
     "autoprefixer": "^10.5.0",
     "postcss": "^8.5.12",
     "react": "^19.2.6",

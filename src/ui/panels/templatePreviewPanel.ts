@@ -1,6 +1,12 @@
 import * as path from "path";
 import * as vscode from "vscode";
-import { findUsedVariables, renderTemplate } from "@xubylele/jinja2-enhanced-shared";
+import {
+  findUsedVariables,
+  renderTemplate,
+  resolveTemplatePath,
+  scanTemplateRelations,
+} from "@xubylele/jinja2-enhanced-shared";
+import { FALLBACK_CSS, extractCssReferences } from "../../preview/cssResolver";
 import {
   ContextProfileSet,
   ContextProfilesMap,
@@ -25,6 +31,8 @@ interface PreviewSession {
   backendContext?: Record<string, unknown>;
   /** Template root directories used to resolve extends/include. */
   templateRoots?: string[];
+  /** Resolved CSS string cached from last full render — injected into the preview. */
+  resolvedCss?: string;
 }
 
 interface WebviewIncomingMessage {
@@ -85,7 +93,14 @@ export class TemplatePreviewPanel {
         "jinja2TemplatePreview",
         i18n.__("preview.title"),
         vscode.ViewColumn.Beside,
-        { enableScripts: true, retainContextWhenHidden: true }
+        {
+          enableScripts: true,
+          retainContextWhenHidden: true,
+          localResourceRoots: [
+            vscode.Uri.file(this.context.extensionPath),
+            ...(vscode.workspace.workspaceFolders?.map((f) => f.uri) ?? []),
+          ],
+        }
       );
       this.panel.onDidDispose(() => {
         this.panel = undefined;
@@ -204,13 +219,18 @@ export class TemplatePreviewPanel {
   }
 
   /** Full webview reload — used on open, save-file, profile mutations, scope changes. */
-  private renderFull() {
+  private async renderFull() {
     if (!this.panel || !this.session) {
       return;
     }
     const computed = this.computeRender();
     if (!computed) {
       return;
+    }
+
+    const injectedCss = await this.resolveTemplateCss();
+    if (this.session) {
+      this.session.resolvedCss = injectedCss;
     }
 
     const webview = this.panel.webview;
@@ -232,6 +252,7 @@ export class TemplatePreviewPanel {
       html: computed.result.html,
       missingVariables: computed.result.missingVariables,
       usedVariables: computed.usedVariables,
+      injectedCss,
     };
 
     webview.html = `<!DOCTYPE html>
@@ -274,7 +295,86 @@ export class TemplatePreviewPanel {
       html: computed.result.html,
       missingVariables: computed.result.missingVariables,
       usedVariables: computed.usedVariables,
+      injectedCss: this.session.resolvedCss ?? "",
     });
+  }
+
+  private async collectAncestorSources(): Promise<Array<{ text: string; absPath: string }>> {
+    if (!this.session) return [];
+    const roots = this.session.templateRoots ?? [];
+    const sources: Array<{ text: string; absPath: string }> = [];
+    const visited = new Set<string>();
+    let current = this.session.templatePath;
+
+    for (let depth = 0; depth < 10; depth++) {
+      if (visited.has(current)) break;
+      visited.add(current);
+      try {
+        const bytes = await vscode.workspace.fs.readFile(vscode.Uri.file(current));
+        const text = Buffer.from(bytes).toString("utf-8");
+        sources.push({ text, absPath: current });
+        const relations = scanTemplateRelations(text);
+        const extendsPath = relations.extends?.path;
+        if (!extendsPath) break;
+        const candidates = resolveTemplatePath(extendsPath, current, roots);
+        let resolved: string | null = null;
+        for (const candidate of candidates) {
+          try {
+            await vscode.workspace.fs.stat(vscode.Uri.file(candidate));
+            resolved = candidate;
+            break;
+          } catch {
+            // not found, try next
+          }
+        }
+        if (!resolved) break;
+        current = resolved;
+      } catch {
+        break;
+      }
+    }
+    return sources;
+  }
+
+  private async probeStaticFile(filename: string, fromDir: string): Promise<string | null> {
+    if (!this.panel) return null;
+    let dir = fromDir;
+    for (let i = 0; i < 5; i++) {
+      const candidate = path.join(dir, "static", filename);
+      try {
+        await vscode.workspace.fs.stat(vscode.Uri.file(candidate));
+        return this.panel.webview.asWebviewUri(vscode.Uri.file(candidate)).toString();
+      } catch {
+        const parent = path.dirname(dir);
+        if (parent === dir) break;
+        dir = parent;
+      }
+    }
+    return null;
+  }
+
+  private async resolveTemplateCss(): Promise<string> {
+    const sources = await this.collectAncestorSources();
+    const refs = extractCssReferences(sources);
+    const parts: string[] = [];
+
+    for (const ref of refs) {
+      if (ref.kind === "cdn") {
+        parts.push(`<link rel="stylesheet" href="${ref.value}">`);
+      } else if (ref.kind === "local-flask") {
+        const uri = await this.probeStaticFile(ref.value, ref.templateDir);
+        if (uri) {
+          parts.push(`<link rel="stylesheet" href="${uri}">`);
+        }
+      } else if (ref.kind === "inline-style") {
+        parts.push(`<style>${ref.value}</style>`);
+      }
+    }
+
+    if (parts.length === 0) {
+      return `<!-- jinja2-preview: fallback --><style>${FALLBACK_CSS}</style>`;
+    }
+    return parts.join("\n");
   }
 
   private async persist(set: ContextProfileSet) {

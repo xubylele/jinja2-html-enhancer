@@ -72,12 +72,21 @@ If you find this extension helpful, consider supporting the developer by buying 
   - **Live updates** — the rendered preview re-renders as you edit the JSON context or the template itself.
   - **Missing-variable chips** — undefined variables appear as clickable chips you can add to the active profile in one click.
   - **Collapsible context editor** — give the rendered preview the full panel width when you don't need to tweak the context.
+  - **CSS-aware preview** — the preview automatically detects and applies your project's CSS so the output looks like the real thing:
+    - Flask `url_for('static', filename='...')` and hardcoded `/static/` paths are resolved from your workspace
+    - CDN stylesheets (Bootstrap, Tailwind CDN, Bulma, …) are loaded directly from the `<link>` tags
+    - Inline `<style>` blocks are extracted from the template and all its `{% extends %}` ancestors
+    - When no CSS is found, a structural fallback stylesheet highlights semantic elements (`<header>`, `<section>`, `<nav>`, `<aside>`, `<article>`, `<footer>`) so the layout is readable at a glance
 
 ![Template Preview v2 — profile picker](https://i.imgur.com/FGVAHXs.png)
 
 ![Template Preview v2 — profile picker (alt)](https://i.imgur.com/TKyYMrb.png)
 
 ![Template Preview v2 — missing variable chips](https://i.imgur.com/Gmrd4hk.png)
+
+![Template Preview — fallback structural CSS](https://i.imgur.com/ITT6ETn.png)
+
+![Template Preview — Bootstrap CDN detected](https://i.imgur.com/EZPP6nN.png)
 
 - **Filter Docs on Hover**:
   - Hover any built-in Jinja2 filter (`length`, `default`, `safe`, `lower`, `title`, `join`, …) to see its signature, description, and a usage example.
