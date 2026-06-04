@@ -95,4 +95,24 @@ describe("InheritedVariableHover", () => {
     const md = (result as vscode.Hover).contents[0] as vscode.MarkdownString;
     expect(md.value).toContain("site_name");
   });
+
+  it.each([
+    ["macro", "hover.inherited.macro"],
+    ["imported-macro", "hover.inherited.importedMacro"],
+    ["imported-namespace", "hover.inherited.importedNamespace"],
+  ] as const)("uses correct kind label for '%s'", async (kind, expectedKey) => {
+    identifierAtOffsetMock.mockReturnValue({ name: "render_card", offset: 3 });
+    fakeIndex.getNode.mockReturnValue({ localVars: new Map(), macros: new Map() });
+    const originUri = vscode.Uri.file("/proj/templates/macros.html");
+    const originRange = new vscode.Range(new vscode.Position(0, 0), new vscode.Position(0, 10));
+    getInheritedScopeMock.mockResolvedValue([
+      { name: "render_card", kind, originUri, originRange, viaPath: undefined },
+    ]);
+    (vscode.workspace.getWorkspaceFolder as jest.Mock).mockReturnValue(null);
+
+    const result = await provider.provideHover(makeDocument("{{ render_card }}"), makePosition(3));
+    expect(result).toBeDefined();
+    const md = (result as vscode.Hover).contents[0] as vscode.MarkdownString;
+    expect(md.value).toContain(expectedKey);
+  });
 });

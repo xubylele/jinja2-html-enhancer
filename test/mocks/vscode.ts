@@ -232,6 +232,7 @@ class SignatureHelp {
 
 const createDiagnosticCollection = jest.fn(() => ({
   set: jest.fn(),
+  delete: jest.fn(),
   clear: jest.fn(),
   dispose: jest.fn(),
 }));

@@ -62,4 +62,28 @@ describe("TemplateRootsProvider", () => {
     expect(findFiles).toHaveBeenCalledTimes(2);
     provider.dispose();
   });
+
+  it("skips non-string and empty configured entries", async () => {
+    setFolders(["/proj"]);
+    getConfiguration.mockReturnValue({ get: () => [null, "", "  ", "valid"] });
+    findFiles.mockResolvedValue([]);
+
+    const provider = new TemplateRootsProvider();
+    const roots = await provider.get();
+    expect(roots).toHaveLength(1);
+    expect(roots[0]).toContain("valid");
+    provider.dispose();
+  });
+
+  it("returns empty list when no file under a templates dir is found", async () => {
+    setFolders(["/proj"]);
+    getConfiguration.mockReturnValue({ get: () => [] });
+    // file path has no 'templates' segment — findTemplatesRoot returns null
+    findFiles.mockResolvedValue([{ fsPath: "/proj/src/pages/home.html" }]);
+
+    const provider = new TemplateRootsProvider();
+    const roots = await provider.get();
+    expect(roots).toHaveLength(0);
+    provider.dispose();
+  });
 });

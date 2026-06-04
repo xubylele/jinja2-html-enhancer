@@ -93,4 +93,59 @@ describe("TemplatePathDiagnostics", () => {
 
     expect(collection.set as jest.Mock).not.toHaveBeenCalled();
   });
+
+  it("flags an unresolved extends path with JHE1101", async () => {
+    statMock.mockRejectedValue(new Error("ENOENT"));
+    const diag = new TemplatePathDiagnostics(makeRoots());
+
+    await diag.analyzeDocument(makeDocument(`{% extends "missing.html" %}`, "/t/page.html"));
+
+    const [, diagnostics] = lastSetCall();
+    expect(diagnostics).toHaveLength(1);
+    expect(diagnostics[0].code).toBe(JHE1101);
+  });
+
+  it("flags an unresolved import path with JHE1101", async () => {
+    statMock.mockRejectedValue(new Error("ENOENT"));
+    const diag = new TemplatePathDiagnostics(makeRoots());
+
+    await diag.analyzeDocument(
+      makeDocument(`{% import "missing_macros.html" as m %}`, "/t/page.html")
+    );
+
+    const [, diagnostics] = lastSetCall();
+    expect(diagnostics).toHaveLength(1);
+    expect(diagnostics[0].code).toBe(JHE1101);
+  });
+
+  it("clear() removes diagnostics for the given uri", () => {
+    const diag = new TemplatePathDiagnostics(makeRoots());
+    const collection = collectionFactory.mock.results.at(-1)!.value;
+    const uri = vscode.Uri.file("/t/page.html");
+
+    diag.clear(uri);
+
+    expect(collection.delete as jest.Mock).toHaveBeenCalledWith(uri);
+  });
+
+  it("dispose() cleans up the diagnostic collection", () => {
+    const diag = new TemplatePathDiagnostics(makeRoots());
+    const collection = collectionFactory.mock.results.at(-1)!.value;
+
+    diag.dispose();
+
+    expect(collection.dispose as jest.Mock).toHaveBeenCalled();
+  });
+
+  it("handles readFile errors gracefully in cycle detection", async () => {
+    statMock.mockResolvedValue({ type: 1 });
+    readFileMock.mockRejectedValue(new Error("EACCES"));
+    const diag = new TemplatePathDiagnostics(makeRoots());
+
+    await diag.analyzeDocument(makeDocument(`{% extends "base.html" %}`, "/t/page.html"));
+
+    const [, diagnostics] = lastSetCall();
+    // cycle detection resolves to no-cycle when readFile fails → no JHE1102
+    expect(diagnostics.some((d: any) => d.code === JHE1102)).toBe(false);
+  });
 });
